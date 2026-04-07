@@ -7,6 +7,12 @@ export default function ProfilePage() {
   const [major, setMajor] = useState('');
   const [email, setEmail] = useState('');
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+  const [interests, setInterests] = useState({
+    jobs: false,
+    campusEvents: false,
+    studyGroups: false,
+    clubs: false,
+  });
 
   const handlePhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -15,12 +21,20 @@ export default function ProfilePage() {
     setPhotoPreview(imageUrl);
   };
 
+  const handleInterestChange = (name: keyof typeof interests) => {
+    setInterests((prev) => ({
+      ...prev,
+      [name]: !prev[name],
+    }));
+  };
+
   const handleSubmit = () => {
     console.log({
       fullName,
       major,
       email,
       photoPreview,
+      interests,
     });
   };
 
@@ -130,14 +144,26 @@ export default function ProfilePage() {
               <div className="row">
                 <div className="col-md-6">
                   <div className="form-check mb-3">
-                    <input className="form-check-input" type="checkbox" id="jobs" />
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id="jobs"
+                      checked={interests.jobs}
+                      onChange={() => handleInterestChange('jobs')}
+                    />
                     <label className="form-check-label" htmlFor="jobs">
                       Jobs
                     </label>
                   </div>
 
                   <div className="form-check mb-3">
-                    <input className="form-check-input" type="checkbox" id="campus-events" />
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id="campus-events"
+                      checked={interests.campusEvents}
+                      onChange={() => handleInterestChange('campusEvents')}
+                    />
                     <label className="form-check-label" htmlFor="campus-events">
                       Campus Events
                     </label>
@@ -146,14 +172,26 @@ export default function ProfilePage() {
 
                 <div className="col-md-6">
                   <div className="form-check mb-3">
-                    <input className="form-check-input" type="checkbox" id="study-groups" />
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id="study-groups"
+                      checked={interests.studyGroups}
+                      onChange={() => handleInterestChange('studyGroups')}
+                    />
                     <label className="form-check-label" htmlFor="study-groups">
                       Study Groups
                     </label>
                   </div>
 
                   <div className="form-check mb-3">
-                    <input className="form-check-input" type="checkbox" id="clubs" />
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id="clubs"
+                      checked={interests.clubs}
+                      onChange={() => handleInterestChange('clubs')}
+                    />
                     <label className="form-check-label" htmlFor="clubs">
                       Clubs & Organizations
                     </label>
