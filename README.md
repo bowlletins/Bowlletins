@@ -3,7 +3,7 @@
 This repo is where we conduct our push, pulls, and mergers. This is for coding work only. 
 
 HomePage:
-https://bow-lletins.github.io/bowlletins.github.io/
+https://github.com/bowlletins/bowlletins.github.io.git
 
 Vercel:
 https://bowlletins.vercel.app/
