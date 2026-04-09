@@ -736,21 +736,31 @@ body {
 
 .signup-split-content {
   width: 100%;
-  max-width: 420px;
+  max-width: 390px;
 }
 
 .signup-eyebrow {
   color: #5b5b5b;
   font-size: 1.1rem;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .signup-split-title {
   color: #1f2a37;
-  font-size: 3rem;
+  font-size: 3.2rem;
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.05;
   margin-bottom: 36px;
+  letter-spacing: -0.02em;
+}
+
+.signup-title-top {
+  display: block;
+}
+
+.signup-title-brand {
+  display: block;
+  color: #024731;
 }
 
 .signup-split-form {
@@ -872,7 +882,7 @@ body {
   }
 
   .signup-split-title {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
   }
 }
 
@@ -896,5 +906,9 @@ body {
   .profile-photo-circle {
     width: 145px;
     height: 145px;
+  }
+
+  .signup-split-title {
+    font-size: 2.1rem;
   }
 }
