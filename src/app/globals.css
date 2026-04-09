@@ -760,4 +760,14 @@ body {
     width: 145px;
     height: 145px;
   }
+  .signup-link {
+  color: #0c4b37;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.signup-link:hover {
+  color: #17634b;
+  text-decoration: underline;
+}
 }

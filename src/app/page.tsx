@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -30,7 +31,7 @@ export default function Home() {
               <div className="signup-note">
                 <div className="note-corner-rainbow" />
                 <div className="pin pin-green" />
-                <h2 className="signup-title">Sign Up</h2>
+                <h2 className="signup-title">Log In</h2>
 
                 <Form>
                   <div className="mb-3">
@@ -44,16 +45,21 @@ export default function Home() {
                   <div className="mb-3">
                     <Form.Control
                       type="password"
-                      placeholder="Create Password"
+                      placeholder="Password"
                       className="signup-input"
                     />
                   </div>
 
-                  <Button className="signup-btn w-100">Sign Up</Button>
+                  <Button className="signup-btn w-100" type="submit">
+                    Log In
+                  </Button>
                 </Form>
 
                 <p className="signup-login-text mt-3 mb-0">
-                  Already have an account? <span>Log In</span>
+                  Don&apos;t have an account?{' '}
+                  <Link href="/signup" className="signup-link">
+                    Sign Up
+                  </Link>
                 </p>
               </div>
             </Col>
@@ -149,8 +155,6 @@ export default function Home() {
           </Row>
         </Container>
       </section>
-
-
     </main>
   );
 }
