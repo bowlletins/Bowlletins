@@ -1,24 +1,44 @@
-'use client';
+import { Major } from '@prisma/client';
+import { loggedInProtectedPage } from '@/lib/page-protection';
+import { auth } from '@/lib/auth';
 import {Container, Row, Col, Nav, Image} from 'react-bootstrap';
 
-
-const BoardPage = () => {
-    return (
-        <Container fluid className="dashboard-layout-bg">
-            <Row>
-                <Col md={3} lg = {2}        className="sidebar-column">
-                    <SidebarContent />
-                </Col>
-                <Col md={9} lg = {10} className="main-column">
-                    <MainFeed />
-                    
-                </Col>
-            </Row>
-        </Container>
-    );
+type SessionUser = {
+  email: string;
+  id: string;
+  fullName: string;
+  major: Major;
+  image: string;
 };
 
-const SidebarContent: React.FC = () => {
+export default async function BoardPage() {
+
+  const session = await auth();
+
+  loggedInProtectedPage(
+    session as {
+      user: { email: string; id: string; name: string };
+    } | null,
+  );
+
+  const user = session?.user as SessionUser;
+
+
+  return (
+    <Container fluid className="dashboard-layout-bg">
+      <Row>
+        <Col md={3} lg={2} className="sidebar-column">
+          <SidebarContent user={user} />
+        </Col>
+        <Col md={9} lg={10} className="main-column">
+          <MainFeed user={user} />
+        </Col>
+      </Row>
+    </Container>
+  );
+}
+
+const SidebarContent: React.FC<{ user: SessionUser }> = ({ user }) => {
   return (
     <div className="py-4 px-3 d-flex flex-column h-100">
       {/* Profile Section */}
@@ -28,8 +48,8 @@ const SidebarContent: React.FC = () => {
           rounded 
           className="profile-avatar mb-3 shadow-sm" 
         />
-        <h5 className="fw-bold m-0">Tamela Brinson</h5>
-        <p className="text-muted small">Marketing Major</p>
+        <h5 className="fw-bold m-0">{user.fullName}e</h5>
+        <p className="text-muted small">{user.major}</p>
       </div>
 
       {/* Navigation */}
@@ -54,10 +74,11 @@ const SidebarContent: React.FC = () => {
   );
 };
 
-const MainFeed: React.FC = () => {
+const MainFeed: React.FC<{ user: SessionUser }> = ({ user }) => {
+  const firstName = user.fullName.split(' ')[0]??'User';
   return (
     <div className="p-5">
-      <h1 className="welcome-heading mb-5">Welcome back, Tamela!</h1>
+      <h1 className="welcome-heading mb-5">Welcome back, {firstName}</h1>
       
       <section>
         <h3 className="section-subtitle mb-4">Saved Posts</h3>
@@ -76,6 +97,4 @@ const MainFeed: React.FC = () => {
       </section>
     </div>
   );
-};
-
-export default BoardPage;        
+};      
