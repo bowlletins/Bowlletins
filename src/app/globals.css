@@ -760,4 +760,134 @@ body {
     width: 145px;
     height: 145px;
   }
+  /* SIGNUP PAGE */
+.signup-page {
+  min-height: 100vh;
+  background-image: url("/bg1.png");
+  background-size: cover;
+  background-position: center;
+  padding: 50px 20px;
+}
+
+.signup-page-board {
+  min-height: 100%;
+}
+
+.signup-page-content {
+  min-height: 80vh;
+}
+
+.signup-page-note {
+  position: relative;
+  max-width: 520px;
+  background: linear-gradient(180deg, #f8f4ec 0%, #f2ede4 100%);
+  padding: 42px 32px 30px 32px;
+  border-radius: 6px;
+  box-shadow:
+    0 18px 30px rgba(0, 0, 0, 0.20),
+    inset 0 0 0 1px rgba(120, 100, 70, 0.10);
+  transform: rotate(-1deg);
+}
+
+.signup-page-note::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(120, 100, 70, 0.03) 1px, transparent 1px);
+  background-size: 100% 38px;
+  pointer-events: none;
+  opacity: 0.45;
+  border-radius: 6px;
+}
+
+.signup-page-title,
+.signup-page-subtitle,
+.signup-page-label,
+.signup-page-btn,
+.signup-page-login-text {
+  position: relative;
+  z-index: 2;
+}
+
+.signup-page-title {
+  color: #0c4b37;
+  font-size: 2.4rem;
+  font-weight: 800;
+  margin-bottom: 14px;
+}
+
+.signup-page-subtitle {
+  color: #304d42;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.signup-page-label {
+  color: #0c4b37;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.signup-page-input {
+  height: 56px;
+  border-radius: 6px;
+  border: 1px solid #cfc8bb;
+  background-color: #fdfbf7;
+  position: relative;
+  z-index: 2;
+}
+
+.signup-page-input:focus {
+  border-color: #024731;
+  box-shadow: 0 0 0 0.15rem rgba(2, 71, 49, 0.15);
+}
+
+.signup-page-btn {
+  background-color: #0c4b37 !important;
+  border: none !important;
+  height: 58px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  border-radius: 6px;
+}
+
+.signup-page-btn:hover {
+  background-color: #17634b !important;
+}
+
+.signup-page-login-text {
+  color: #304d42;
+  font-size: 1rem;
+}
+
+.signup-page-link {
+  color: #0c4b37;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.signup-page-link:hover {
+  color: #17634b;
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .signup-page {
+    padding: 30px 14px;
+  }
+
+  .signup-page-note {
+    padding: 34px 22px 24px 22px;
+    transform: none;
+  }
+
+  .signup-page-title {
+    font-size: 2rem;
+  }
+
+  .signup-page-subtitle {
+    font-size: 0.98rem;
+  }
+}
 }
