@@ -92,8 +92,12 @@ const NavBar: React.FC = () => {
                 </NavDropdown>
               ) : (
                 <div>
-                  <button className="btn btn-sm text-uh-green me-2">Login</button>
-                  <button className="btn btn-sm btn-outline-success">Sign Up</button>
+                  <a href="/" className="btn btn-sm text-uh-green me-2">
+                    Login
+                  </a>
+                  <a href="/auth/signup" className="btn btn-sm btn-outline-success">
+                    Sign Up
+                  </a>
                 </div>
               )}
             </Nav>
