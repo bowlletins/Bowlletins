@@ -7,8 +7,11 @@ const FlyerDetailCard = ({ flyer }: { flyer: Flyer }) => (
     <div className="flyer-pin pin-red" />
     <div className="flyer-note-corner-rainbow" />
 
+    <span className="flyer-category-badge">{flyer.category}</span>
     <h1 className="flyer-detail-title">{flyer.title}</h1>
     <p className="flyer-detail-description">{flyer.description}</p>
+
+    <hr className="flyer-divider" />
 
     <div className="flyer-detail-info">
       <div className="flyer-info-row">
