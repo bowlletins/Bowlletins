@@ -1,6 +1,9 @@
 'use client';
 
 import { ChangeEvent, useState } from 'react';
+import { completeProfile } from '@/lib/dbActions';
+import { Major } from '@prisma/client';
+import { CompleteProfileSchema } from '@/lib/validationSchemas';
 
 export default function ProfilePage() {
   const [fullName, setFullName] = useState('');
@@ -28,15 +31,17 @@ export default function ProfilePage() {
     }));
   };
 
-  const handleSubmit = () => {
-    console.log({
-      fullName,
-      major,
-      email,
-      photoPreview,
-      interests,
-    });
-  };
+  const handleSubmit = async() => {
+    const formData = { fullName, email, major, image: photoPreview };
+    try{
+      await CompleteProfileSchema.validate(formData);
+      await completeProfile({ fullName, email, major: major as Major, image: photoPreview });
+    alert('Profile completed successfully! Redirecting to dashboard...');
+  } catch (error) {
+    console.error('Error completing profile:', error);
+    alert('There was an error completing your profile. Please try again.');
+  }
+};
 
   return (
     <section className="profile-page">
@@ -109,10 +114,7 @@ export default function ProfilePage() {
                     onChange={(e) => setMajor(e.target.value)}
                   >
                     <option value="">Select Major</option>
-                    <option value="Computer Science">Computer Science</option>
-                    <option value="Information and Computer Sciences">
-                      Information and Computer Sciences
-                    </option>
+                    <option value="Computer_Science">Computer Science</option>
                     <option value="Business">Business</option>
                     <option value="Biology">Biology</option>
                     <option value="Engineering">Engineering</option>

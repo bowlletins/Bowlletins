@@ -1,10 +1,30 @@
 'use server';
 
+import { Major} from '@prisma/client';
 import { Condition } from '@prisma/client';
 import { Stuff } from '@prisma/client';
 import { hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
 import { prisma } from './prisma';
+
+export async function completeProfile(data: { 
+  fullName: string; 
+  email: string; 
+  major: Major; 
+  image:string | null;
+}) {
+ return await prisma.user.create({
+    data: {
+      email: data.email,
+      password: "hashed-password-here",
+      fullName: data.fullName,
+      major: data.major,
+      image: data.image,
+      role: 'USER',
+    },
+  });
+  redirect('/homeDashboard');
+};
 
 /**
  * Adds a new stuff to the database.
@@ -74,7 +94,10 @@ export async function createUser(credentials: { email: string; password: string 
   await prisma.user.create({
     data: {
       email: credentials.email,
-      password,
+      password: password,
+      fullName: 'New User',
+      major: 'Other',
+      image: `https://ui-avatars.com/api/?name=${encodeURIComponent(credentials.email)}&background=random&color=fff&size=128`,
     },
   });
 }

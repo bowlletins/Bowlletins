@@ -1,12 +1,39 @@
 {
   "defaultAccounts": [
-    { "email": "admin@foo.com", "password": "changeme", "role": "ADMIN" },
-    { "email": "john@foo.com", "password": "changeme" }
-  ],
-  "defaultData": [
-    { "name": "Basket", "quantity": 3, "owner": "john@foo.com", "condition": "excellent" },
-    { "name": "Bicycle", "quantity": 2, "owner": "john@foo.com", "condition": "poor" },
-    { "name": "Banana", "quantity": 2, "owner": "admin@foo.com", "condition": "good" },
-    { "name": "Boogie Board", "quantity": 2, "owner": "admin@foo.com", "condition": "excellent" }
+    {
+      "email": "tamela@hawaii.edu",
+      "password": "changeme",
+      "role": "USER",
+      "fullName": "Tamela Brinson",
+      "major": "Computer_Science"
+    },
+    {
+      "email": "admin@hawaii.edu",
+      "password": "changeme",
+      "role": "ADMIN",
+      "fullName": "System Administrator",
+      "major": "Other"
+    },
+    {
+      "email": "jdoe@hawaii.edu",
+      "password": "changeme",
+      "role": "USER",
+      "fullName": "John Doe",
+      "major": "Business"
+    },
+    {
+      "email": "sclarke@hawaii.edu",
+      "password": "changeme",
+      "role": "USER",
+      "fullName": "Sarah Clarke",
+      "major": "Biology"
+    },
+    {
+      "email": "mlee@hawaii.edu",
+      "password": "changeme",
+      "role": "USER",
+      "fullName": "Marcus Lee",
+      "major": "Engineering"
+    }
   ]
 }
