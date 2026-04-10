@@ -204,7 +204,7 @@ body {
   margin-bottom: 0;
 }
 
-/* SIGNUP NOTE */
+/* LOGIN/SIGNUP NOTE */
 .hero-right {
   display: flex;
   justify-content: flex-end;
@@ -276,6 +276,17 @@ body {
 
 .signup-login-text span {
   font-weight: 700;
+}
+
+.signup-link {
+  color: #0c4b37;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.signup-link:hover {
+  color: #17634b;
+  text-decoration: underline;
 }
 
 /* RAINBOW CORNER */
@@ -701,6 +712,123 @@ body {
   color: #575757;
 }
 
+.dashboard-layout-bg {
+  background-color: #fdfaf5 !important;
+  background-image: none !important;
+  min-height: 100vh;
+}
+
+/* SPLIT SIGNUP PAGE */
+.signup-split-page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: #f4efe6;
+}
+
+.signup-split-left {
+  background: #f8f4ec;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+}
+
+.signup-split-content {
+  width: 100%;
+  max-width: 390px;
+}
+
+.signup-eyebrow {
+  color: #5b5b5b;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.signup-split-title {
+  color: #1f2a37;
+  font-size: 3.2rem;
+  font-weight: 800;
+  line-height: 1.05;
+  margin-bottom: 36px;
+  letter-spacing: -0.02em;
+}
+
+.signup-title-top {
+  display: block;
+}
+
+.signup-title-brand {
+  display: block;
+  color: #024731;
+}
+
+.signup-split-form {
+  margin-bottom: 32px;
+}
+
+.signup-split-input {
+  height: 64px;
+  border-radius: 10px;
+  border: 1px solid #d8d4ca;
+  background-color: #fcfbf8;
+  font-size: 1.1rem;
+  padding-left: 20px;
+}
+
+.signup-split-input:focus {
+  border-color: #024731;
+  box-shadow: 0 0 0 0.15rem rgba(2, 71, 49, 0.15);
+}
+
+.signup-split-btn {
+  height: 64px;
+  border: none !important;
+  border-radius: 10px;
+  background-color: #024731 !important;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.signup-split-btn:hover {
+  background-color: #17634b !important;
+}
+
+.signup-split-login-text {
+  color: #555;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.signup-split-link {
+  color: #024731;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.signup-split-link:hover {
+  color: #17634b;
+  text-decoration: underline;
+}
+
+.signup-split-right {
+  position: relative;
+  background-image: url("/signupPic.jpg");
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+}
+
+.signup-split-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(2, 71, 49, 0.08) 100%
+  );
+}
+
 /* RESPONSIVE */
 @media (max-width: 991px) {
   .hero-board {
@@ -739,6 +867,25 @@ body {
   }
 }
 
+@media (max-width: 992px) {
+  .signup-split-page {
+    grid-template-columns: 1fr;
+  }
+
+  .signup-split-right {
+    min-height: 320px;
+    order: -1;
+  }
+
+  .signup-split-left {
+    padding: 32px 20px 40px 20px;
+  }
+
+  .signup-split-title {
+    font-size: 2.5rem;
+  }
+}
+
 @media (max-width: 768px) {
   .profile-header {
     padding: 54px 18px 18px 18px;
@@ -760,193 +907,8 @@ body {
     width: 145px;
     height: 145px;
   }
-}
 
-
-/* FLYER DETAIL PAGE */
-.flyer-detail-page {
-  min-height: 100vh;
-  padding: 40px 0;
-}
-
-.flyer-detail-note {
-  position: relative;
-  width: 100%;
-  max-width: 600px;
-  background: linear-gradient(180deg, #f8f4ec 0%, #f2ede4 100%);
-  border-radius: 4px;
-  padding: 52px 38px 38px 38px;
-  box-shadow:
-    0 18px 30px rgba(0, 0, 0, 0.20),
-    inset 0 0 0 1px rgba(120, 100, 70, 0.10);
-}
-
-.flyer-detail-note::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(120,100,70,0.03) 1px, transparent 1px);
-  background-size: 100% 38px;
-  pointer-events: none;
-  opacity: 0.45;
-  border-radius: 4px;
-}
-
-.flyer-pin {
-  position: absolute;
-  top: 14px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #b94b49;
-  box-shadow: 0 3px 4px rgba(0,0,0,0.2);
-  z-index: 4;
-}
-
-.flyer-pin::after {
-  content: "";
-  position: absolute;
-  top: 13px;
-  left: 7px;
-  width: 3px;
-  height: 16px;
-  background: rgba(90,90,90,0.9);
-  border-radius: 2px;
-  transform: rotate(20deg);
-}
-
-.flyer-note-corner-rainbow {
-  position: absolute;
-  top: 10px;
-  right: 12px;
-  width: 56px;
-  height: 56px;
-  background: linear-gradient(
-    135deg,
-    #e23d3d 0%, #e23d3d 20%,
-    #f2a13b 20%, #f2a13b 40%,
-    #f0d04e 40%, #f0d04e 60%,
-    #53a55b 60%, #53a55b 80%,
-    #4f83c2 80%, #4f83c2 100%
-  );
-  clip-path: polygon(100% 0, 0 0, 100% 100%);
-  z-index: 2;
-}
-
-.flyer-detail-title {
-  position: relative;
-  z-index: 2;
-  font-size: 2rem;
-  font-weight: 800;
-  color: #0c4b37;
-  margin-bottom: 10px;
-}
-
-.flyer-detail-description {
-  position: relative;
-  z-index: 2;
-  font-size: 1.05rem;
-  color: #38453e;
-  line-height: 1.6;
-  margin-bottom: 28px;
-}
-
-.flyer-detail-info {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.flyer-info-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 1rem;
-  color: #2f3d35;
-}
-
-.flyer-info-icon {
-  color: #024731;
-  font-size: 1.1rem;
-  flex-shrink: 0;
-}
-
-/* FLYER ACTION BUTTONS */
-.flyer-action-buttons {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  gap: 12px;
-  margin-top: 28px;
-}
-
-.flyer-btn-rsvp {
-  background-color: #024731 !important;
-  border: none !important;
-  color: white !important;
-  font-weight: 700;
-  padding: 10px 24px;
-  border-radius: 6px;
-  flex: 1;
-}
-
-.flyer-btn-rsvp:hover {
-  background-color: #17634b !important;
-}
-
-.flyer-btn-save {
-  background-color: #f5f1e6 !important;
-  border: 2px solid #024731 !important;
-  color: #024731 !important;
-  font-weight: 700;
-  padding: 10px 24px;
-  border-radius: 6px;
-  flex: 1;
-}
-
-.flyer-btn-save:hover {
-  background-color: #e8e4d8 !important;
-}
-
-.flyer-btn-share {
-  background-color: #f5f1e6 !important;
-  border: 2px solid #024731 !important;
-  color: #024731 !important;
-  font-weight: 700;
-  padding: 10px 24px;
-  border-radius: 6px;
-  flex: 1;
-}
-
-.flyer-btn-share:hover {
-  background-color: #e8e4d8 !important;
-}
-
-/* FLYER DIVIDER */
-.flyer-divider {
-  position: relative;
-  z-index: 2;
-  border: none;
-  border-top: 1px dashed #c4b99a;
-  margin: 18px 0;
-  opacity: 0.7;
-}
-
-/* FLYER CATEGORY BADGE */
-.flyer-category-badge {
-  position: relative;
-  z-index: 2;
-  display: inline-block;
-  background-color: #024731;
-  color: white;
-  font-size: 0.85rem;
-  font-weight: 600;
-  padding: 4px 14px;
-  border-radius: 20px;
-  margin-bottom: 12px;
+  .signup-split-title {
+    font-size: 2.1rem;
+  }
 }

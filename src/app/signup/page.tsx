@@ -25,7 +25,10 @@ export default function SignupPage() {
       <section className="signup-split-left">
         <div className="signup-split-content">
           <p className="signup-eyebrow">Start your journey</p>
-          <h1 className="signup-split-title">Sign Up to Bow-lletins</h1>
+          <h1 className="signup-split-title">
+           <span className="signup-title-top">Sign Up to</span>
+            <span className="signup-title-brand">Bow-lletins</span>
+            </h1>
 
           <Form onSubmit={handleSubmit} className="signup-split-form">
             <div className="mb-4">
