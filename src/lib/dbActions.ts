@@ -11,7 +11,10 @@ export async function createUser(credentials: {
   email: string;
   password: string;
 }) {
-  const existingUser = await prisma.user.findUnique({ where: { email: credentials.email } });
+  const existingUser = await prisma.user.findUnique({
+    where: { email: credentials.email },
+  });
+
   if (existingUser) {
     throw new Error('A user with this email already exists.');
   }
@@ -25,7 +28,9 @@ export async function createUser(credentials: {
       password: hashedPassword,
       fullName: displayName,
       major: 'Other' as Major,
-      image: `https://ui-avatars.com/api/?name=${encodeURIComponent(credentials.fullName)}&background=random&color=fff&size=128`,
+      image: `https://ui-avatars.com/api/?name=${encodeURIComponent(
+        credentials.fullName,
+      )}&background=random&color=fff&size=128`,
       role: 'USER',
     },
   });
@@ -67,49 +72,14 @@ export async function updateProfile(data: {
   revalidatePath('/homeDashboard');
 }
 
-export async function changePassword(credentials: { email: string; password: string }) {
+export async function changePassword(credentials: {
+  email: string;
+  password: string;
+}) {
   const password = await hash(credentials.password, 10);
 
   await prisma.user.update({
     where: { email: credentials.email },
-    data: {
-      password,
-    },
+    data: { password },
   });
-}
-
-export async function addStuff(data: {
-  name: string;
-  quantity: number;
-  condition: 'excellent' | 'good' | 'fair' | 'poor';
-  owner: string;
-}) {
-  await prisma.stuff.create({
-    data: {
-      name: data.name,
-      quantity: Number(data.quantity),
-      condition: data.condition,
-      owner: data.owner,
-    },
-  });
-
-  revalidatePath('/list');
-}
-
-export async function editStuff(data: {
-  id: number;
-  name: string;
-  quantity: number;
-  condition: 'excellent' | 'good' | 'fair' | 'poor';
-}) {
-  await prisma.stuff.update({
-    where: { id: data.id },
-    data: {
-      name: data.name,
-      quantity: Number(data.quantity),
-      condition: data.condition,
-    },
-  });
-
-  revalidatePath('/list');
 }
