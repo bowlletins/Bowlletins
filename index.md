@@ -273,7 +273,6 @@ app/
 
     StuffItem.tsx # Row in the list stuff page.
 
-    StuffItemAdmin.tsx # Row in the admin list stuff page.
 
   lib/
 
