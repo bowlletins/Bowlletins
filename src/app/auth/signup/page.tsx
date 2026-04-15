@@ -4,28 +4,39 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import {createUser} from '@/lib/dbActions';
+import { CreateAccountSchema } from '@/lib/validationSchemas';
 
 export default function SignupPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    try {
+      await CreateAccountSchema.validate({ fullName: name, email, password });
+      await createUser({ fullName: name, email, password });
+    } catch (err) {
+      console.error('Error creating user:', err);
+      setError('There was an error creating your account. Please try again.');
+    }
 
-    console.log({
-      name,
-      email,
-      password,
-    });
   };
-
+  
   return (
     <main className="signup-split-page">
       <section className="signup-split-left">
         <div className="signup-split-content">
           <p className="signup-eyebrow">Start your journey</p>
-          <h1 className="signup-split-title">Sign Up to Bow-lletins</h1>
+          <h1 className="signup-split-title">
+           <span className="signup-title-top">Sign Up to</span>
+            <span className="signup-title-brand">Bow-lletins</span>
+            </h1>
+
+          {error && <p className="text-danger">{error}</p>}
+          
 
           <Form onSubmit={handleSubmit} className="signup-split-form">
             <div className="mb-4">

@@ -15,9 +15,9 @@ model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
   password  String
-  fullName  String?  
-  major     Major?   
-  image     String?  
+  fullName  String? 
+  major     Major?   @default(Other)
+  image     String?  @default("/defaultpfp.png")
   role      Role     @default(USER)
 }
 

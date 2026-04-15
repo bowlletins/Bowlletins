@@ -542,6 +542,15 @@ body {
   background-color: #efe8d8;
 }
 
+.profile-avatar{
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #ececec;
+  border: 3px solid #c9c9c9;
+}
+
 .profile-board {
   position: relative;
   max-width: 1180px;
@@ -891,6 +900,7 @@ body {
     padding: 54px 18px 18px 18px;
   }
 
+  
   .profile-title {
     font-size: 2.2rem;
   }

@@ -1,12 +1,14 @@
 import { Major } from '@prisma/client';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import { auth } from '@/lib/auth';
-import {Container, Row, Col, Nav, Image} from 'react-bootstrap';
+import {Container, Row, Col, Image} from 'react-bootstrap';
+import React from 'react';
+import { prisma } from '@/lib/prisma';
 
 type SessionUser = {
   email: string;
   id: string;
-  fullName: string;
+  name: string;
   major: Major;
   image: string;
 };
@@ -21,7 +23,23 @@ export default async function BoardPage() {
     } | null,
   );
 
-  const user = session?.user as SessionUser;
+  const sessionUser = session?.user as unknown as SessionUser;
+
+  const dbUser = await prisma.user.findUnique({      where: { email: sessionUser.email },
+  select: {
+    fullName: true,
+    major: true,
+    image: true,
+  }
+  });
+
+  const user: SessionUser = {
+    email: sessionUser.email,
+    id: sessionUser.id,
+    name: dbUser?.fullName || sessionUser.name || 'User',
+    major: dbUser?.major || 'Other',
+    image: dbUser?.image || sessionUser.image || '',
+  };
 
 
   return (
@@ -44,41 +62,31 @@ const SidebarContent: React.FC<{ user: SessionUser }> = ({ user }) => {
       {/* Profile Section */}
       <div className="text-center mb-5">
         <Image 
-          src="https://via.placeholder.com/120" 
+          src={user.image || '/default-profile.png'}
           rounded 
           className="profile-avatar mb-3 shadow-sm" 
         />
-        <h5 className="fw-bold m-0">{user.fullName}e</h5>
+        <h5 className="fw-bold m-0">{user.name ?? 'User'}</h5>
         <p className="text-muted small">{user.major}</p>
       </div>
 
       {/* Navigation */}
-      <Nav variant = "tabs" className="flex-column nav-pills custom-nav">
-        <Nav.Item className="nav-item">
-            <Nav.Link href="#">Home</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-            <Nav.Link href="#" className="nav-item active">Saved Posts</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-            <Nav.Link href="#" className="nav-item">Recently Viewed</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-            <Nav.Link href="#">Messages</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-            <Nav.Link href="#">Settings</Nav.Link>
-        </Nav.Item>
-      </Nav>
+       
+      <div className="flex-column nav-pills custom-nav d-flex flex-column">
+        <a href="#" className="nav-link">Home</a>
+        <a href="#" className="nav-link active">Saved Posts</a>
+        <a href="#" className="nav-link">Recently Viewed</a>
+        <a href="#" className="nav-link">Messages</a>
+        <a href="/profile" className="nav-link">Settings</a>
+      </div>
     </div>
   );
 };
 
 const MainFeed: React.FC<{ user: SessionUser }> = ({ user }) => {
-  const firstName = user.fullName.split(' ')[0]??'User';
   return (
     <div className="p-5">
-      <h1 className="welcome-heading mb-5">Welcome back, {firstName}</h1>
+      <h1 className="welcome-heading mb-5">Welcome back, {user.name || 'User'}</h1>
       
       <section>
         <h3 className="section-subtitle mb-4">Saved Posts</h3>

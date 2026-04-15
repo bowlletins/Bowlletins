@@ -33,7 +33,7 @@ const NavBar: React.FC = () => {
               </Nav.Link>
 
               <Nav.Link
-                href="/profile"
+                href="/homeDashboard"
                 className="nav-link-custom"
                 active={pathName === '/profile'}
               >
@@ -92,7 +92,7 @@ const NavBar: React.FC = () => {
                 </NavDropdown>
               ) : (
                 <div>
-                  <a href="/" className="btn btn-sm text-uh-green me-2">
+                  <a href="/signin" className="btn btn-sm text-uh-green me-2">
                     Login
                   </a>
                   <a href="/auth/signup" className="btn btn-sm btn-outline-success">

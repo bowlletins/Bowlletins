@@ -1,10 +1,10 @@
 {
   "defaultAccounts": [
     {
-      "email": "tamela@hawaii.edu",
+      "email": "test@hawaii.edu",
       "password": "changeme",
       "role": "USER",
-      "fullName": "Tamela Brinson",
+      "fullName": "Test Person",
       "major": "Computer_Science"
     },
     {

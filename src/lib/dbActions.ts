@@ -1,106 +1,69 @@
 'use server';
 
 import { Major} from '@prisma/client';
-import { Condition } from '@prisma/client';
-import { Stuff } from '@prisma/client';
 import { hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
 import { prisma } from './prisma';
+import { revalidatePath } from 'next/cache';
 
-export async function completeProfile(data: { 
-  fullName: string; 
-  email: string; 
-  major: Major; 
-  image:string | null;
+export async function createUser(credentials: {
+  fullName: string;
+  email: string;
+  password: string;
 }) {
- return await prisma.user.create({
-    data: {
-      email: data.email,
-      password: "hashed-password-here",
-      fullName: data.fullName,
-      major: data.major,
-      image: data.image,
-      role: 'USER',
-    },
-  });
-  redirect('/homeDashboard');
-};
-
-/**
- * Adds a new stuff to the database.
- * @param stuff, an object with the following properties: name, quantity, owner, condition.
- */
-export async function addStuff(stuff: { name: string; quantity: number; owner: string; condition: string }) {
-  // console.log(`addStuff data: ${JSON.stringify(stuff, null, 2)}`);
-  let condition: Condition = 'good';
-  if (stuff.condition === 'poor') {
-    condition = 'poor';
-  } else if (stuff.condition === 'excellent') {
-    condition = 'excellent';
-  } else {
-    condition = 'fair';
+  const existingUser = await prisma.user.findUnique({ where: { email: credentials.email } });
+  if (existingUser) {
+    throw new Error('A user with this email already exists.');
   }
-  await prisma.stuff.create({
-    data: {
-      name: stuff.name,
-      quantity: stuff.quantity,
-      owner: stuff.owner,
-      condition,
-    },
-  });
-  // After adding, redirect to the list page
-  redirect('/list');
-}
 
-/**
- * Edits an existing stuff in the database.
- * @param stuff, an object with the following properties: id, name, quantity, owner, condition.
- */
-export async function editStuff(stuff: Stuff) {
-  // console.log(`editStuff data: ${JSON.stringify(stuff, null, 2)}`);
-  await prisma.stuff.update({
-    where: { id: stuff.id },
-    data: {
-      name: stuff.name,
-      quantity: stuff.quantity,
-      owner: stuff.owner,
-      condition: stuff.condition,
-    },
-  });
-  // After updating, redirect to the list page
-  redirect('/list');
-}
+  const hashedPassword = await hash(credentials.password, 10);
+  const displayName = credentials.fullName?.trim() || 'User';
 
-/**
- * Deletes an existing stuff from the database.
- * @param id, the id of the stuff to delete.
- */
-export async function deleteStuff(id: number) {
-  // console.log(`deleteStuff id: ${id}`);
-  await prisma.stuff.delete({
-    where: { id },
-  });
-  // After deleting, redirect to the list page
-  redirect('/list');
-}
-
-/**
- * Creates a new user in the database.
- * @param credentials, an object with the following properties: email, password.
- */
-export async function createUser(credentials: { email: string; password: string }) {
-  // console.log(`createUser data: ${JSON.stringify(credentials, null, 2)}`);
-  const password = await hash(credentials.password, 10);
   await prisma.user.create({
     data: {
       email: credentials.email,
-      password: password,
-      fullName: 'New User',
-      major: 'Other',
-      image: `https://ui-avatars.com/api/?name=${encodeURIComponent(credentials.email)}&background=random&color=fff&size=128`,
+      password: hashedPassword,
+      fullName: displayName,
+      major: 'Other'as Major,
+      image: `https://ui-avatars.com/api/?name=${encodeURIComponent(credentials.fullName)}&background=random&color=fff&size=128`,
+      role: 'USER',
     },
   });
+  redirect('/auth/signin');
 }
+
+export async function updateProfile(data: { 
+  email: string;
+  fullName?: string| null; 
+  major?: Major|null;
+  image?: string | null;
+}) {
+  if (!data.email) return;
+
+  const updates: { 
+    fullName?: string; 
+    major?: Major; 
+    image?: string | null 
+  } = {};
+
+  if (data.fullName !== undefined && data.fullName !==null){
+    updates.fullName = data.fullName;
+  } 
+  if (data.major !== undefined && data.major !== null) {
+    updates.major = data.major;
+  }
+  if (data.image !== undefined) {
+    updates.image = data.image;
+  }
+
+  await prisma.user.update({
+    where: { email: data.email },
+    data: updates,
+  });
+
+  revalidatePath('/homeDashboard');
+}
+
 
 /**
  * Changes the password of an existing user in the database.
@@ -116,3 +79,4 @@ export async function changePassword(credentials: { email: string; password: str
     },
   });
 }
+

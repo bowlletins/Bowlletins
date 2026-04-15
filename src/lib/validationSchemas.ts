@@ -16,9 +16,17 @@ export const EditStuffSchema = Yup.object({
   owner: Yup.string().required(),
 });
 
-export const CompleteProfileSchema = Yup.object({
+export const CreateAccountSchema = Yup.object({
   fullName: Yup.string().required(),
   email: Yup.string().email().required(),
-  major: Yup.string().required(),
+  password: Yup.string().min(6).required(),
+  major: Yup.string().nullable(),
+  image: Yup.string().nullable(),
+});
+
+export const CompleteProfileSchema = Yup.object({
+  fullName: Yup.string().required(),
+  email: Yup.string().email().nullable(),
+  major: Yup.string().oneOf(Object.values(Major)).required(),
   image: Yup.string().nullable(),
 });
