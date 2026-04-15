@@ -3,12 +3,12 @@ import { Instagram, TwitterX, Facebook, Linkedin } from 'react-bootstrap-icons';
 
 const Footer = () => (
   <footer className="footer-main bg-uh-green text-white">
-    <Container>
+    <Container fluid className="px-4">
       <Row className="align-items-center">
 
         {/* LEFT */}
         <Col md={4} className="d-flex align-items-center justify-content-start">
-          <img src="/logo.png" className="footer-logo me-2" />
+          <img src="/logo_white.png" className="footer-logo me-2" />
           <div className="footer-brand-text">
             <div>UH MĀNOA</div>
             <div>RAINBOW WARRIORS</div>

@@ -121,14 +121,21 @@ body {
 /* LEFT */
 .footer-logo {
   height: 150px;
+  margin-left: 50px;
+}
+
+.footer-brand-text {
+  margin-left: 50px;
 }
 
 /* CENTER LINKS */
 .footer-links-row {
   display: flex;
   justify-content: center;
-  gap: 25px;
+  gap: 75px;
   margin-bottom: 6px;
+  margin-top: 60px;
+  white-space: nowrap;
 }
 
 .footer-links-row a {
@@ -141,12 +148,22 @@ body {
   text-decoration: underline;
 }
 
+/* BRAND TEXT */
+.footer-brand-text {
+  font-weight: 500;
+}
+
 /* COPYRIGHT */
 .footer-copy {
   font-size: 0.9rem;
+  margin-top: 40px;
 }
 
 /* RIGHT ICONS */
+.footer-social {
+  padding-right: 80px;
+}
+
 .footer-social a {
   color: white;
   margin-left: 15px;
