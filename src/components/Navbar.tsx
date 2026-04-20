@@ -33,11 +33,11 @@ const NavBar: React.FC = () => {
               </Nav.Link>
 
               <Nav.Link
-                href="/homeDashboard"
+                href="/"
                 className="nav-link-custom"
-                active={pathName === '/profile'}
+                active={pathName === '/posts'}
               >
-                Profile
+                Posts
               </Nav.Link>
 
               <NavDropdown title="Categories" className="nav-link-custom">
@@ -68,6 +68,11 @@ const NavBar: React.FC = () => {
 
               {session ? (
                 <NavDropdown id="login-dropdown" title={currentUser}>
+                  {session && (
+                    <NavDropdown.Item id="login-dropdown-profile" href="/homeDashboard">
+                      Profile
+                    </NavDropdown.Item>
+                  )}
                   <NavDropdown.Item id="login-dropdown-sign-out" href="/api/auth/signout">
                     <BoxArrowRight className="me-2" />
                     Sign Out
