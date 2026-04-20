@@ -21,7 +21,7 @@ const authOptions: NextAuthConfig = {
     }),
   ],
   pages: {
-    signIn: '/auth/signin',
+    signIn: '/',
     signOut: '/auth/signout',
     //   error: '/auth/error',
     //   verifyRequest: '/auth/verify-request',

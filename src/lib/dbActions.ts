@@ -35,7 +35,7 @@ export async function createUser(credentials: {
     },
   });
 
-  redirect('/auth/signin');
+  redirect('/');
 }
 
 export async function updateProfile(data: {

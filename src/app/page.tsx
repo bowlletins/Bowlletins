@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -5,8 +6,23 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { BriefcaseFill, CalendarEventFill, BookFill, Search } from 'react-bootstrap-icons';
+import { signIn } from 'next-auth/react';
 
 export default function Home() {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const target = e.target as typeof e.target & {
+      email: { value: string };
+      password: { value: string };
+    };
+    const email = target.email.value;
+    const password = target.password.value;
+    await signIn('credentials', {
+      callbackUrl: '/homeDashboard',
+      email,
+      password,
+    });
+  };
   return (
     <main className="landing-page">
       <section className="hero-board">
@@ -35,9 +51,10 @@ export default function Home() {
                 <div className="pin pin-green" />
                 <h2 className="signup-title">Log In</h2>
 
-                <Form>
+                <Form method="post" onSubmit={handleSubmit}>
                   <div className="mb-3">
                     <Form.Control
+                      name = "email"
                       type="email"
                       placeholder="Email"
                       className="signup-input"
@@ -46,6 +63,7 @@ export default function Home() {
 
                   <div className="mb-3">
                     <Form.Control
+                      name = "password"
                       type="password"
                       placeholder="Password"
                       className="signup-input"
