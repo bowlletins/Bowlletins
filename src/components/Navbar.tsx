@@ -49,7 +49,7 @@ const NavBar: React.FC = () => {
                 <NavDropdown.Item href="#">Clubs</NavDropdown.Item>
               </NavDropdown>
 
-              <Nav.Link href="#" className="nav-link-custom">
+              <Nav.Link href="/about" className="nav-link-custom" active={pathName === '/about'}>
                 About
               </Nav.Link>
 
