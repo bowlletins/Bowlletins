@@ -1160,3 +1160,206 @@ body {
 .flyer-btn-share:hover {
   background-color: #e8e4d8 !important;
 }
+
+/* ABOUT PAGE */
+.about-page {
+  background: #eaf3ea;
+  color:#1a2e1a;
+}
+
+/* About Hero */
+.about-hero {
+  background: linear-gradient(160deg, #1b4d1b 0%, #2e6b2e 55%, #3a7a3a 100%);
+  padding: 60px 24px 56px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.03) 0px,
+    rgba(255, 255, 255, 0.03) 2px,
+    transparent 2px,
+    transparent 18px
+  );
+  pointer-events: none;
+}
+
+.about-hero-inner {
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.about-hero-emoji {
+  font-size: 40px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.about-hero-title {
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-weight: 800;
+  color: white;
+  margin: 0 0 10px;
+  line-height: 1.15;
+}
+
+.about-hero-subtitle {
+  color: #d6e4d6;
+  font-size: 1.1rem;
+  max-width: 520px;
+  margin: 0 auto 28px;
+  line-height: 1.6;
+}
+
+/* About Section label */
+.about-label-wrap {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.about-label {
+  display: inline-block;
+  border-radius: 4px;
+  padding: 4px 14px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: white;
+}
+
+.about-label.green {
+  background:#2e6b2e;
+  margin-bottom: 10px;
+}
+
+/* About Problem alert */
+.about-alert {
+  background: white;
+  border: 2px solid #0c4b37;
+  border-radius: 10px;
+  padding: 16px 24px;
+  margin: 16px auto 36px;
+  max-width: 720px;
+  text-align: center;
+  font-weight: 700;
+  color: #0c4b37;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* About Problem cards */
+.about-problem-card {
+  background: white;
+  border: 2px solid #2e6b2e;
+  border-radius: 10px;
+  padding: 18px 16px 20px;
+  height: 100%;
+}
+
+.about-problem-card-icon {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.about-problem-card h3 {
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #0c4b37;
+}
+
+.about-problem-card ul {
+  margin: 0;
+  padding-left: 16px;
+  font-size: 0.85rem;
+  color: #3a3a3a;
+  line-height: 1.6;
+}
+
+.about-problem-card li {
+  margin-bottom: 4px;
+}
+
+/* About Vision section */
+.about-vision {
+  background: #eaf3ea;
+  border-top: 3px solid #2e6b2e;
+  border-bottom: 3px solid #2e6b2e;
+  padding: 50px 24px;
+}
+
+.about-vision-title {
+  text-align: center;
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  font-weight: 800;
+  color: #1b4d1b;
+  margin: 12px auto 36px;
+  max-width: 600px;
+}
+
+/* About Feature cards */
+.about-feature-card {
+  border-radius: 14px;
+  padding: 22px 14px;
+  text-align: center;
+  border: 2px solid transparent;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  height: 100%;
+}
+
+.about-feature-card:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.about-feature-card-emoji {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.about-feature-card h3 {
+  margin: 0 0 6px;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.about-feature-card p {
+  margin-bottom: 8px;
+  font-size: 0.80rem;
+  color: #444;
+  line-height: 1.5;
+}
+
+/* About Goal section */
+.about-goal-card {
+  background: #1b4d1b;
+  border-radius: 14px;
+  padding: 36px 32px;
+  color: white;
+  text-align: center;
+}
+
+.about-goal-card h2 {
+  margin: 0 0 14px;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #c8e6c8;
+}
+
+.about-goal-card p {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color:#e8f5e8;
+}
+
+.about-goal-card strong {
+  color: white;
+}
