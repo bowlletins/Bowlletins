@@ -1,170 +1,235 @@
 'use client';
+
+import { Caveat } from "next/font/google";
 import Link from 'next/link';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { BriefcaseFill, CalendarEventFill, BookFill, Search } from 'react-bootstrap-icons';
+import { BriefcaseFill, CalendarEventFill, BookFill } from 'react-bootstrap-icons';
 import { signIn } from 'next-auth/react';
 
+const caveat = Caveat({
+  subsets: ['latin'],
+  weight: ['400', '600'],
+});
+
 export default function Home() {
-  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const target = e.target as typeof e.target & {
       email: { value: string };
       password: { value: string };
     };
+
     const email = target.email.value;
     const password = target.password.value;
+
     await signIn('credentials', {
       callbackUrl: '/homeDashboard',
       email,
       password,
     });
   };
+
   return (
     <main className="landing-page">
       <section className="hero-board">
-        <Container fluid className="px-0">
-          <Row className="g-0 align-items-start hero-content">
-            <Col lg={6} className="hero-left">
-              <div className="hero-text-block">
-                <img src="/biggreenpin.png" className="hero-pin" />
-                <div className="note-corner-rainbow" />
+        <Container fluid className="landing-shell">
+          <div className="landing-top">
+            <div className="hero-paper">
+               <div className="hero-paper-pin"></div> 
+              <div className="note-corner-rainbow" />
+
+              <div className="hero-paper-holes" aria-hidden="true">
+                {Array.from({ length: 10 }).map((_, i) => (
+                  <span key={i} />
+                ))}
+              </div>
+
+              <div className="hero-paper-lines" aria-hidden="true" />
+
+              <div className="hero-paper-content">
                 <h1 className="hero-title">
-                  Stay Connected with
+                  Your Campus.
                   <br />
-                  Bow-lletins!
+                  Your Community.
+                  <br />
+                  All in One Place.
                 </h1>
+
+                <div className="hero-accent-line" />
+
                 <p className="hero-subtitle">
-                  Your all-in-one campus bulletin board
-                  <br />
-                  for UH Mānoa students.
-                </p>
-              </div>
-            </Col>
+                  Bow-lletins is your all-in-one bulletin board for jobs, events,
+                  groups, and opportunities across UH Mānoa.
+                </p>  
 
-            <Col lg={6} className="hero-right">
-              <div className="signup-note">
-                <div className="note-corner-rainbow" />
+
+                <Button className="hero-cta-btn" href="/posts">
+                  Explore What&apos;s Happening
+                </Button>
+
+                
+<div className="hero-handwritten">
+  <p><span className="highlight-line">&quot;check daily 👀&quot;</span></p>
+  <p><span className="highlight-line">&quot;new stuff every week&quot;</span></p>
+  <p><span className="highlight-line">&quot;don’t miss deadlines!!&quot;</span></p>
+</div>
+
+<div className="hero-actions">
+  <span>👍 Like</span>
+  <span>📌 Save</span>
+  <span>📅 RSVP</span>
+</div>
+
+              </div>
+            </div>
+
+            <div className="login-paper">
+              <div className="hero-paper-pin pin-yellow" />
+              <div className="note-corner-rainbow" />
+
+              <h2 className="login-paper-title">Join the Board</h2>
+
+              <Form method="post" onSubmit={handleSubmit}>
+                <div className="mb-3">
+                  <Form.Control
+                    name="email"
+                    type="email"
+                    placeholder="Email address"
+                    className="signup-input"
+                  />
+                </div>
+
+                <div className="mb-3">
+                  <Form.Control
+                    name="password"
+                    type="password"
+                    placeholder="Password"
+                    className="signup-input"
+                  />
+                </div>
+
+                <div className="login-paper-row">
+                  <Form.Check
+                    type="checkbox"
+                    id="remember-me"
+                    label="Remember me"
+                    className="login-check"
+                  />
+                  <span className="login-forgot">Forgot password?</span>
+                </div>
+
+                <Button className="signup-btn w-100" type="submit">
+                  Sign In
+                </Button>
+              </Form>
+
+              <p className="signup-login-text mt-3 mb-0">
+                Don&apos;t have an account?{' '}
+                <Link href="/auth/signup" className="signup-link">
+                  Sign Up
+                </Link>
+              </p>
+            </div>
+          </div>
+
+          <div className="landing-mini-notes">
+            <div className={`mini-note mini-note-yellow ${caveat.className}`}>
+              <div className="pin pin-blue" />
+        
+          <p>
+          <br> 
+         </br> Missed that club meeting<br />
+                 again…
+            </p>
+            </div>
+
+            <div className={`mini-note mini-note-green ${caveat.className}`}>
+              <div className="pin pin-red" />
+              <p>
+                Well, don&apos;t miss out on another opportunity!
+                <br />
+                Discover.
+                <br />
+                  Connect.
+                <br />
+                Make an impact.
+              </p>
+            </div>
+
+<           div className="mini-image">
+                   <img src="/board_pin.png" alt="Bow-lletins sketch" />
+                    <div className="mini-image-pin" />
+                      </div>
+
+            <div className="side-pin">
+                 <img src="/warrior_pin.png" alt="pin" />
+                    </div>
+
+                <div className="right-pin">
+            <img src="/hawaii_pin.png" alt="pin" />
+                  </div>
+          </div>
+
+          <Row className="landing-feature-cards g-4">
+            <Col md={6} xl={3}>
+              <div className="feature-card">
                 <div className="pin pin-green" />
-                <h2 className="signup-title">Log In</h2>
-
-                <Form method="post" onSubmit={handleSubmit}>
-                  <div className="mb-3">
-                    <Form.Control
-                      name = "email"
-                      type="email"
-                      placeholder="Email"
-                      className="signup-input"
-                    />
-                  </div>
-
-                  <div className="mb-3">
-                    <Form.Control
-                      name = "password"
-                      type="password"
-                      placeholder="Password"
-                      className="signup-input"
-                    />
-                  </div>
-
-                  <Button className="signup-btn w-100" type="submit">
-                    Log In
-                  </Button>
-                </Form>
-
-                <p className="signup-login-text mt-3 mb-0">
-                  Don&apos;t have an account?{' '}
-                  <Link href="/auth/signup" className="signup-link">
-                    Sign Up
-                  </Link>
-                </p>
-              </div>
-            </Col>
-          </Row>
-
-          <div className="sticky-note note-job">
-            <div className="pin pin-red" />
-            <div className="note-icon">
-              <BriefcaseFill />
-            </div>
-            <h4>Job Opportunities</h4>
-            <p>Find the latest job and work study opportunities on campus.</p>
-          </div>
-
-          <div className="sticky-note note-events">
-            <div className="pin pin-yellow" />
-            <div className="note-icon">
-              <CalendarEventFill />
-            </div>
-            <h4>Campus Events</h4>
-            <p>Stay updated with club events, deadlines, and activities.</p>
-          </div>
-
-          <div className="sticky-note note-study">
-            <div className="pin pin-blue" />
-            <div className="note-icon">
-              <BookFill />
-            </div>
-            <h4>Study Groups</h4>
-            <p>Join or create study groups and connect with your peers.</p>
-          </div>
-
-          <div className="sticky-note note-lab">
-            <div className="pin pin-green" />
-            <div className="note-icon">
-              <BriefcaseFill />
-            </div>
-            <h4>Lab Opportunities</h4>
-            <p>Discover research and lab opportunities across campus.</p>
-          </div>
-
-
-        </Container>
-      </section>
-
-      <section className="category-strip">
-        <Container>
-          <Row className="justify-content-center text-center gy-4">
-            <Col xs={6} md={3}>
-              <div className="category-item">
-                <span className="category-pin pin-green" />
-                <div>
-                  <h5>Job</h5>
-                  <p>Opportunities</p>
+                <div className="feature-icon feature-icon-green">
+                  <BriefcaseFill />
                 </div>
+                <h3>Job Opportunities</h3>
+                <p>Find jobs, clubs, and events<br />
+                        all in one place.
+</p>
+                <a href="/posts" className="feature-link feature-link-green">
+                  View Jobs
+                </a>
               </div>
             </Col>
 
-            <Col xs={6} md={3}>
-              <div className="category-item">
-                <span className="category-pin pin-yellow" />
-                <div>
-                  <h5>Internship</h5>
-                  <p>Listings</p>
+            <Col md={6} xl={3}>
+              <div className="feature-card">
+                <div className="pin pin-yellow" />
+                <div className="feature-icon feature-icon-yellow">
+                  <CalendarEventFill />
                 </div>
+                <h3>Campus Events</h3>
+                <p>Discover events, deadlines, and activities happening around campus.</p>
+                <a href="/posts" className="feature-link feature-link-yellow">
+                  See Events
+                </a>
               </div>
             </Col>
 
-            <Col xs={6} md={3}>
-              <div className="category-item">
-                <span className="category-pin pin-red" />
-                <div>
-                  <h5>Campus</h5>
-                  <p>Events</p>
+            <Col md={6} xl={3}>
+              <div className="feature-card">
+                <div className="pin pin-red" />
+                <div className="feature-icon feature-icon-red">
+                  <BookFill />
                 </div>
+                <h3>Study Groups</h3>
+                <p>Join or create study groups and connect with your peers.</p>
+                <a href="/posts" className="feature-link feature-link-red">
+                  Explore Groups
+                </a>
               </div>
             </Col>
 
-            <Col xs={6} md={3}>
-              <div className="category-item">
-                <span className="category-pin pin-blue" />
-                <div>
-                  <h5>Study</h5>
-                  <p>Groups</p>
+            <Col md={6} xl={3}>
+              <div className="feature-card">
+                <div className="pin pin-blue" />
+                <div className="feature-icon feature-icon-blue">
+                  <BookFill />
                 </div>
+                <h3>Internships</h3>
+                <p>Browse internship listings and kickstart your career.</p>
+                <a href="/posts" className="feature-link feature-link-blue">
+                  Find Internships
+                </a>
               </div>
             </Col>
           </Row>
