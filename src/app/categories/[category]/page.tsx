@@ -22,13 +22,23 @@ const CategoryPage = async ({ params }: { params: Promise<{ category: string }> 
           <h1 className="category-title">{category}</h1>
           <p className="category-subtitle">Browse all {category} flyers</p>
         </div>
-        <Row className="g-4">
-          {flyers.map((flyer) => (
-            <Col key={flyer.id} xs={12} sm={6} md={4} lg={3}>
-              <FlyerCard flyer={flyer} />
-            </Col>
-          ))}
-        </Row>
+        {flyers.length === 0 ? (
+          <div className="category-empty">
+            <div className="category-empty-note">
+              <div className="flyer-pin pin-red" />
+              <p className="category-empty-text">No flyers posted yet!</p>
+              <p className="category-empty-subtext">Check back later or post your own.</p>
+            </div>
+          </div>
+        ) : (
+          <Row className="g-4">
+            {flyers.map((flyer) => (
+              <Col key={flyer.id} xs={12} sm={6} md={4} lg={3}>
+                <FlyerCard flyer={flyer} />
+              </Col>
+            ))}
+          </Row>
+        )}
       </Container>
     </main>
   );
