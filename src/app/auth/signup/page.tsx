@@ -16,15 +16,9 @@ export default function SignupPage() {
 
 const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
-  console.log('1. validating...');
   await CreateAccountSchema.validate({ fullName: name, email, password });
   await createUser({ fullName: name, email, password });
-  const result = await signIn('credentials', { email, password, redirect: false });
-  if (result?.ok) {
-    window.location.href = '/homeDashboard';
-  } else {
-    setError('Invalid email or password. Please try again.');
-  }
+  await signIn('credentials', { email, password, callbackUrl: '/homeDashboard' });
 };
   
   return (
