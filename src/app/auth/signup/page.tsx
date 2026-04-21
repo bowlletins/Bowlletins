@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import {createUser} from '@/lib/dbActions';
 import { CreateAccountSchema } from '@/lib/validationSchemas';
+import {signIn} from 'next-auth/react';
 
 export default function SignupPage() {
   const [name, setName] = useState('');
@@ -13,17 +14,18 @@ export default function SignupPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      await CreateAccountSchema.validate({ fullName: name, email, password });
-      await createUser({ fullName: name, email, password });
-    } catch (err) {
-      console.error('Error creating user:', err);
-      setError('There was an error creating your account. Please try again.');
-    }
-
-  };
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  console.log('1. validating...');
+  await CreateAccountSchema.validate({ fullName: name, email, password });
+  await createUser({ fullName: name, email, password });
+  const result = await signIn('credentials', { email, password, redirect: false });
+  if (result?.ok) {
+    window.location.href = '/homeDashboard';
+  } else {
+    setError('Invalid email or password. Please try again.');
+  }
+};
   
   return (
     <main className="signup-split-page">

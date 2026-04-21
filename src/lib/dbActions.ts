@@ -34,8 +34,6 @@ export async function createUser(credentials: {
       role: 'USER',
     },
   });
-
-  redirect('/');
 }
 
 export async function updateProfile(data: {
