@@ -50,9 +50,21 @@ model Flyer {
   id          Int    @id @default(autoincrement())
   title       String
   description String
-  category    String
+  category    FlyerCategory @default(Other)
   date        String
   location    String
   contactInfo String
   owner       String
+  savedBy     String[] //array of emails
+}
+
+enum FlyerCategory{
+  Jobs
+  Internships
+  Volunteer
+  Events
+  Academics
+  Social
+  Clubs/Organizations
+  Other
 }
