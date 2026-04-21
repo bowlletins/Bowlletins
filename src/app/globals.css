@@ -55,7 +55,7 @@ body {
 @media (min-width: 768px) {
   .nav-center.d-none.d-md-flex {
     position: absolute;
-    left: 45%;
+    left: 50%;
     transform: translateX(-50%);
   }
 }
