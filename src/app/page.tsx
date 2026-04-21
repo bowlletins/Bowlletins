@@ -77,7 +77,7 @@ export default function Home() {
 
                 <p className="signup-login-text mt-3 mb-0">
                   Don&apos;t have an account?{' '}
-                  <Link href="/signup" className="signup-link">
+                  <Link href="/auth/signup" className="signup-link">
                     Sign Up
                   </Link>
                 </p>

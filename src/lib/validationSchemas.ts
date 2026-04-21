@@ -17,9 +17,9 @@ export const EditStuffSchema = Yup.object({
 });
 
 export const CreateAccountSchema = Yup.object({
-  fullName: Yup.string().required(),
-  email: Yup.string().email().required(),
-  password: Yup.string().min(6).required(),
+  fullName: Yup.string().required('Name is required'),
+  email: Yup.string().email('Invalid email address').required('Email is required'),
+  password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
   major: Yup.string().nullable(),
   image: Yup.string().nullable(),
 });

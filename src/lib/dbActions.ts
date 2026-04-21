@@ -2,7 +2,6 @@
 
 import { Major } from '@prisma/client';
 import { hash } from 'bcrypt';
-import { redirect } from 'next/navigation';
 import { prisma } from './prisma';
 import { revalidatePath } from 'next/cache';
 
@@ -34,8 +33,6 @@ export async function createUser(credentials: {
       role: 'USER',
     },
   });
-
-  redirect('/');
 }
 
 export async function updateProfile(data: {
