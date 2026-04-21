@@ -1363,3 +1363,25 @@ body {
 .about-goal-card strong {
   color: white;
 }
+
+/* CATEGORY PAGE */
+.category-page {
+  min-height: 100vh;
+  padding: 40px 0;
+}
+
+.category-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.category-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #024731;
+}
+
+.category-subtitle {
+  font-size: 1.1rem;
+  color: #38453e;
+}
