@@ -121,12 +121,7 @@ export default function Home() {
             <p>Discover research and lab opportunities across campus.</p>
           </div>
 
-          <div className="board-search">
-            <input type="text" placeholder="Search" />
-            <button type="button" aria-label="Search">
-              <Search />
-            </button>
-          </div>
+
         </Container>
       </section>
 

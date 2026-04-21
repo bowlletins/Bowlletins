@@ -594,37 +594,6 @@ body {
   background: #4276b4;
 }
 
-/* BOARD SEARCH */
-.board-search {
-  position: absolute;
-  top: 60%;
-  left: 60px;
-  transform: translateY(-50%);
-  width: 360px;
-  height: 56px;
-  display: flex;
-  z-index: 3;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.14);
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.board-search input {
-  flex: 1;
-  border: none;
-  padding: 0 18px;
-  font-size: 1.1rem;
-  background: #fbf8f4;
-  outline: none;
-}
-
-.board-search button {
-  width: 72px;
-  border: none;
-  background: #0c4b37;
-  color: white;
-  font-size: 1.4rem;
-}
 
 /* CATEGORY STRIP */
 .category-strip {
@@ -1015,17 +984,13 @@ body {
     margin-top: 30px;
   }
 
-  .sticky-note,
-  .board-search {
-    position: static;
-    transform: none !important;
-    width: 100%;
-    margin: 20px auto 0 auto;
-  }
+.sticky-note {
+  position: static;
+  transform: none !important;
+  width: 100%;
+  margin: 20px auto 0 auto;
+}
 
-  .board-search {
-    max-width: 100%;
-  }
 }
 
 @media (max-width: 992px) {
