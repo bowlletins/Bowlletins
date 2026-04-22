@@ -20,7 +20,9 @@ const CategoryPage = async ({ params }: { params: Promise<{ category: string }> 
       <Container className="py-5">
         <div className="category-header">
           <h1 className="category-title">{category}</h1>
-          <p className="category-subtitle">Browse all {category} flyers</p>
+          <p className="category-subtitle">
+            {flyers.length} {flyers.length === 1 ? 'flyer' : 'flyers'} posted
+          </p>
         </div>
         {flyers.length === 0 ? (
           <div className="category-empty">
