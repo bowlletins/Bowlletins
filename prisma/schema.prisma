@@ -64,4 +64,5 @@ model Flyer {
   location    String
   contactInfo String
   owner       String
+  savedBy     String[]
 }
