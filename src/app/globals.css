@@ -2129,3 +2129,34 @@ body {
   color: #38453e;
   margin-bottom: 28px;
 }
+/* CREATE FLYER FORM */
+.create-flyer-label {
+  font-weight: 700;
+  color: #0c4b37;
+  font-size: 0.95rem;
+}
+
+.create-flyer-input {
+  border: 1px solid #d6cfc2;
+  background-color: #fcfbf8;
+  border-radius: 6px;
+}
+
+.create-flyer-input:focus {
+  border-color: #024731;
+  box-shadow: 0 0 0 0.15rem rgba(2, 71, 49, 0.15);
+}
+
+.create-flyer-btn {
+  background-color: #024731 !important;
+  border: none !important;
+  color: white !important;
+  font-weight: 700;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 1.1rem;
+}
+
+.create-flyer-btn:hover {
+  background-color: #17634b !important;
+}
