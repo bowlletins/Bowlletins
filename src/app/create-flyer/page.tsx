@@ -52,11 +52,13 @@ const CreateFlyerPage = () => {
             <Form.Select name="category" className="create-flyer-input">
               <option value="">Select a category</option>
               <option value="Jobs">Jobs</option>
-              <option value="Internships">Internships</option>
+              <option value="Jobs">Internships</option>
+              <option value="Jobs">Volunteer</option>
               <option value="Events">Events</option>
+              <option value="Jobs">Tutoring</option>
               <option value="StudyGroups">Study Groups</option>
               <option value="Social">Social</option>
-              <option value="Clubs">Clubs</option>
+              <option value="Clubs">Clubs and Organizations</option>
             </Form.Select>
             {errors.category && <Alert variant="danger" className="mt-1 py-1 px-2 small">{errors.category}</Alert>}
           </Form.Group>

@@ -61,7 +61,7 @@ export default async function BoardPage() {
           <SidebarContent user={user} />
         </Col>
         <Col md={9} lg={10} className="main-column">
-          <MainFeed user={user} savedFlyers={savedFlyers} />  {/* 👈 pass savedFlyers */}
+          <MainFeed user={user} savedFlyers={savedFlyers} />  {/* pass savedFlyers */}
         </Col>
       </Row>
     </Container>
