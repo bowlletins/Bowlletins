@@ -35,5 +35,87 @@
       "fullName": "Marcus Lee",
       "major": "Engineering"
     }
+  ],
+  "defaultFlyers": [
+    {
+      "title": "Software Engineering Intern – Summer 2025",
+      "description": "Join our team at a local Honolulu tech startup for a 12-week paid summer internship. Work on real products with a small agile team.",
+      "category": "Internships",
+      "date": "2025-06-01",
+      "location": "Honolulu, HI",
+      "contactInfo": "careers@hitech.com",
+      "owner": "test@hawaii.edu",
+      "savedBy": ["jdoe@hawaii.edu", "mlee@hawaii.edu", "sclarke@hawaii.edu"]
+    },
+    {
+      "title": "Campus Career Fair – Spring 2025",
+      "description": "Meet over 40 employers hiring UH students. Bring your resume and dress professionally. Open to all majors.",
+      "category": "Events",
+      "date": "2025-04-15",
+      "location": "UH Manoa Campus Center Ballroom",
+      "contactInfo": "careercenter@hawaii.edu",
+      "owner": "admin@hawaii.edu",
+      "savedBy": ["test@hawaii.edu", "jdoe@hawaii.edu", "mlee@hawaii.edu", "sclarke@hawaii.edu"]
+    },
+    {
+      "title": "Biology Study Group – Genetics Final Prep",
+      "description": "Forming a study group for BIO 375 Genetics final exam. Meeting twice a week in the library. All levels welcome.",
+      "category": "Academics",
+      "date": "2025-05-01",
+      "location": "Hamilton Library Room 301",
+      "contactInfo": "sclarke@hawaii.edu",
+      "owner": "sclarke@hawaii.edu",
+      "savedBy": ["test@hawaii.edu", "jdoe@hawaii.edu"]
+    },
+    {
+      "title": "Part-Time Barista – Kaimuki Coffee Shop",
+      "description": "Looking for a friendly, reliable barista 15–20 hrs/week. Flexible scheduling around classes. Tips included.",
+      "category": "Jobs",
+      "date": "2025-04-20",
+      "location": "Kaimuki, Honolulu",
+      "contactInfo": "hireUs@kaimukicoffee.com",
+      "owner": "jdoe@hawaii.edu",
+      "savedBy": ["test@hawaii.edu", "sclarke@hawaii.edu"]
+    },
+    {
+      "title": "IEEE Student Chapter – New Member Meeting",
+      "description": "Interested in engineering and tech? Come check out UH's IEEE chapter. Pizza provided. No experience needed.",
+      "category": "Clubs_Organizations",
+      "date": "2025-04-25",
+      "location": "Holmes Hall 389",
+      "contactInfo": "ieee.uh@hawaii.edu",
+      "owner": "mlee@hawaii.edu",
+      "savedBy": ["test@hawaii.edu", "mlee@hawaii.edu", "jdoe@hawaii.edu"]
+    },
+    {
+      "title": "Beach Cleanup Volunteer Event",
+      "description": "Help keep our shores clean! Gloves and bags provided. Community service hours available upon request.",
+      "category": "Volunteer",
+      "date": "2025-05-10",
+      "location": "Ala Moana Beach Park",
+      "contactInfo": "volunteer@cleanhi.org",
+      "owner": "sclarke@hawaii.edu",
+      "savedBy": ["admin@hawaii.edu", "jdoe@hawaii.edu", "mlee@hawaii.edu"]
+    },
+    {
+      "title": "End of Semester Rooftop Social",
+      "description": "Celebrate the end of spring semester with food, music, and great views. Free entry with UH student ID.",
+      "category": "Social",
+      "date": "2025-05-15",
+      "location": "Skyline Rooftop, Honolulu",
+      "contactInfo": "events@uhstudentlife.com",
+      "owner": "jdoe@hawaii.edu",
+      "savedBy": ["test@hawaii.edu", "sclarke@hawaii.edu", "mlee@hawaii.edu", "admin@hawaii.edu"]
+    },
+    {
+      "title": "Data Science Research Assistant Wanted",
+      "description": "Professor seeking undergrad RA to help with ML research project. Python experience required. 10 hrs/week, paid.",
+      "category": "Jobs",
+      "date": "2025-04-30",
+      "location": "POST Building, UH Manoa",
+      "contactInfo": "prof.kim@hawaii.edu",
+      "owner": "admin@hawaii.edu",
+      "savedBy": ["test@hawaii.edu", "mlee@hawaii.edu"]
+    }
   ]
 }

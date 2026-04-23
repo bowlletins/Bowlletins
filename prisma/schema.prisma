@@ -55,16 +55,16 @@ model Flyer {
   location    String
   contactInfo String
   owner       String
-  savedBy     String[] //array of emails
+  savedby     String[] //array of emails
 }
 
-enum FlyerCategory{
+enum FlyerCategory {
   Jobs
   Internships
   Volunteer
   Events
   Academics
   Social
-  Clubs/Organizations
+  Clubs_Organizations
   Other
 }

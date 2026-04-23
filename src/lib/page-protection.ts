@@ -6,7 +6,7 @@ import { Role } from '@prisma/client';
  */
 export const loggedInProtectedPage = (session: { user: { email: string; id: string; name: string } } | null) => {
   if (!session) {
-    redirect('/auth/signin');
+    redirect('/');
   }
 };
 
