@@ -20,17 +20,17 @@ const NavBar: React.FC = () => {
     <div>
       <div className="top-strip"></div>
 
-      <Navbar className="nav-main d-flex align-items-center px-3 py-0" expand="md">
+      <Navbar className="nav-main d-flex align-items-center px-3 py-0" expand="xl">
         <Container fluid className="position-relative">
 
           {/* LOGO LEFT */}
           <Navbar.Brand href="/">
-            <img src="/logo.png" width="140" alt="Bow-lletins" />
+            <img src="/logo.png" width="160" alt="Bow-lletins" />
           </Navbar.Brand>
 
           {/* MENU BUTTON (MOBILE) */}
           <button
-            className="menu-btn d-md-none ms-auto"
+            className="menu-btn d-xl-none ms-auto"
             onClick={(e) => {
               const menu = document.getElementById('basic-navbar-nav');
               menu?.classList.toggle('show');
@@ -45,7 +45,7 @@ const NavBar: React.FC = () => {
           <Navbar.Collapse id="basic-navbar-nav">
 
             {/* DESKTOP CENTER NAV */}
-            <Nav className="nav-center d-none d-md-flex">
+            <Nav className="nav-center d-none d-xl-flex">
               <Nav.Link href="/" className="nav-link-custom" active={pathName === '/'}>
                 Home
               </Nav.Link>
@@ -55,25 +55,25 @@ const NavBar: React.FC = () => {
               </Nav.Link>
 
               <NavDropdown title="Categories" className="nav-link-custom">
-                <NavDropdown.Item href="#">Jobs</NavDropdown.Item>
-                <NavDropdown.Item href="#">Internships</NavDropdown.Item>
-                <NavDropdown.Item href="#">Events</NavDropdown.Item>
-                <NavDropdown.Item href="#">Study Groups</NavDropdown.Item>
-                <NavDropdown.Item href="#">Social</NavDropdown.Item>
-                <NavDropdown.Item href="#">Clubs</NavDropdown.Item>
+               <NavDropdown.Item href="/categories/Jobs">Jobs</NavDropdown.Item>
+              <NavDropdown.Item href="/categories/Internships">Internships</NavDropdown.Item>
+              <NavDropdown.Item href="/categories/Events">Events</NavDropdown.Item>
+              <NavDropdown.Item href="/categories/StudyGroups">Study Groups</NavDropdown.Item>
+              <NavDropdown.Item href="/categories/Social">Social</NavDropdown.Item>
+              <NavDropdown.Item href="/categories/Clubs">Clubs</NavDropdown.Item>
               </NavDropdown>
 
               <Nav.Link href="/about" className="nav-link-custom" active={pathName === '/about'}>
                 About
               </Nav.Link>
 
-              <Nav.Link href="#" className="nav-link-custom">
+              <Nav.Link href="/contact" className="nav-link-custom" active={pathName === '/contact'}>
                 Contact
               </Nav.Link>
             </Nav>
 
             {/* MOBILE NAV */}
-            <Nav className="nav-center d-flex d-md-none">
+            <Nav className="nav-center d-flex d-xl-none">
               <Nav.Link href="/" className="nav-link-custom">
                 Home
               </Nav.Link>
@@ -95,7 +95,7 @@ const NavBar: React.FC = () => {
                 About
               </Nav.Link>
 
-              <Nav.Link href="#" className="nav-link-custom">
+              <Nav.Link href="/contact" className="nav-link-custom">
                 Contact
               </Nav.Link>
 

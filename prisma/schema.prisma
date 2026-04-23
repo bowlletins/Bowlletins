@@ -11,16 +11,6 @@ enum Role {
   ADMIN
 }
 
-model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  password  String
-  fullName  String? 
-  major     Major?   @default(Other)
-  image     String?  @default("/defaultpfp.png")
-  role      Role     @default(USER)
-}
-
 enum Major {
   Computer_Science
   Business
@@ -31,11 +21,30 @@ enum Major {
   Other
 }
 
+enum Category {
+  Jobs
+  Internships
+  Events
+  StudyGroups
+  Social
+  Clubs
+}
+
 enum Condition {
   excellent
   good
   fair
   poor
+}
+
+model User {
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  password String
+  fullName String?
+  major    Major?  @default(Other)
+  image    String? @default("/defaultpfp.png")
+  role     Role    @default(USER)
 }
 
 model Stuff {
@@ -47,18 +56,18 @@ model Stuff {
 }
 
 model Flyer {
-  id          Int    @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   title       String
   description String
-  category    FlyerCategory @default(Other)
+  category    Category
   date        String
   location    String
   contactInfo String
   owner       String
-  savedby     String[] //array of emails
+  savedBy     String[] //array of emails
 }
 
-enum FlyerCategory {
+enum FlyerCategory{
   Jobs
   Internships
   Volunteer
