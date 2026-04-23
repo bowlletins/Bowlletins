@@ -23,6 +23,19 @@ const CreateFlyerPage = () => {
           </Form.Group>
 
           <Form.Group className="mb-3">
+            <Form.Label className="create-flyer-label">Category</Form.Label>
+            <Form.Select className="create-flyer-input">
+              <option value="">Select a category</option>
+              <option value="Jobs">Jobs</option>
+              <option value="Internships">Internships</option>
+              <option value="Events">Events</option>
+              <option value="StudyGroups">Study Groups</option>
+              <option value="Social">Social</option>
+              <option value="Clubs">Clubs</option>
+            </Form.Select>
+          </Form.Group>
+
+          <Form.Group className="mb-3">
             <Form.Label className="create-flyer-label">Date</Form.Label>
             <Form.Control type="text" placeholder="e.g. April 25, 2026" className="create-flyer-input" />
           </Form.Group>
