@@ -39,7 +39,6 @@ body {
   background-color: #F5F1E6;
   border-bottom: 1px solid #ddd;
   min-height: 42px;
-  position: relative;
   z-index: 3000;
 }
 
@@ -48,6 +47,8 @@ body {
   height: 70px; /* lock it */
 }
 
+
+
 /* Desktop center nav */
 .nav-center {
   display: flex;
@@ -55,14 +56,23 @@ body {
   gap: 30px;
 }
 
+.nav-main .container-fluid {
+  position: relative;
+}
+
 /* Desktop only: keep center links truly centered */
-@media (min-width: 768px) {
-  .nav-center.d-none.d-md-flex {
+@media (min-width: 1200px) {
+  .nav-center.d-none.d-xl-flex {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+
+    display: flex;
+    gap: 40px;           /* spacing between links */
+    white-space: nowrap; /* prevents wrapping */
   }
 }
+
 
 /* Right-side auth area */
 .nav-auth {
@@ -79,10 +89,27 @@ body {
 }
 
 /* Mobile dropdown panel */
-@media (max-width: 767.98px) {
+@media (max-width: 1199.98px) {
   .nav-main {
-    min-height: 30px;
+    min-height: 70px;
   }
+
+    .nav-main .container-fluid {
+    display: flex;
+    align-items: center;
+    min-height: 70px;
+  }
+
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    height: 80px;
+  }
+
+    .navbar-brand img {
+    transform: translateY(-2px);
+  }
+
 
   .navbar-toggler {
     padding: 2px 6px;
@@ -92,7 +119,7 @@ body {
 
   .navbar-collapse {
     position: absolute;
-    top: calc(100% + 6px);
+    top: 100%;
     right: 12px;
     width: 220px;
     background-color: #F5F1E6;
@@ -420,7 +447,7 @@ body {
   border-radius: 50%;
   background: radial-gradient(circle at 30% 30%, #c89b6d, #8b5a3c 60%, #4a2c1a 100%);
   box-shadow:
-    0 3px 5px rgba(0, 0, 0, 0.30),
+    0 6px 10px rgba(0, 0, 0, 0.30),
     inset 0 2px 3px rgba(255, 255, 255, 0.25);
   z-index: 10;
 }
@@ -464,7 +491,7 @@ body {
 }
 
 .hero-handwritten {
-  margin-top: 20px;
+  margin-top: 24px;
 
   font-family: var(--font-caveat);
   font-size: 1.1rem;
@@ -665,12 +692,13 @@ body {
 
 .mini-note-yellow {
   background: linear-gradient(145deg, #f6efb3, #e8de94);
-  transform: rotate(-4deg);
+  transform: rotate(-3deg) translateY(6px);
 }
 
 .mini-note-green {
   background: linear-gradient(145deg, #e4edc9, #cfdba8);
-  transform: rotate(3deg);
+  transform:  rotate(3deg) translateY(-4px);
+
 }
 
 .mini-note::before {
@@ -1001,7 +1029,7 @@ body {
   .landing-mini-notes {
   gap: 18px;
   margin-top: 18px;
-  margin-bottom: 30px;
+  margin-bottom: 90px;
 }
 
   .feature-card {
