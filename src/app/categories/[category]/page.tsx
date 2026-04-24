@@ -1,7 +1,7 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
-import { Category } from '@prisma/client';
+import { Category, FlyerCategory } from '@prisma/client';
 import FlyerCard from '@/components/FlyerCard';
 
 const validCategories = ['Jobs', 'Internships', 'Events', 'StudyGroups', 'Social', 'Clubs'];
@@ -12,7 +12,7 @@ const CategoryPage = async ({ params }: { params: Promise<{ category: string }> 
   if (!validCategories.includes(category)) return notFound();
 
   const flyers = await prisma.flyer.findMany({
-    where: { category: category as Category },
+    where: { category: category as FlyerCategory },
   });
 
   return (
