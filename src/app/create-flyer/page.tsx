@@ -3,26 +3,21 @@
 import { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { createFlyer } from './actions';
+import { CreateFlyerSchema } from '@/lib/validationSchemas';
 
 const CreateFlyerPage = () => {
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Record<string, string>>({}); 
 
   const handleSubmit = async (formData: FormData) => {
-    const newErrors: Record<string, string> = {};
+    await CreateFlyerSchema.validate({
+      title: formData.get('title'),
+      description: formData.get('description'),
+      category: formData.get('category'),
+      date: formData.get('date'),
+      location: formData.get('location'),
+      contactInfo: formData.get('contactInfo'),
+    });
 
-    if (!formData.get('title')) newErrors.title = 'Title is required';
-    if (!formData.get('description')) newErrors.description = 'Description is required';
-    if (!formData.get('category')) newErrors.category = 'Please select a category';
-    if (!formData.get('date')) newErrors.date = 'Date is required';
-    if (!formData.get('location')) newErrors.location = 'Location is required';
-    if (!formData.get('contactInfo')) newErrors.contactInfo = 'Contact info is required';
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
-
-    setErrors({});
     await createFlyer(formData);
   };
 
@@ -52,13 +47,12 @@ const CreateFlyerPage = () => {
             <Form.Select name="category" className="create-flyer-input">
               <option value="">Select a category</option>
               <option value="Jobs">Jobs</option>
-              <option value="Jobs">Internships</option>
-              <option value="Jobs">Volunteer</option>
+              <option value="Internships">Internships</option>
+              <option value="Volunteer">Volunteer</option>
               <option value="Events">Events</option>
-              <option value="Jobs">Tutoring</option>
-              <option value="StudyGroups">Study Groups</option>
+              <option value="Academics">Academics</option>
               <option value="Social">Social</option>
-              <option value="Clubs">Clubs and Organizations</option>
+              <option value="Clubs_Organizations">Clubs_Organizations</option>
             </Form.Select>
             {errors.category && <Alert variant="danger" className="mt-1 py-1 px-2 small">{errors.category}</Alert>}
           </Form.Group>

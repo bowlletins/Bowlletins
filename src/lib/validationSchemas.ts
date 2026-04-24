@@ -24,6 +24,15 @@ export const CreateAccountSchema = Yup.object({
   image: Yup.string().nullable(),
 });
 
+export const CreateFlyerSchema = Yup.object({
+  title: Yup.string().required('Title is required'),
+  description: Yup.string().required('Description is required'),
+  category: Yup.string().oneOf(['Jobs', 'Internships', 'Volunteer', 'Events', 'Academics', 'Social', 'Clubs_Organizations', 'Other']).required('Category is required'),
+  date: Yup.string().required('Date is required'),
+  location: Yup.string().required('Location is required'),
+  contactInfo: Yup.string().required('Contact information is required'),
+});
+
 export const CompleteProfileSchema = Yup.object({
   fullName: Yup.string().required(),
   email: Yup.string().email().nullable(),

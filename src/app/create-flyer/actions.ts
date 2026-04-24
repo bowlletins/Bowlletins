@@ -24,9 +24,7 @@ export async function createFlyer(formData: FormData) {
   const location = formData.get('location') as string;
   const contactInfo = formData.get('contactInfo') as string;
 
-  if (!title || !description || !date || !location || !contactInfo) {
-    throw new Error('All fields are required.');
-  }
+  
 
   const flyer = await prisma.flyer.create({
     data: {
