@@ -14,8 +14,7 @@ body {
   flex-direction: column;
 }
 
-/*explore page footer*/
-.wrapper main {
+.wrapper .page-content {
   flex: 1;
 }
 
@@ -2640,4 +2639,56 @@ footer {
 .campus-slide p {
   color: #333;
   font-size: 0.9rem;
+}
+
+@media (max-width: 767.98px) {
+  .footer-main {
+    padding: 20px 0 12px;
+  }
+
+  .footer-logo {
+    height: 70px;
+    margin-left: 0;
+  }
+
+  .footer-brand-text {
+    margin-left: 10px;
+    font-size: 0.82rem;
+  }
+
+  .footer-main .row > div:first-child {
+    justify-content: center !important;
+    margin-bottom: 12px;
+  }
+
+  .footer-links-row {
+    gap: 18px;
+    margin-top: 16px;
+    white-space: normal;
+    flex-wrap: wrap;
+  }
+
+  .footer-copy {
+    margin-top: 12px;
+  }
+
+  .footer-social {
+    padding-right: 0;
+    justify-content: center !important;
+    margin-top: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .flyer-action-buttons {
+    flex-direction: column;
+  }
+
+  .flyer-btn-rsvp,
+  .flyer-btn-save,
+  .flyer-btn-unsave,
+  .flyer-btn-share {
+    width: 100%;
+    flex: none;
+  }
 }

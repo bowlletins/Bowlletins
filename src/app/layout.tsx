@@ -40,10 +40,9 @@ const classString = `${geistSans.variable} ${geistMono.variable} ${caveat.variab
         <Providers>
           <NavBar />
 
-          {/* FIXED: main now wraps children */}
-          <main className="flex-grow-1">
+          <div className="page-content flex-grow-1">
             {children}
-          </main>
+          </div>
 
           <Footer />
         </Providers>
