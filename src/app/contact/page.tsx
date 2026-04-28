@@ -15,7 +15,7 @@ export default function ContactPage() {
 
         <div className="contact-card">
           <div className="card-pin"></div>
-          <img src="tamelaicon.jpg" alt="Tamela Brinson" className="contact-card-avatar" />
+          <img src="tamelaicon.jpg" alt="Tamela Brinson" className="contact-card-avatar-green" />
           <h3>Tamela Brinson</h3>
           <p className="contact-card-role">Lead Developer</p>
           <p>Questions about features, bugs, or technical issues? Tamela is your person.</p>
@@ -24,7 +24,7 @@ export default function ContactPage() {
 
         <div className="contact-card">
           <div className="card-pin"></div>
-          <img src="thomasicon.jpg" alt="Thomas Tran" className="contact-card-avatar" />
+          <img src="thomasicon.jpg" alt="Thomas Tran" className="contact-card-avatar-yellow" />
           <h3>Thomas Tran</h3>
           <p className="contact-card-role">Content Curator</p>
           <p>Have a flyer to feature or content feedback? Thomas keeps the board organized and looking great.</p>
@@ -33,7 +33,7 @@ export default function ContactPage() {
 
         <div className="contact-card">
           <div className="card-pin"></div>
-          <img src="annieicon.jpg" alt="Annie Pham" className="contact-card-avatar" />
+          <img src="annieicon.jpg" alt="Annie Pham" className="contact-card-avatar-red" />
           <h3>Annie Pham</h3>
           <p className="contact-card-role">Community Manager</p>
           <p>Reach out about events, partnerships, or getting your org on the board.</p>
@@ -42,7 +42,7 @@ export default function ContactPage() {
 
         <div className="contact-card">
           <div className="card-pin"></div>
-          <img src="terisaicon.jpg" alt="Terisa Lau" className="contact-card-avatar" />
+          <img src="terisaicon.jpg" alt="Terisa Lau" className="contact-card-avatar-blue" />
           <h3>Terisa Lau</h3>
           <p className="contact-card-role">Project Manager</p>
           <p>General inquiries, collaborations, or anything else — Terisa&apos;s got you.</p>
@@ -51,7 +51,7 @@ export default function ContactPage() {
 
         <div className="contact-card">
           <div className="card-pin"></div>
-          <img src="cadenicon.jpg" alt="Caden Tran" className="contact-card-avatar" />
+          <img src="cadenicon.jpg" alt="Caden Tran" className="contact-card-avatar-purple" />
           <h3>Caden Tran</h3>
           <p className="contact-card-role">Visual Designer</p>
           <p>Feedback on the look and feel of the site? Caden would love to hear it.</p>
