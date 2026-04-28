@@ -98,11 +98,11 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="login-paper">
+            <div className="login-paper"> 
               <div className="hero-paper-pin pin-yellow" />
               <div className="note-corner-rainbow" />
 
-              <h2 className="login-paper-title">Join the Board</h2>
+              <h2 className="login-paper-title" id = 'signin'>Join the Board</h2>
 
               <Form method="Explore" onSubmit={handleSubmit}>
                 <div className="mb-3">
