@@ -185,9 +185,9 @@ export default function Home() {
                 <p>Find jobs, clubs, and events<br />
                         all in one place.
 </p>
-                <a href="Explore" className="feature-link feature-link-green">
+                <Link href="/categories/Jobs" className="feature-link feature-link-green">
                   View Jobs
-                </a>
+                </Link>
               </div>
             </Col>
 
@@ -199,9 +199,9 @@ export default function Home() {
                 </div>
                 <h3>Campus Events</h3>
                 <p>Discover events, deadlines, and activities happening around campus.</p>
-                <a href="Explore" className="feature-link feature-link-yellow">
+                <Link href="/categories/Events" className="feature-link feature-link-yellow">
                   See Events
-                </a>
+                </Link>
               </div>
             </Col>
 
@@ -213,9 +213,9 @@ export default function Home() {
                 </div>
                 <h3>Study Groups</h3>
                 <p>Join or create study groups and connect with your peers.</p>
-                <a href="Explore" className="feature-link feature-link-red">
+                <Link href="/categories/Academics" className="feature-link feature-link-red">
                   Explore Groups
-                </a>
+                </Link>
               </div>
             </Col>
 
@@ -227,9 +227,9 @@ export default function Home() {
                 </div>
                 <h3>Internships</h3>
                 <p>Browse internship listings and kickstart your career.</p>
-                <a href="Explore" className="feature-link feature-link-blue">
+                <Link href="/categories/Internships" className="feature-link feature-link-blue">
                   Find Internships
-                </a>
+                </Link>
               </div>
             </Col>
           </Row>
