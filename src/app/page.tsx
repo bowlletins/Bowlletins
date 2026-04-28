@@ -9,6 +9,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { BriefcaseFill, CalendarEventFill, BookFill } from 'react-bootstrap-icons';
 import { signIn } from 'next-auth/react';
+import { useState } from 'react';
 
 const caveat = Caveat({
   subsets: ['latin'],
@@ -16,8 +17,12 @@ const caveat = Caveat({
 });
 
 export default function Home() {
+  const [authError, setAuthError] = useState<string | null>(null);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setAuthError(null); // clear previous error
+
     const target = e.target as typeof e.target & {
       email: { value: string };
       password: { value: string };
@@ -26,11 +31,17 @@ export default function Home() {
     const email = target.email.value;
     const password = target.password.value;
 
-    await signIn('credentials', {
-      callbackUrl: '/homeDashboard',
+    const result = await signIn('credentials', {
+      redirect: false, // KEY: don't let NextAuth redirect on failure
       email,
       password,
     });
+
+    if (result?.error) {
+      setAuthError('Invalid email or password. Please try again.');
+    } else {
+      window.location.href = '/homeDashboard'; // manual redirect on success
+    }
   };
 
   return (
@@ -121,6 +132,8 @@ export default function Home() {
                   />
                   <span className="login-forgot">Forgot password?</span>
                 </div>
+
+                {authError && <p className="auth-error">{authError}</p>}
 
                 <Button className="signup-btn w-100" type="submit">
                   Sign In
