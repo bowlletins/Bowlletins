@@ -30,13 +30,15 @@ jobs:
           - 5432:5432
 
     env:
-      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/playwright_test
-      NEXTAUTH_SECRET: secret
-      NEXTAUTH_URL: http://localhost:3000
-      AUTH_SECRET: secret
-      AUTH_URL: http://localhost:3000
-      PLAYWRIGHT_TEST_BASE_URL: http://localhost:3000
-      NODE_ENV: test
+     DATABASE_URL: postgresql://postgres:postgres@localhost:5432/playwright_test
+     POSTGRES_URL: postgresql://postgres:postgres@localhost:5432/playwright_test
+    PRISMA_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/playwright_test
+    NEXTAUTH_SECRET: secret
+    NEXTAUTH_URL: http://localhost:3000
+    AUTH_SECRET: secret
+    AUTH_URL: http://localhost:3000
+    PLAYWRIGHT_TEST_BASE_URL: http://localhost:3000
+    NODE_ENV: test
 
     steps:
       - name: Checkout repo
