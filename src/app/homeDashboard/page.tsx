@@ -11,6 +11,7 @@ type SessionUser = {
   name: string;
   major: Major;
   image: string;
+  role: string;
 };
 
 type Flyer = {
@@ -40,6 +41,7 @@ export default async function BoardPage() {
       fullName: true,
       major: true,
       image: true,
+      role: true,
     },
   });
 
@@ -49,6 +51,7 @@ export default async function BoardPage() {
     name: dbUser?.fullName || 'User',
     major: dbUser?.major || 'Other',
     image: dbUser?.image || '',
+    role: dbUser?.role || 'user',
   };
 
   const savedFlyers = await prisma.flyer.findMany({
@@ -84,10 +87,16 @@ const SidebarContent: React.FC<{ user: SessionUser }> = ({ user }) => {
 
       <div className="flex-column nav-pills custom-nav d-flex flex-column">
         <a href="#" className="nav-link">Home</a>
-        <a href="#" className="nav-link active">Saved Posts</a>
-        <a href="#" className="nav-link">Recently Viewed</a>
-        <a href="#" className="nav-link">Messages</a>
+        <a href="#" className="nav-link active">Saved Flyers</a>
+        <a href="#" className="nav-link">My Flyers</a>
         <a href="/create-flyer" className="nav-link">Create a Flyer</a>
+
+        {/*admin only*/}
+        {user.role === 'ADMIN' && (
+          <>
+            <a href="/admin" className="nav-link">Admin Dashboard</a>
+          </>
+        )}
         <a href="/profile" className="nav-link">Settings</a>
       </div>
     </div>

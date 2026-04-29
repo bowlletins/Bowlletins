@@ -103,7 +103,7 @@ const NavBar: React.FC = () => {
 
               {!session && (
                 <>
-                  <Nav.Link href="/signin" className="nav-link-custom">
+                  <Nav.Link href="/#signin" className="nav-link-custom">
                     <Lock className="me-2" />
                     Login
                   </Nav.Link>
