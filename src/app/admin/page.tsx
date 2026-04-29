@@ -26,17 +26,14 @@ export default async function AdminPage() {
 
       {/* Stats */}
       <Row className="mb-5 g-4">
-        <Col md={3}>
+        <Col md={4}>
           <StatCard label="Total Users" value={allUsers.length} color="primary" />
         </Col>
-        <Col md={3}>
+        <Col md={4}>
           <StatCard label="Total Flyers" value={allFlyers.length} color="success" />
         </Col>
-        <Col md={3}>
+        <Col md={4}>
           <StatCard label="Total Saves" value={totalSaves} color="warning" />
-        </Col>
-        <Col md={3}>
-          <StatCard label="Stuff Listings" value={allStuff.length} color="info" />
         </Col>
       </Row>
 
@@ -51,6 +48,7 @@ export default async function AdminPage() {
               <th>Email</th>
               <th>Major</th>
               <th>Role</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -65,6 +63,14 @@ export default async function AdminPage() {
                     {u.role}
                   </Badge>
                 </td>
+                <td>
+                  <a
+                    href={``}
+                    className="btn btn-sm btn-outline-primary me-2"
+                  >
+                    View
+                  </a>
+                  </td>
               </tr>
             ))}
           </tbody>
@@ -106,36 +112,20 @@ export default async function AdminPage() {
                   >
                     View
                   </a>
+                  <a
+                    href={`/flyer/${f.id}/edit`}
+                    className="btn btn-sm btn-outline-primary me-2"
+                  >
+                    Edit
+                  </a>
+                  <a
+                    href={``}
+                    className="btn btn-sm btn-outline-danger"
+                  >
+                    Delete
+                  </a>
+                  
                 </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </section>
-
-      {/* Stuff Table */}
-      <section>
-        <h4 className="fw-bold mb-3">Stuff Listings</h4>
-        <Table striped bordered hover responsive>
-          <thead className="table-dark">
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Quantity</th>
-              <th>Condition</th>
-              <th>Owner</th>
-            </tr>
-          </thead>
-          <tbody>
-            {allStuff.map((s) => (
-              <tr key={s.id}>
-                <td>{s.id}</td>
-                <td>{s.name}</td>
-                <td>{s.quantity}</td>
-                <td>
-                  <Badge bg={conditionColor(s.condition)}>{s.condition}</Badge>
-                </td>
-                <td>{s.owner}</td>
               </tr>
             ))}
           </tbody>
@@ -159,13 +149,3 @@ const StatCard = ({
     <p className="text-muted mb-0 small">{label}</p>
   </div>
 );
-
-function conditionColor(condition: Condition): string {
-  switch (condition) {
-    case 'excellent': return 'success';
-    case 'good':      return 'primary';
-    case 'fair':      return 'warning';
-    case 'poor':      return 'danger';
-    default:          return 'secondary';
-  }
-}
