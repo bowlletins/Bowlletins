@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
+    
+    "playwright": "playwright test",
+    "playwright-development": "playwright test --ui",
     "dev": "next dev",
     "build": "prisma generate && next build",
     "start": "next start",
@@ -32,7 +35,7 @@
     "yup": "^1.7.1"
   },
   "devDependencies": {
-    "@playwright/test": "^1.58.2",
+    "@playwright/test": "^1.59.1",
     "@types/bcrypt": "^6.0.0",
     "@types/node": "^20.19.35",
     "@types/pg": "^8.18.0",
