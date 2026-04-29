@@ -1,8 +1,5 @@
 name: ci-bowlletins
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 on:
   push:
     branches: [main]
@@ -30,15 +27,15 @@ jobs:
           - 5432:5432
 
     env:
-     DATABASE_URL: postgresql://postgres:postgres@localhost:5432/playwright_test
-     POSTGRES_URL: postgresql://postgres:postgres@localhost:5432/playwright_test
-    PRISMA_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/playwright_test
-    NEXTAUTH_SECRET: secret
-    NEXTAUTH_URL: http://localhost:3000
-    AUTH_SECRET: secret
-    AUTH_URL: http://localhost:3000
-    PLAYWRIGHT_TEST_BASE_URL: http://localhost:3000
-    NODE_ENV: test
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/playwright_test
+      POSTGRES_URL: postgresql://postgres:postgres@localhost:5432/playwright_test
+      PRISMA_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/playwright_test
+      NEXTAUTH_SECRET: secret
+      NEXTAUTH_URL: http://localhost:3000
+      AUTH_SECRET: secret
+      AUTH_URL: http://localhost:3000
+      PLAYWRIGHT_TEST_BASE_URL: http://localhost:3000
+      NODE_ENV: test
 
     steps:
       - name: Checkout repo
@@ -58,14 +55,8 @@ jobs:
       - name: Generate Prisma Client
         run: npx prisma generate
 
-      - name: Run database migrations
-        run: npx prisma migrate deploy
-
-      - name: Seed database
-        run: npm run seed
-
-      - name: Verify database connection
-        run: npx prisma db execute --stdin <<< "SELECT COUNT(*) FROM \"User\";"
+      - name: Push Prisma schema to database
+        run: npx prisma db push
 
       - name: Run ESLint
         run: npm run lint
@@ -78,13 +69,8 @@ jobs:
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
-        if: always() && env.ACT != 'true'
+        if: always()
         with:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
-
-      - name: Playwright Report Note
-        if: always() && env.ACT != 'true'
-        run: |
-          echo "::notice::Download the 'playwright-report' artifact from this run to view test results."
