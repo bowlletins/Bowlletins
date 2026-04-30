@@ -14,6 +14,8 @@ const FlyerDetailPage = async ({ params }: { params: Promise<{ id: string }> }) 
 
   if (!flyer) return notFound();
 
+  if (flyer.isPrivate && session?.user?.email !== flyer.owner) return notFound();
+
   return (
     <main className="flyer-detail-page">
       <Container className="py-5 d-flex justify-content-center">

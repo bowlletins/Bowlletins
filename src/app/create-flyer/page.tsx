@@ -96,6 +96,19 @@ if (status === 'loading') {
             {errors.contactInfo && <Alert variant="danger" className="mt-1 py-1 px-2 small">{errors.contactInfo}</Alert>}
           </Form.Group>
 
+          <Form.Group className="mb-4">
+            <Form.Check
+              type="switch"
+              id="isPrivate"
+              name="isPrivate"
+              label="Make this flyer private"
+              className="create-flyer-private-toggle"
+            />
+            <Form.Text className="create-flyer-private-hint">
+              Private flyers are only visible to you and expire after 24 hours.
+            </Form.Text>
+          </Form.Group>
+
           <Button type="submit" className="create-flyer-btn w-100">Post Flyer</Button>
         </Form>
       </div>

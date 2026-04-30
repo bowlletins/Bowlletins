@@ -2,6 +2,7 @@ import { Major } from '@prisma/client';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { autoExpireFlyers } from '@/lib/autoExpireFlyers';
 import PageSwitch from './pageSwitch';
 
 type SessionUser = {
@@ -41,9 +42,11 @@ export default async function BoardPage() {
     role: dbUser?.role || 'user',
   };
 
-  // Flyers the user has saved
+  await autoExpireFlyers();
+
+  // Flyers the user has saved (exclude private flyers they don't own)
   const savedFlyers = await prisma.flyer.findMany({
-    where: { savedBy: { has: session!.user.email! } },
+    where: { savedBy: { has: session!.user.email! }, isPrivate: false },
   });
 
   // Flyers the user created (owned by their email)

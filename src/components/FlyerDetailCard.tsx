@@ -4,11 +4,14 @@ import { Flyer } from '@prisma/client';
 import { CalendarEventFill, GeoAltFill, EnvelopeFill } from 'react-bootstrap-icons';
 import { Button } from 'react-bootstrap';
 import { useState } from 'react';
-import { saveFlyer, unsaveFlyer } from '@/app/flyers/[id]/actions';
+import { saveFlyer, unsaveFlyer, toggleFlyerPrivacy } from '@/app/flyers/[id]/actions';
 
 const FlyerDetailCard = ({ flyer, userEmail }: { flyer: Flyer; userEmail: string | null }) => {
   const [saved, setSaved] = useState(userEmail ? flyer.savedBy.includes(userEmail) : false);
+  const [isPrivate, setIsPrivate] = useState(flyer.isPrivate);
   const [loading, setLoading] = useState(false);
+  const [privacyLoading, setPrivacyLoading] = useState(false);
+  const isOwner = userEmail !== null && userEmail === flyer.owner;
 
   const handleSave = async () => {
     if (!userEmail) return;
@@ -35,13 +38,26 @@ const FlyerDetailCard = ({ flyer, userEmail }: { flyer: Flyer; userEmail: string
     alert('Link copied to clipboard!');
   };
 
+  const handleTogglePrivacy = async () => {
+    setPrivacyLoading(true);
+    try {
+      const newValue = await toggleFlyerPrivacy(flyer.id);
+      setIsPrivate(newValue);
+    } finally {
+      setPrivacyLoading(false);
+    }
+  };
+
   return (
   <div className="flyer-detail-note">
     <div className="flyer-pin pin-red" />
     <div className="flyer-note-corner-rainbow" />
 
     <span className="flyer-category-badge">{flyer.category}</span>
-    <h1 className="flyer-detail-title">{flyer.title}</h1>
+    <h1 className="flyer-detail-title">
+      {flyer.title}
+      {isOwner && isPrivate && <span className="flyer-private-badge">🔒 Private</span>}
+    </h1>
     <p className="flyer-detail-description">{flyer.description}</p>
 
     <hr className="flyer-divider" />
@@ -62,7 +78,7 @@ const FlyerDetailCard = ({ flyer, userEmail }: { flyer: Flyer; userEmail: string
     </div>
 
     <div className="flyer-action-buttons">
-      <Button className="flyer-btn-rsvp">RSVP</Button>
+      <Button className="flyer-btn-rsvp" onClick={handleRSVP}>RSVP</Button>
       <Button
           className={saved ? 'flyer-btn-unsave' : 'flyer-btn-save'}
           onClick={handleSave}
@@ -70,7 +86,16 @@ const FlyerDetailCard = ({ flyer, userEmail }: { flyer: Flyer; userEmail: string
         >
           {loading ? '...' : saved ? 'Unsave' : 'Save'}
         </Button>
-      <Button className="flyer-btn-share" onClick ={handleShare}>Share</Button>
+      <Button className="flyer-btn-share" onClick={handleShare}>Share</Button>
+      {isOwner && (
+        <Button
+          className={isPrivate ? 'flyer-btn-make-public' : 'flyer-btn-make-private'}
+          onClick={handleTogglePrivacy}
+          disabled={privacyLoading}
+        >
+          {privacyLoading ? '...' : isPrivate ? 'Make Public' : 'Make Private'}
+        </Button>
+      )}
     </div>
   </div>
   );
