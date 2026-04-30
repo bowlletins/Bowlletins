@@ -45,7 +45,8 @@
       "location": "Honolulu, HI",
       "contactInfo": "careers@hitech.com",
       "owner": "test@hawaii.edu",
-      "savedBy": ["jdoe@hawaii.edu", "mlee@hawaii.edu", "sclarke@hawaii.edu"]
+      "savedBy": ["jdoe@hawaii.edu", "mlee@hawaii.edu", "sclarke@hawaii.edu"],
+      "rsvpBy": ["jdoe@hawaii.edu", "mlee@hawaii.edu"]
     },
     {
       "title": "Campus Career Fair – Spring 2025",
@@ -55,7 +56,8 @@
       "location": "UH Manoa Campus Center Ballroom",
       "contactInfo": "careercenter@hawaii.edu",
       "owner": "admin@hawaii.edu",
-      "savedBy": ["test@hawaii.edu", "jdoe@hawaii.edu", "mlee@hawaii.edu", "sclarke@hawaii.edu"]
+      "savedBy": ["test@hawaii.edu", "jdoe@hawaii.edu", "mlee@hawaii.edu", "sclarke@hawaii.edu"],
+      "rsvpBy": ["test@hawaii.edu", "jdoe@hawaii.edu", "sclarke@hawaii.edu"]
     },
     {
       "title": "Biology Study Group – Genetics Final Prep",
@@ -65,7 +67,8 @@
       "location": "Hamilton Library Room 301",
       "contactInfo": "sclarke@hawaii.edu",
       "owner": "sclarke@hawaii.edu",
-      "savedBy": ["test@hawaii.edu", "jdoe@hawaii.edu"]
+      "savedBy": ["test@hawaii.edu", "jdoe@hawaii.edu"],
+      "rsvpBy": ["test@hawaii.edu"]
     },
     {
       "title": "Part-Time Barista – Kaimuki Coffee Shop",
@@ -75,7 +78,8 @@
       "location": "Kaimuki, Honolulu",
       "contactInfo": "hireUs@kaimukicoffee.com",
       "owner": "jdoe@hawaii.edu",
-      "savedBy": ["test@hawaii.edu", "sclarke@hawaii.edu"]
+      "savedBy": ["test@hawaii.edu", "sclarke@hawaii.edu"],
+      "rsvpBy": []
     },
     {
       "title": "IEEE Student Chapter – New Member Meeting",
@@ -85,7 +89,8 @@
       "location": "Holmes Hall 389",
       "contactInfo": "ieee.uh@hawaii.edu",
       "owner": "mlee@hawaii.edu",
-      "savedBy": ["test@hawaii.edu", "mlee@hawaii.edu", "jdoe@hawaii.edu"]
+      "savedBy": ["test@hawaii.edu", "mlee@hawaii.edu", "jdoe@hawaii.edu"],
+      "rsvpBy": ["test@hawaii.edu", "jdoe@hawaii.edu"]
     },
     {
       "title": "Beach Cleanup Volunteer Event",
@@ -95,7 +100,8 @@
       "location": "Ala Moana Beach Park",
       "contactInfo": "volunteer@cleanhi.org",
       "owner": "sclarke@hawaii.edu",
-      "savedBy": ["admin@hawaii.edu", "jdoe@hawaii.edu", "mlee@hawaii.edu"]
+      "savedBy": ["admin@hawaii.edu", "jdoe@hawaii.edu", "mlee@hawaii.edu"],
+      "rsvpBy": ["admin@hawaii.edu", "mlee@hawaii.edu"]
     },
     {
       "title": "End of Semester Rooftop Social",
@@ -105,7 +111,8 @@
       "location": "Skyline Rooftop, Honolulu",
       "contactInfo": "events@uhstudentlife.com",
       "owner": "jdoe@hawaii.edu",
-      "savedBy": ["test@hawaii.edu", "sclarke@hawaii.edu", "mlee@hawaii.edu", "admin@hawaii.edu"]
+      "savedBy": ["test@hawaii.edu", "sclarke@hawaii.edu", "mlee@hawaii.edu", "admin@hawaii.edu"],
+      "rsvpBy": ["test@hawaii.edu", "sclarke@hawaii.edu", "admin@hawaii.edu"]
     },
     {
       "title": "Data Science Research Assistant Wanted",
@@ -115,7 +122,8 @@
       "location": "POST Building, UH Manoa",
       "contactInfo": "prof.kim@hawaii.edu",
       "owner": "admin@hawaii.edu",
-      "savedBy": ["test@hawaii.edu", "mlee@hawaii.edu"]
+      "savedBy": ["test@hawaii.edu", "mlee@hawaii.edu"],
+      "rsvpBy": ["mlee@hawaii.edu"]
     }
   ]
 }

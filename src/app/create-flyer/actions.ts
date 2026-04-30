@@ -36,6 +36,7 @@ export async function createFlyer(formData: FormData) {
       contactInfo,
       owner: session!.user.email!,
       savedBy: [],
+      rsvpBy: [],
       isPrivate,
       expiresAt,
     },

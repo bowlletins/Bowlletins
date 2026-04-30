@@ -2,7 +2,7 @@ import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { adminProtectedPage } from '@/lib/page-protection';
 import { Container, Row, Col, Table, Badge } from 'react-bootstrap';
-import { Role, Major, Condition, FlyerCategory } from '@prisma/client';
+import { Role} from '@prisma/client';
 
 export default async function AdminPage() {
   const session = await auth();
@@ -11,7 +11,7 @@ export default async function AdminPage() {
     session as { user: { email: string; id: string; name: string; role?: string } } | null,
   );
 
-  const [allUsers, allFlyers, allStuff] = await Promise.all([
+  const [allUsers, allFlyers] = await Promise.all([
     prisma.user.findMany({ orderBy: { id: 'desc' } }),
     prisma.flyer.findMany({ orderBy: { id: 'desc' } }),
     prisma.stuff.findMany({ orderBy: { id: 'desc' } }),

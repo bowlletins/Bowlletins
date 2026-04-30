@@ -4,7 +4,7 @@ import { Flyer } from '@prisma/client';
 import { CalendarEventFill, GeoAltFill, EnvelopeFill } from 'react-bootstrap-icons';
 import { Button } from 'react-bootstrap';
 import { useState } from 'react';
-import { saveFlyer, unsaveFlyer, toggleFlyerPrivacy } from '@/app/flyers/[id]/actions';
+import { saveFlyer, unsaveFlyer, toggleFlyerPrivacy, rsvpFlyer, unrsvpFlyer } from '@/app/flyers/[id]/actions';
 
 const FlyerDetailCard = ({ flyer, userEmail }: { flyer: Flyer; userEmail: string | null }) => {
   const [saved, setSaved] = useState(userEmail ? flyer.savedBy.includes(userEmail) : false);
@@ -12,6 +12,8 @@ const FlyerDetailCard = ({ flyer, userEmail }: { flyer: Flyer; userEmail: string
   const [loading, setLoading] = useState(false);
   const [privacyLoading, setPrivacyLoading] = useState(false);
   const isOwner = userEmail !== null && userEmail === flyer.owner;
+const [rsvped, setRsvped] = useState(flyer.rsvpBy?.includes(userEmail ?? '') ?? false);
+const [rsvpLoading, setRsvpLoading] = useState(false);
 
   const handleSave = async () => {
     if (!userEmail) return;
@@ -29,9 +31,21 @@ const FlyerDetailCard = ({ flyer, userEmail }: { flyer: Flyer; userEmail: string
     }
   };
 
-  const handleRSVP = () => {
-    window.location.href = `mailto:${flyer.contactInfo}?subject=RSVP: ${flyer.title}`;
-  };
+  const handleRSVP = async () => {
+  if (!userEmail) return;
+  setRsvpLoading(true);
+  try {
+    if (rsvped) {
+      await unrsvpFlyer(flyer.id);
+      setRsvped(false);
+    } else {
+      await rsvpFlyer(flyer.id);
+      setRsvped(true);
+    }
+  } finally {
+    setRsvpLoading(false);
+  }
+};
 
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);

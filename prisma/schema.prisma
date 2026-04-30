@@ -33,6 +33,7 @@ model Flyer {
   contactInfo String
   owner       String
   category    FlyerCategory @default(Other)
+  rsvpBy      String[]
   savedBy     String[]
   isPrivate   Boolean       @default(false)
   expiresAt   DateTime?

@@ -48,3 +48,30 @@ export async function toggleFlyerPrivacy(flyerId: number) {
   revalidatePath(`/flyers/${flyerId}`);
   return !flyer.isPrivate;
 }
+
+export async function rsvpFlyer(flyerId: number) {
+  const session = await auth();
+  if (!session?.user?.email) throw new Error('Not logged in');
+
+  await prisma.flyer.update({
+    where: { id: flyerId },
+    data: { rsvpBy: { push: session.user.email } },
+  });
+
+  revalidatePath(`/flyers/${flyerId}`);
+}
+
+export async function unrsvpFlyer(flyerId: number) {
+  const session = await auth();
+  if (!session?.user?.email) throw new Error('Not logged in');
+
+  const flyer = await prisma.flyer.findUnique({ where: { id: flyerId } });
+  if (!flyer) throw new Error('Flyer not found');
+
+  await prisma.flyer.update({
+    where: { id: flyerId },
+    data: { rsvpBy: { set: flyer.rsvpBy.filter(email => email !== session.user.email) } },
+  });
+
+  revalidatePath(`/flyers/${flyerId}`);
+}
