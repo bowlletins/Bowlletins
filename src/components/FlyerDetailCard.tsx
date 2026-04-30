@@ -54,7 +54,10 @@ const FlyerDetailCard = ({ flyer, userEmail }: { flyer: Flyer; userEmail: string
     <div className="flyer-note-corner-rainbow" />
 
     <span className="flyer-category-badge">{flyer.category}</span>
-    <h1 className="flyer-detail-title">{flyer.title}</h1>
+    <h1 className="flyer-detail-title">
+      {flyer.title}
+      {isOwner && isPrivate && <span className="flyer-private-badge">🔒 Private</span>}
+    </h1>
     <p className="flyer-detail-description">{flyer.description}</p>
 
     <hr className="flyer-divider" />

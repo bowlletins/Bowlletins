@@ -23,6 +23,7 @@ type Flyer = {
   contactInfo: string;
   owner: string;
   savedBy: string[];
+  isPrivate: boolean;
 };
 
 type ActiveTab = 'saved' | 'myFlyers';
@@ -111,7 +112,7 @@ export default function PageSwitch({
                   <p className="text-muted">You haven&apos;t created any flyers yet.</p>
                 ) : (
                   myFlyers.map((flyer) => (
-                    <FlyerCard key={flyer.id} flyer={flyer} />
+                    <FlyerCard key={flyer.id} flyer={flyer} showPrivateBadge />
                   ))
                 )}
               </div>
@@ -123,11 +124,16 @@ export default function PageSwitch({
   );
 }
 
-const FlyerCard = ({ flyer }: { flyer: Flyer }) => (
+const FlyerCard = ({ flyer, showPrivateBadge }: { flyer: Flyer; showPrivateBadge?: boolean }) => (
   <div className="post-card d-flex align-items-center p-3 mb-3 shadow-sm">
     <div className="post-icon me-3">📔</div>
     <div className="flex-grow-1">
-      <h6 className="fw-bold mb-0">{flyer.title}</h6>
+      <h6 className="fw-bold mb-0">
+        {flyer.title}
+        {showPrivateBadge && flyer.isPrivate && (
+          <span className="flyer-private-badge">🔒 Private</span>
+        )}
+      </h6>
       <small className="text-muted">{flyer.description}</small>
     </div>
     <a href={`/flyers/${flyer.id}`} className="btn btn-sm btn-outline-success ms-3">

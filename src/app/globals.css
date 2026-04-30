@@ -1592,6 +1592,21 @@ body {
   opacity: 0.7;
 }
 
+/* FLYER PRIVATE BADGE */
+.flyer-private-badge {
+  display: inline-block;
+  background-color: rgba(2, 71, 49, 0.07);
+  border: 1.5px solid #024731;
+  color: #024731;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.04em;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+
 /* FLYER CATEGORY BADGE */
 .flyer-category-badge {
   position: relative;
