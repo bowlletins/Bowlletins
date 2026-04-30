@@ -63,6 +63,9 @@ const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+              <Form.Text className="text-muted small">
+  Password must be at least 6 characters.
+</Form.Text>
             </div>
 
             <Button type="submit" className="signup-split-btn w-100">

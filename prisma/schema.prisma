@@ -34,6 +34,8 @@ model Flyer {
   owner       String
   category    FlyerCategory @default(Other)
   savedBy     String[]
+  isPrivate   Boolean       @default(false)
+  expiresAt   DateTime?
 }
 
 enum Role {

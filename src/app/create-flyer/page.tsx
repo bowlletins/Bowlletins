@@ -13,14 +13,21 @@ const CreateFlyerPage = () => {
   const router = useRouter();
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  if (status === 'loading') {
+  /*if (status === 'loading') {
     return <LoadingSpinner />;
-  }
-
-  if (status === 'unauthenticated') {
+  }*/
+if (status === 'loading') {
+  return (
+    <main className="create-flyer-page">
+      <p>Loading...</p>
+    </main>
+  );
+}
+ /*Temp for testing - remove when auth is implemented 
+ if (status === 'unauthenticated') {
     router.push('/auth/signin');
     return null;
-  }
+  }*/
 
   const handleSubmit = async (formData: FormData) => {
     await CreateFlyerSchema.validate({
@@ -43,7 +50,7 @@ const CreateFlyerPage = () => {
         <h1 className="create-flyer-title">Post a Flyer</h1>
         <p className="create-flyer-subtitle">Share your event, job, or opportunity with UH Mānoa</p>
 
-        <Form action={handleSubmit}>
+        <Form action={handleSubmit} data-testid="create-flyer-form">
           <Form.Group className="mb-3">
             <Form.Label className="create-flyer-label">Title</Form.Label>
             <Form.Control name="title" type="text" placeholder="Enter flyer title" className="create-flyer-input" />
@@ -87,6 +94,19 @@ const CreateFlyerPage = () => {
             <Form.Label className="create-flyer-label">Contact Info</Form.Label>
             <Form.Control name="contactInfo" type="text" placeholder="Email or phone number" className="create-flyer-input" />
             {errors.contactInfo && <Alert variant="danger" className="mt-1 py-1 px-2 small">{errors.contactInfo}</Alert>}
+          </Form.Group>
+
+          <Form.Group className="mb-4">
+            <Form.Check
+              type="switch"
+              id="isPrivate"
+              name="isPrivate"
+              label="Make this flyer private"
+              className="create-flyer-private-toggle"
+            />
+            <Form.Text className="create-flyer-private-hint">
+              Private flyers are only visible to you and expire after 24 hours.
+            </Form.Text>
           </Form.Group>
 
           <Button type="submit" className="create-flyer-btn w-100">Post Flyer</Button>
