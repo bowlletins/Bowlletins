@@ -105,7 +105,7 @@ if (status === 'loading') {
               className="create-flyer-private-toggle"
             />
             <Form.Text className="create-flyer-private-hint">
-              Private flyers are only visible to you and expire after 24 hours.
+              Private flyers are only visible to you.
             </Form.Text>
           </Form.Group>
 

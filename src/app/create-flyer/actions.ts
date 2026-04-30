@@ -24,7 +24,7 @@ export async function createFlyer(formData: FormData) {
   const location = formData.get('location') as string;
   const contactInfo = formData.get('contactInfo') as string;
   const isPrivate = formData.get('isPrivate') === 'on';
-  const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
+  const expiresAt = new Date(new Date(date).getTime() + 24 * 60 * 60 * 1000);
 
   const flyer = await prisma.flyer.create({
     data: {
