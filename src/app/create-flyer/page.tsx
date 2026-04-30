@@ -13,14 +13,21 @@ const CreateFlyerPage = () => {
   const router = useRouter();
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  if (status === 'loading') {
+  /*if (status === 'loading') {
     return <LoadingSpinner />;
-  }
-
-  if (status === 'unauthenticated') {
+  }*/
+if (status === 'loading') {
+  return (
+    <main className="create-flyer-page">
+      <p>Loading...</p>
+    </main>
+  );
+}
+ /*Temp for testing - remove when auth is implemented 
+ if (status === 'unauthenticated') {
     router.push('/auth/signin');
     return null;
-  }
+  }*/
 
   const handleSubmit = async (formData: FormData) => {
     await CreateFlyerSchema.validate({
@@ -43,7 +50,7 @@ const CreateFlyerPage = () => {
         <h1 className="create-flyer-title">Post a Flyer</h1>
         <p className="create-flyer-subtitle">Share your event, job, or opportunity with UH Mānoa</p>
 
-        <Form action={handleSubmit}>
+        <Form action={handleSubmit} data-testid="create-flyer-form">
           <Form.Group className="mb-3">
             <Form.Label className="create-flyer-label">Title</Form.Label>
             <Form.Control name="title" type="text" placeholder="Enter flyer title" className="create-flyer-input" />
