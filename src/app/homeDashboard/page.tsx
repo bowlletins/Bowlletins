@@ -2,6 +2,7 @@ import { Major } from '@prisma/client';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { autoExpireFlyers } from '@/lib/autoExpireFlyers';
 import PageSwitch from './pageSwitch';
 
 type SessionUser = {
@@ -40,6 +41,8 @@ export default async function BoardPage() {
     image: dbUser?.image || '',
     role: dbUser?.role || 'user',
   };
+
+  await autoExpireFlyers();
 
   // Flyers the user has saved (exclude private flyers they don't own)
   const savedFlyers = await prisma.flyer.findMany({

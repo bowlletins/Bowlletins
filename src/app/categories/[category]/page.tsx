@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
 import { FlyerCategory } from '@prisma/client';
 import FlyerCard from '@/components/FlyerCard';
+import { autoExpireFlyers } from '@/lib/autoExpireFlyers';
 
 const validCategories = ['Jobs', 'Internships', 'Volunteer', 'Events', 'Academics', 'Social', 'Clubs_Organizations'];
 
@@ -10,6 +11,8 @@ const CategoryPage = async ({ params }: { params: Promise<{ category: string }> 
   const { category } = await params;
 
   if (!validCategories.includes(category)) return notFound();
+
+  await autoExpireFlyers();
 
   const flyers = await prisma.flyer.findMany({
     where: { category: category as FlyerCategory, isPrivate: false },
