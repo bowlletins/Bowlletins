@@ -11,6 +11,7 @@ declare module 'next-auth' {
       id: string;
       major?: Major;
       role?: string;
+      image?: string | null;
     } & DefaultSession['user'];
   }
 
@@ -63,17 +64,24 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
   },
 
   callbacks: {
-    jwt({ token, user }) {
-      if (user) {
-        token.id = user.id;
-        token.role = user.role;
-      }
-      return token;
-    },
-    session({ session, token }) {
+  jwt({ token, user }) {
+    if (user) {
+      token.id = user.id;
+      token.role = user.role;
+    }
+    return token;
+  },
+    async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id as string;
         session.user.role = token.role as string;
+
+        // fetches the user's image from the database and adds it to the session
+        const dbUser = await prisma.user.findUnique({
+          where: { id: parseInt(token.id as string) },
+          select: { image: true },
+        });
+        session.user.image = dbUser?.image ?? null;
       }
       return session;
     },
