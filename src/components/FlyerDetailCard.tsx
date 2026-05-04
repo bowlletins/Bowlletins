@@ -92,7 +92,13 @@ const [rsvpLoading, setRsvpLoading] = useState(false);
     </div>
 
     <div className="flyer-action-buttons">
-      <Button className="flyer-btn-rsvp" onClick={handleRSVP}>RSVP</Button>
+      <Button
+  className={rsvped ? 'flyer-btn-unrsvp' : 'flyer-btn-rsvp'}
+  onClick={handleRSVP}
+  disabled={rsvpLoading || !userEmail}
+>
+  {rsvpLoading ? '...' : rsvped ? 'Un-RSVP' : 'RSVP'}
+</Button>
       <Button
           className={saved ? 'flyer-btn-unsave' : 'flyer-btn-save'}
           onClick={handleSave}
