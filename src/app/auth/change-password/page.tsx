@@ -1,11 +1,11 @@
 'use client';
 
 import { useForm } from 'react-hook-form';
-import { useSession } from 'next-auth/react'; // v5 compatible
+import { useSession } from 'next-auth/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import swal from 'sweetalert';
-import { Card, Col, Container, Button, Form, Row } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import { changePassword } from '@/lib/dbActions';
 import LoadingSpinner from '@/components/LoadingSpinner';
 
@@ -16,10 +16,10 @@ type ChangePasswordForm = {
   // acceptTerms: boolean;
 };
 
-/** The change password page. */
 const ChangePassword = () => {
   const { data: session, status } = useSession();
   const email = session?.user?.email || '';
+
   const validationSchema = Yup.object().shape({
     oldpassword: Yup.string().required('Password is required'),
     password: Yup.string()
@@ -31,84 +31,69 @@ const ChangePassword = () => {
       .oneOf([Yup.ref('password'), ''], 'Confirm Password does not match'),
   });
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<ChangePasswordForm>({
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<ChangePasswordForm>({
     resolver: yupResolver(validationSchema),
   });
 
   const onSubmit = async (data: ChangePasswordForm) => {
-    // console.log(JSON.stringify(data, null, 2));
     await changePassword({ email, ...data });
     await swal('Password Changed', 'Your password has been changed', 'success', { timer: 2000 });
     reset();
   };
 
-  if (status === 'loading') {
-    return <LoadingSpinner />;
-  }
+  if (status === 'loading') return <LoadingSpinner />;
 
   return (
-    <main>
-      <Container>
-        <Row className="justify-content-center">
-          <Col xs={5}>
-            <h1 className="text-center">Change Password</h1>
-            <Card>
-              <Card.Body>
-                <Form onSubmit={handleSubmit(onSubmit)}>
-                  <Form.Group className="form-group">
-                    <Form.Label>Old Passord</Form.Label>
-                    <input
-                      type="password"
-                      {...register('oldpassword')}
-                      className={`form-control ${errors.oldpassword ? 'is-invalid' : ''}`}
-                    />
-                    <div className="invalid-feedback">{errors.oldpassword?.message}</div>
-                  </Form.Group>
+    <div className="change-password-page">
+      <div className="change-password-note">
+        <div className="change-password-pin" />
+        <div className="note-corner-rainbow" />
+        <h2 className="change-password-title">Change Password</h2>
+        <p className="change-password-subtitle">Update your account password below.</p>
+        <hr className="flyer-divider" />
 
-                  <Form.Group className="form-group">
-                    <Form.Label>New Password</Form.Label>
-                    <input
-                      type="password"
-                      {...register('password')}
-                      className={`form-control ${errors.password ? 'is-invalid' : ''}`}
-                    />
-                    <div className="invalid-feedback">{errors.password?.message}</div>
-                  </Form.Group>
-                  <Form.Group className="form-group">
-                    <Form.Label>Confirm Password</Form.Label>
-                    <input
-                      type="password"
-                      {...register('confirmPassword')}
-                      className={`form-control ${errors.confirmPassword ? 'is-invalid' : ''}`}
-                    />
-                    <div className="invalid-feedback">{errors.confirmPassword?.message}</div>
-                  </Form.Group>
-                  <Form.Group className="form-group py-3">
-                    <Row>
-                      <Col>
-                        <Button type="submit" className="btn btn-primary">
-                          Change
-                        </Button>
-                      </Col>
-                      <Col>
-                        <Button type="button" onClick={() => reset()} className="btn btn-warning float-right">
-                          Reset
-                        </Button>
-                      </Col>
-                    </Row>
-                  </Form.Group>
-                </Form>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
-      </Container>
-    </main>
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <Form.Group className="change-password-group">
+            <Form.Label className="change-password-label">Old Password</Form.Label>
+            <input
+              type="password"
+              {...register('oldpassword')}
+              className={`change-password-input form-control ${errors.oldpassword ? 'is-invalid' : ''}`}
+            />
+            <div className="invalid-feedback">{errors.oldpassword?.message}</div>
+          </Form.Group>
+
+          <Form.Group className="change-password-group">
+            <Form.Label className="change-password-label">New Password</Form.Label>
+            <input
+              type="password"
+              {...register('password')}
+              className={`change-password-input form-control ${errors.password ? 'is-invalid' : ''}`}
+            />
+            <div className="invalid-feedback">{errors.password?.message}</div>
+          </Form.Group>
+
+          <Form.Group className="change-password-group">
+            <Form.Label className="change-password-label">Confirm Password</Form.Label>
+            <input
+              type="password"
+              {...register('confirmPassword')}
+              className={`change-password-input form-control ${errors.confirmPassword ? 'is-invalid' : ''}`}
+            />
+            <div className="invalid-feedback">{errors.confirmPassword?.message}</div>
+          </Form.Group>
+
+          <div className="change-password-buttons">
+            <Button type="submit" className="change-password-btn-confirm">
+              Change Password
+            </Button>
+            <Button type="button" onClick={() => reset()} className="change-password-btn-reset">
+              Reset
+            </Button>
+          </div>
+        </Form>
+      </div>
+    </div>
   );
 };
 

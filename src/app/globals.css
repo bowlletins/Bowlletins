@@ -3127,3 +3127,114 @@ textarea.form-control-custom {
 .signout-btn-confirm:hover {
   background-color: #8b2424 !important;
 }
+
+/* Chnage Password Page */
+
+.change-password-page {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.change-password-note {
+  position: relative;
+  background: linear-gradient(180deg, #f8f4ec 0%, #f2ede4 100%);
+  border-radius: 4px;
+  padding: 52px 38px 38px 38px;
+  max-width: 480px;
+  width: 100%;
+  box-shadow:
+    0 18px 30px rgba(0, 0, 0, 0.20),
+    inset 0 0 0 1px rgba(120, 100, 70, 0.10);
+}
+
+.change-password-pin {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #c89b6d, #8b5a3c 60%, #4a2c1a 100%);
+  box-shadow: 0 3px 5px rgba(0,0,0,0.30), inset 0 2px 3px rgba(255,255,255,0.25);
+  z-index: 4;
+}
+
+.change-password-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #0c4b37;
+  margin-bottom: 6px;
+}
+
+.change-password-subtitle {
+  font-size: 0.95rem;
+  color: #38453e;
+  margin-bottom: 0;
+}
+
+.change-password-group {
+  margin-bottom: 18px;
+}
+
+.change-password-label {
+  font-weight: 700;
+  color: #0c4b37;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+
+.change-password-input {
+  height: 50px;
+  border-radius: 6px !important;
+  border: 1px solid #d6cfc2 !important;
+  background-color: #fcfbf8 !important;
+  font-size: 1rem;
+}
+
+.change-password-input:focus {
+  border-color: #024731 !important;
+  box-shadow: 0 0 0 0.15rem rgba(2, 71, 49, 0.15) !important;
+}
+
+.change-password-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.change-password-btn-confirm {
+  flex: 1;
+  height: 48px;
+  background-color: #024731 !important;
+  border: none !important;
+  color: white !important;
+  font-weight: 700;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.change-password-btn-confirm:hover {
+  background-color: #17634b !important;
+}
+
+.change-password-btn-reset {
+  height: 48px;
+  background-color: #f5f1e6 !important;
+  border: 2px solid #024731 !important;
+  color: #024731 !important;
+  font-weight: 700;
+  border-radius: 8px;
+  font-size: 1rem;
+  padding: 0 24px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.change-password-btn-reset:hover {
+  background-color: #e8e4d8 !important;
+}
