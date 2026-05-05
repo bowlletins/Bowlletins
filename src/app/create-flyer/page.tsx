@@ -2,42 +2,48 @@
 
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { createFlyer } from './actions';
 import { CreateFlyerSchema } from '@/lib/validationSchemas';
-import LoadingSpinner from '@/components/LoadingSpinner';
+import { ValidationError } from 'yup';
 
 const CreateFlyerPage = () => {
   const { status } = useSession();
-  const router = useRouter();
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  /*if (status === 'loading') {
-    return <LoadingSpinner />;
-  }*/
-if (status === 'loading') {
-  return (
-    <main className="create-flyer-page">
-      <p>Loading...</p>
-    </main>
-  );
-}
- /*Temp for testing - remove when auth is implemented 
- if (status === 'unauthenticated') {
-    router.push('/auth/signin');
-    return null;
-  }*/
+  if (status === 'loading') {
+    return (
+      <main className="create-flyer-page">
+        <p>Loading...</p>
+      </main>
+    );
+  }
 
   const handleSubmit = async (formData: FormData) => {
-    await CreateFlyerSchema.validate({
-      title: formData.get('title'),
-      description: formData.get('description'),
-      category: formData.get('category'),
-      date: formData.get('date'),
-      location: formData.get('location'),
-      contactInfo: formData.get('contactInfo'),
-    });
+    setErrors({});
+    try {
+      await CreateFlyerSchema.validate(
+        {
+          title: formData.get('title'),
+          description: formData.get('description'),
+          category: formData.get('category'),
+          date: formData.get('date'),
+          location: formData.get('location'),
+          contactInfo: formData.get('contactInfo'),
+        },
+        { abortEarly: false },
+      );
+    } catch (err) {
+      if (err instanceof ValidationError) {
+        const fieldErrors: Record<string, string> = {};
+        (err.inner.length ? err.inner : [err]).forEach((e) => {
+          if (e.path) fieldErrors[e.path] = e.message;
+        });
+        setErrors(fieldErrors);
+        return;
+      }
+      throw err;
+    }
 
     await createFlyer(formData);
   };
