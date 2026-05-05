@@ -3238,3 +3238,412 @@ textarea.form-control-custom {
 .change-password-btn-reset:hover {
   background-color: #e8e4d8 !important;
 }
+/* Admin Page */
+
+.admin-page-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f0f4f8 0%, #e8f0e8 50%, #f5f0eb 100%);
+  padding: 2.5rem;
+}
+ 
+.admin-content-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  padding: 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+ 
+.admin-page-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e2a1e;
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.5px;
+}
+ 
+.admin-page-subtitle {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+}
+ 
+.admin-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+ 
+.admin-stat-card {
+  border-radius: 10px;
+  padding: 1.25rem 1.75rem;
+}
+ 
+.admin-stat-card.users {
+  background: linear-gradient(135deg, #e8f0e8, #d4e6d4);
+  border-left: 4px solid #5a8a5a;
+}
+ 
+.admin-stat-card.flyers {
+  background: linear-gradient(135deg, #e8f0f8, #d4dff0);
+  border-left: 4px solid #5a7a9a;
+}
+ 
+.admin-stat-card.saves {
+  background: linear-gradient(135deg, #f8f0e0, #f0e4c8);
+  border-left: 4px solid #a08040;
+}
+ 
+.admin-stat-number {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #1e2a1e;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+ 
+.admin-stat-label {
+  color: #5a7a5a;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+ 
+.admin-section-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1e2a1e;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e8f0e8;
+}
+ 
+.admin-table-wrapper {
+  border-radius: 10px;
+  overflow: auto;
+  border: 1px solid #e0eae0;
+  margin-bottom: 2.5rem;
+}
+ 
+.admin-table {
+  margin: 0;
+  font-size: 0.875rem;
+  width: 100%;
+}
+ 
+.admin-table thead th {
+  background: #2d4a2d;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.775rem;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding: 0.85rem 1rem;
+  border: none;
+  white-space: nowrap;
+}
+ 
+.admin-table tbody tr {
+  border-color: #f0f5f0;
+  transition: background 0.15s ease;
+}
+ 
+.admin-table tbody tr:hover {
+  background-color: #f5faf5;
+}
+ 
+.admin-table tbody td {
+  padding: 0.8rem 1rem;
+  vertical-align: middle;
+  color: #374151;
+  border-color: #eff5ef;
+}
+ 
+.admin-table tbody td:first-child {
+  color: #9ca3af;
+  font-size: 0.775rem;
+  font-weight: 600;
+}
+ 
+.admin-name-cell {
+  font-weight: 500;
+  color: #1e2a1e;
+}
+ 
+.admin-email-cell {
+  color: #5a7a8a;
+  font-size: 0.825rem;
+}
+ 
+.badge-admin {
+  background-color: #fde8e8 !important;
+  color: #9b2c2c !important;
+  font-weight: 500;
+  font-size: 0.75rem;
+  padding: 0.3em 0.65em;
+  border-radius: 6px;
+}
+ 
+.badge-user {
+  background-color: #e8f0e8 !important;
+  color: #3d5c3d !important;
+  font-weight: 500;
+  font-size: 0.75rem;
+  padding: 0.3em 0.65em;
+  border-radius: 6px;
+}
+ 
+.badge-category {
+  background-color: #e8f0e8 !important;
+  color: #3d5c3d !important;
+  font-weight: 500;
+  font-size: 0.75rem;
+  padding: 0.3em 0.65em;
+  border-radius: 6px;
+}
+ 
+.admin-btn {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 6px;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.775rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  border: 1.5px solid;
+  margin-right: 0.35rem;
+  white-space: nowrap;
+}
+ 
+.admin-btn-view {
+  border-color: #5a8a5a;
+  color: #3d5c3d;
+  background: transparent;
+}
+ 
+.admin-btn-view:hover {
+  background: #3d5c3d;
+  color: #ffffff;
+}
+ 
+.admin-btn-edit {
+  border-color: #5a7a9a;
+  color: #3a5a7a;
+  background: transparent;
+}
+ 
+.admin-btn-edit:hover {
+  background: #3a5a7a;
+  color: #ffffff;
+}
+ 
+.admin-btn-delete {
+  border-color: #c0534a;
+  color: #9b2c2c;
+  background: transparent;
+}
+ 
+.admin-btn-delete:hover {
+  background: #9b2c2c;
+  color: #ffffff;
+}
+ 
+.admin-saves-pill {
+  display: inline-block;
+  background: #f0f5f0;
+  color: #3d5c3d;
+  font-weight: 600;
+  font-size: 0.8rem;
+  border-radius: 999px;
+  padding: 0.15em 0.65em;
+  border: 1px solid #d4e6d4;
+}
+
+/* RSVP Page */
+
+.rsvp-page-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f0f4f8 0%, #e8f0e8 50%, #f5f0eb 100%);
+  padding: 2.5rem;
+}
+
+.rsvp-content-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  padding: 2.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.rsvp-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #5a7a5a;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 1.75rem;
+  transition: color 0.2s ease;
+}
+
+.rsvp-back-link:hover {
+  color: #3d5c3d;
+}
+
+.rsvp-page-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e2a1e;
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.5px;
+}
+
+.rsvp-flyer-name {
+  color: #3d5c3d;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.rsvp-meta {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin-bottom: 2rem;
+}
+
+.rsvp-stat-card {
+  background: linear-gradient(135deg, #e8f0e8, #d4e6d4);
+  border-left: 4px solid #5a8a5a;
+  border-radius: 10px;
+  padding: 1.25rem 1.75rem;
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+
+.rsvp-stat-number {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #2d4a2d;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.rsvp-stat-label {
+  color: #5a7a5a;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.rsvp-section-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1e2a1e;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e8f0e8;
+}
+
+.rsvp-table-wrapper {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #e0eae0;
+}
+
+.rsvp-table {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.rsvp-table thead th {
+  background: #2d4a2d;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding: 0.85rem 1rem;
+  border: none;
+}
+
+.rsvp-table tbody tr {
+  border-color: #f0f5f0;
+  transition: background 0.15s ease;
+}
+
+.rsvp-table tbody tr:hover {
+  background-color: #f5faf5;
+}
+
+.rsvp-table tbody td {
+  padding: 0.85rem 1rem;
+  vertical-align: middle;
+  color: #374151;
+  border-color: #eff5ef;
+}
+
+.rsvp-table tbody td:first-child {
+  color: #9ca3af;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.rsvp-name-cell {
+  font-weight: 500;
+  color: #1e2a1e;
+}
+
+.rsvp-email-cell {
+  color: #5a7a8a;
+  font-size: 0.875rem;
+}
+
+.rsvp-major-badge {
+  background-color: #e8f0e8 !important;
+  color: #3d5c3d !important;
+  font-weight: 500;
+  font-size: 0.775rem;
+  padding: 0.3em 0.65em;
+  border-radius: 6px;
+}
+
+.rsvp-empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #9ca3af;
+}
+
+.rsvp-empty-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.rsvp-view-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1.5px solid #5a8a5a;
+  color: #3d5c3d;
+  border-radius: 8px;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  margin-top: 1.5rem;
+}
+
+.rsvp-view-btn:hover {
+  background: #3d5c3d;
+  color: #ffffff;
+  border-color: #3d5c3d;
+}
