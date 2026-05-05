@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation';
 import { FlyerCategory } from '@prisma/client';
 import FlyerCard from '@/components/FlyerCard';
 import { autoExpireFlyers } from '@/lib/autoExpireFlyers';
+import BackButton from '@/components/BackButton';
+
 
 const validCategories = ['Jobs', 'Internships', 'Volunteer', 'Events', 'Academics', 'Social', 'Clubs_Organizations'];
 
@@ -20,7 +22,12 @@ const CategoryPage = async ({ params }: { params: Promise<{ category: string }> 
 
   return (
     <main className="category-page">
+      <div className="category-back">
+        <BackButton />
+      </div>
       <Container className="py-5">
+
+
         <div className="category-header">
           <h1 className="category-title">
             {category === 'Clubs_Organizations' ? 'Clubs & Organizations' : category}

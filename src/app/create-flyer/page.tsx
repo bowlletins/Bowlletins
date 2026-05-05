@@ -6,6 +6,7 @@ import { Form, Button, Alert } from 'react-bootstrap';
 import { createFlyer } from './actions';
 import { CreateFlyerSchema } from '@/lib/validationSchemas';
 import { ValidationError } from 'yup';
+import BackButton from '@/components/BackButton';
 
 const CreateFlyerPage = () => {
   const { status } = useSession();
@@ -49,7 +50,8 @@ const CreateFlyerPage = () => {
   };
 
   return (
-    <main className="create-flyer-page">
+  <main className="create-flyer-page">
+    <BackButton />
       <div className="create-flyer-note">
         <div className="flyer-pin pin-red" />
         <div className="flyer-note-corner-rainbow" />
