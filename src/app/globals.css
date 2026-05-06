@@ -3662,3 +3662,82 @@ textarea.form-control-custom {
   color: #ffffff;
   border-color: #3d5c3d;
 }
+
+/*invisible sign in page*/
+.invisible-card {
+  visibility: hidden;
+}
+
+/* back button on flyer detail page */
+.back-button {
+  background-color: #f8f4ec !important;
+  color: #024731 !important;
+  border: 2px solid #024731 !important;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 8px 18px;
+  margin-bottom: 20px;
+}
+
+.back-button:hover {
+  background-color: #024731 !important;
+  color: white !important;
+}
+
+.create-flyer-page {
+  position: relative;
+}
+
+.create-flyer-page .back-button {
+  position: absolute;
+  top: 32px;
+  left: 32px;
+  z-index: 10;
+}
+/*mobile*/
+@media (max-width: 767.98px) {
+  .create-flyer-page .back-button {
+    top: 10px;
+    left: 14px;
+    padding: 6px 14px;
+    font-size: 0.9rem;
+  }
+}
+/* back button on flyer detail page */
+
+.flyer-detail-page {
+  position: relative;
+}
+
+.flyer-detail-back {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  z-index: 10;
+}
+
+@media (max-width: 767.98px) {
+  .flyer-detail-back {
+    top: 8px;
+    left: 14px;
+  }
+}
+
+/*categorry back button*/
+.category-page {
+  position: relative;
+}
+
+.category-back {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  z-index: 10;
+}
+
+@media (max-width: 767.98px) {
+  .category-back {
+    top: 8px;
+    left: 14px;
+  }
+}

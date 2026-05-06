@@ -46,9 +46,19 @@ const NavBar: React.FC = () => {
 
             {/* DESKTOP CENTER NAV */}
             <Nav className="nav-center d-none d-xl-flex">
-              <Nav.Link href="/" className="nav-link-custom" active={pathName === '/'}>
-                Home
-              </Nav.Link>
+            {session ? (
+  <Nav.Link
+    href="/create-flyer"
+    className="nav-link-custom"
+    active={pathName === '/create-flyer'}
+  >
+    Create
+  </Nav.Link>
+) : (
+  <Nav.Link href="/" className="nav-link-custom" active={pathName === '/'}>
+  {/*Home*/}
+  </Nav.Link>
+)}
 
               <Nav.Link href="/explore" className="nav-link-custom" active={pathName === '/explore'}>
                 Explore
@@ -75,9 +85,19 @@ const NavBar: React.FC = () => {
 
             {/* MOBILE NAV */}
             <Nav className="nav-center d-flex d-xl-none">
-              <Nav.Link href="/" className="nav-link-custom">
-                Home
-              </Nav.Link>
+            {session ? (
+  <Nav.Link
+    href="/create-flyer"
+    className="nav-link-custom"
+    active={pathName === '/create-flyer'}
+  >
+    Create
+  </Nav.Link>
+) : (
+  <Nav.Link href="/" className="nav-link-custom" active={pathName === '/'}>
+    {/*Home*/ }
+  </Nav.Link>
+)}
 
               <Nav.Link href="/explore" className="nav-link-custom">
                 Explore

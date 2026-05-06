@@ -1,5 +1,7 @@
 'use client';
 
+
+import { useSession } from 'next-auth/react';
 import { Caveat } from "next/font/google";
 import Link from 'next/link';
 import Container from 'react-bootstrap/Container';
@@ -17,6 +19,7 @@ const caveat = Caveat({
 });
 
 export default function Home() {
+  const { data: session, status } = useSession();
   const [authError, setAuthError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -98,66 +101,96 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="login-paper"> 
-              <div className="hero-paper-pin pin-yellow" />
-              <div className="note-corner-rainbow" />
+{status === 'loading' ? (
+  <div className="login-paper welcome-paper invisible-card">
+    <div className="hero-paper-pin pin-yellow" />
+    <div className="note-corner-rainbow" />
 
-              <h2 className="login-paper-title" id = 'signin'>Join the Board</h2>
+    <h2 className="login-paper-title">
+      Loading...
+    </h2>
+  </div>
+) : !session ? (
+  <div className="login-paper">
+    <div className="hero-paper-pin pin-yellow" />
+    <div className="note-corner-rainbow" />
 
-              <Form method="Explore" onSubmit={handleSubmit}>
-                <div className="mb-3">
-                  <Form.Control
-                    name="email"
-                    type="email"
-                    placeholder="Email address"
-                    className="signup-input"
-                  />
-                </div>
+    <h2 className="login-paper-title" id="signin">
+      Join the Board
+    </h2>
 
-                <div className="mb-3">
-                  <Form.Control
-                    name="password"
-                    type="password"
-                    placeholder="Password"
-                    className="signup-input"
-                  />
-                </div>
+    <Form method="post" onSubmit={handleSubmit}>
+      <div className="mb-3">
+        <Form.Control
+          name="email"
+          type="email"
+          placeholder="Email address"
+          className="signup-input"
+        />
+      </div>
 
-                <div className="login-paper-row">
-                  <Form.Check
-                    type="checkbox"
-                    id="remember-me"
-                    label="Remember me"
-                    className="login-check"
-                  />
-                  <span className="login-forgot">Forgot password?</span>
-                </div>
+      <div className="mb-3">
+        <Form.Control
+          name="password"
+          type="password"
+          placeholder="Password"
+          className="signup-input"
+        />
+      </div>
 
-                {authError && <p className="auth-error">{authError}</p>}
+      <div className="login-paper-row">
+        <Form.Check
+          type="checkbox"
+          id="remember-me"
+          label="Remember me"
+          className="login-check"
+        />
+        <span className="login-forgot">Forgot password?</span>
+      </div>
 
-                <Button className="signup-btn w-100" type="submit">
-                  Sign In
-                </Button>
-              </Form>
+      {authError && <p className="auth-error">{authError}</p>}
 
-              <p className="signup-login-text mt-3 mb-0">
-                Don&apos;t have an account?{' '}
-                <Link href="/auth/signup" className="signup-link">
-                  Sign Up
-                </Link>
-              </p>
-            </div>
+      <Button className="signup-btn w-100" type="submit">
+        Sign In
+      </Button>
+    </Form>
+
+    <p className="signup-login-text mt-3 mb-0">
+      Don&apos;t have an account?{' '}
+      <Link href="/auth/signup" className="signup-link">
+        Sign Up
+      </Link>
+    </p>
+  </div>
+) : (
+  <div className="login-paper welcome-paper">
+    <div className="hero-paper-pin pin-yellow" />
+    <div className="note-corner-rainbow" />
+
+  <h2 className="login-paper-title">
+  Welcome back, {session.user?.name || session.user?.email?.split('@')[0] || 'friend'}
+</h2>
+
+    <p className="welcome-text">
+      Ready to see what&apos;s happening on campus?
+    </p>
+
+    <Link href="/homeDashboard" className="signup-btn w-100 btn btn-primary">
+      Go to Dashboard
+    </Link>
+  </div>
+)}
           </div>
 
           <div className="landing-mini-notes">
             <div className={`mini-note mini-note-yellow ${caveat.className}`}>
               <div className="pin pin-blue" />
-        
-          <p>
-          <br> 
-         </br> Missed that club meeting<br />
-                 again…
-            </p>
+              <p>
+                <br />
+                Missed that club meeting
+                <br />
+                again…
+              </p>
             </div>
 
             <div className={`mini-note mini-note-green ${caveat.className}`}>
@@ -167,24 +200,24 @@ export default function Home() {
                 <br />
                 Discover.
                 <br />
-                  Connect.
+                Connect.
                 <br />
                 Make an impact.
               </p>
             </div>
 
-<           div className="mini-image">
-                   <img src="/board_pin.png" alt="Bow-lletins sketch" />
-                    <div className="mini-image-pin" />
-                      </div>
+            <div className="mini-image">
+              <img src="/board_pin.png" alt="Bow-lletins sketch" />
+              <div className="mini-image-pin" />
+            </div>
 
             <div className="side-pin">
-                 <img src="/warrior_pin.png" alt="pin" />
-                    </div>
+              <img src="/warrior_pin.png" alt="pin" />
+            </div>
 
-                <div className="right-pin">
-            <img src="/hawaii_pin.png" alt="pin" />
-                  </div>
+            <div className="right-pin">
+              <img src="/hawaii_pin.png" alt="pin" />
+            </div>
           </div>
 
           <Row className="landing-feature-cards g-4">
