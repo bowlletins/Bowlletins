@@ -1,7 +1,7 @@
 'use client';
 
 import { ChangeEvent, useState } from 'react';
-import { updateProfile } from '@/lib/dbActions';
+import { changePassword, updateProfile } from '@/lib/dbActions';
 import { Major } from '@prisma/client';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -34,6 +34,11 @@ export default function ProfileSettings({ user }: { user: SessionUser }) {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordMessage, setPasswordMessage] = useState<string | null>(null);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
+
   const usernameLastChanged = user.usernameUpdatedAt
     ? new Date(user.usernameUpdatedAt)
     : null;
@@ -61,6 +66,38 @@ export default function ProfileSettings({ user }: { user: SessionUser }) {
     reader.readAsDataURL(file);
   };
 
+  const handlePasswordChange = async () => {
+    setPasswordMessage(null);
+    setPasswordError(null);
+
+    if (!newPassword || !confirmPassword) {
+      setPasswordError('Please fill out both password fields.');
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      setPasswordError('Passwords do not match.');
+      return;
+    }
+
+    try {
+      await changePassword({
+        email: user.email,
+        password: newPassword,
+      });
+
+      setNewPassword('');
+      setConfirmPassword('');
+      setPasswordMessage('Password updated successfully.');
+    } catch (err) {
+      setPasswordError(
+        err instanceof Error
+          ? err.message
+          : 'There was an error updating your password.',
+      );
+    }
+  };
+
   const handleSubmit = async () => {
     setError(null);
     setSuccess(false);
@@ -84,14 +121,14 @@ export default function ProfileSettings({ user }: { user: SessionUser }) {
     }
 
     try {
-await updateProfile({
-  email: user.email,
-  username: usernameChanged ? newUsername : undefined,
-  fullName: newName ?? undefined,
-  useFullNameDisplay,
-  major: newMajor ?? undefined,
-  image: newImage ?? undefined,
-});
+      await updateProfile({
+        email: user.email,
+        username: usernameChanged ? newUsername : undefined,
+        fullName: newName ?? undefined,
+        useFullNameDisplay,
+        major: newMajor ?? undefined,
+        image: newImage ?? undefined,
+      });
 
       await update({
         name: useFullNameDisplay
@@ -124,7 +161,7 @@ await updateProfile({
           <div className="profile-header text-center">
             <h1 className="profile-title">Edit Your Profile</h1>
             <p className="profile-subtitle">
-              All fields are optional — only changes will be saved.
+              Update your account information, display preferences, and password.
             </p>
           </div>
 
@@ -132,9 +169,11 @@ await updateProfile({
             {error && <div className="alert alert-danger">{error}</div>}
             {success && <div className="alert alert-success">Profile updated successfully!</div>}
 
-            <div className="row g-4">
-              <div className="col-md-4">
-                <div className="profile-photo-section text-center">
+            <div className="row g-4 align-items-start">
+              <div className="col-lg-4">
+                <div className="profile-form-section profile-photo-card text-center">
+                  <h3 className="profile-section-title">Profile Photo</h3>
+
                   <div className="profile-photo-circle mx-auto">
                     {photoPreview ? (
                       <img src={photoPreview} alt="Profile preview" className="profile-photo-preview" />
@@ -156,100 +195,164 @@ await updateProfile({
                     onChange={handlePhotoChange}
                     hidden
                   />
+
+                  <p className="text-muted small mt-3 mb-0">
+                    This image will show on your dashboard profile card.
+                  </p>
                 </div>
               </div>
 
-              <div className="col-md-8">
-                <div className="mb-3">
-                  <label className="form-label profile-label">Email</label>
-                  <input
-                    type="email"
-                    className="form-control profile-input"
-                    value={user.email}
-                    disabled
-                  />
-                  <small className="text-muted">Email cannot be changed.</small>
+              <div className="col-lg-8">
+                <div className="profile-form-section">
+                  <h3 className="profile-section-title">Account Information</h3>
+
+                  <div className="profile-form-row">
+                    <div className="mb-3">
+                      <label className="form-label profile-label">Email</label>
+                      <input
+                        type="email"
+                        className="form-control profile-input"
+                        value={user.email}
+                        disabled
+                      />
+                      <small className="text-muted">Email cannot be changed.</small>
+                    </div>
+
+                    <div className="mb-3">
+                      <label htmlFor="major" className="form-label profile-label">
+                        Major
+                      </label>
+                      <select
+                        id="major"
+                        className="form-select profile-input"
+                        value={major}
+                        onChange={(e) => setMajor(e.target.value)}
+                      >
+                        <option value="Computer_Science">Computer Science</option>
+                        <option value="Business">Business</option>
+                        <option value="Biology">Biology</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Psychology">Psychology</option>
+                        <option value="English">English</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="profile-form-row">
+                    <div className="mb-3">
+                      <label htmlFor="username" className="form-label profile-label">
+                        Username
+                      </label>
+
+                      <input
+                        id="username"
+                        type="text"
+                        className="form-control profile-input"
+                        placeholder="Enter your username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        disabled={usernameLocked}
+                        required
+                      />
+
+                      <small className={usernameLocked ? 'text-danger' : 'text-muted'}>
+                        {usernameLocked
+                          ? `Username locked. You can change it again in ${usernameDaysLeft} day(s).`
+                          : 'You can only change your username once every 30 days.'}
+                      </small>
+                    </div>
+
+                    <div className="mb-3">
+                      <label htmlFor="fullName" className="form-label profile-label">
+                        Full Name
+                      </label>
+                      <input
+                        id="fullName"
+                        type="text"
+                        className="form-control profile-input"
+                        placeholder="Enter your full name"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="profile-display-option">
+                    <div className="form-check mb-0">
+                      <input
+                        id="useFullNameDisplay"
+                        type="checkbox"
+                        className="form-check-input"
+                        checked={useFullNameDisplay}
+                        onChange={(e) => setUseFullNameDisplay(e.target.checked)}
+                      />
+                      <label htmlFor="useFullNameDisplay" className="form-check-label profile-label">
+                        Use my full name as my display name
+                      </label>
+                    </div>
+                    <small className="text-muted">
+                      If unchecked, your username will be shown instead.
+                    </small>
+                  </div>
                 </div>
 
-                <div className="mb-3">
-                  <label htmlFor="username" className="form-label profile-label">
-                    Username
-                  </label>
+                <div className="profile-form-section mt-4">
+                  <h3 className="profile-section-title">Security</h3>
+                  <p className="text-muted small">
+                    Password must be at least 8 characters and include uppercase, lowercase,
+                    number, and special character.
+                  </p>
 
-                  <input
-                    id="username"
-                    type="text"
-                    className="form-control profile-input"
-                    placeholder="Enter your username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    disabled={usernameLocked}
-                    required
-                  />
+                  {passwordMessage && <div className="alert alert-success">{passwordMessage}</div>}
+                  {passwordError && <div className="alert alert-danger">{passwordError}</div>}
 
-                  <small className={usernameLocked ? 'text-danger' : 'text-muted'}>
-                    {usernameLocked
-                      ? `Username locked. You can change it again in ${usernameDaysLeft} day(s).`
-                      : 'You can only change your username once every 30 days.'}
-                  </small>
-                </div>
+                  <div className="profile-form-row">
+                    <div className="mb-3">
+                      <label htmlFor="newPassword" className="form-label profile-label">
+                        New Password
+                      </label>
+                      <input
+                        id="newPassword"
+                        type="password"
+                        className="form-control profile-input"
+                        placeholder="Enter new password"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        autoComplete="new-password"
+                      />
+                    </div>
 
-                <div className="mb-3">
-                  <label htmlFor="fullName" className="form-label profile-label">
-                    Full Name
-                  </label>
-                  <input
-                    id="fullName"
-                    type="text"
-                    className="form-control profile-input"
-                    placeholder="Enter your full name"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                  />
-                </div>
+                    <div className="mb-3">
+                      <label htmlFor="confirmPassword" className="form-label profile-label">
+                        Confirm Password
+                      </label>
+                      <input
+                        id="confirmPassword"
+                        type="password"
+                        className="form-control profile-input"
+                        placeholder="Confirm new password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        autoComplete="new-password"
+                      />
+                    </div>
+                  </div>
 
-                <div className="form-check mb-3">
-                  <input
-                    id="useFullNameDisplay"
-                    type="checkbox"
-                    className="form-check-input"
-                    checked={useFullNameDisplay}
-                    onChange={(e) => setUseFullNameDisplay(e.target.checked)}
-                  />
-                  <label htmlFor="useFullNameDisplay" className="form-check-label profile-label">
-                    Use my full name as my display name
-                  </label>
-                  <br />
-                  <small className="text-muted">
-                    If unchecked, your username will be shown instead.
-                  </small>
-                </div>
-
-                <div className="mb-3">
-                  <label htmlFor="major" className="form-label profile-label">
-                    Major
-                  </label>
-                  <select
-                    id="major"
-                    className="form-select profile-input"
-                    value={major}
-                    onChange={(e) => setMajor(e.target.value)}
+                  <button
+                    className="btn profile-password-btn"
+                    type="button"
+                    onClick={handlePasswordChange}
                   >
-                    <option value="Computer_Science">Computer Science</option>
-                    <option value="Business">Business</option>
-                    <option value="Biology">Biology</option>
-                    <option value="Engineering">Engineering</option>
-                    <option value="Psychology">Psychology</option>
-                    <option value="English">English</option>
-                    <option value="Other">Other</option>
-                  </select>
+                    Update Password
+                  </button>
                 </div>
               </div>
             </div>
 
-            <div className="text-center mt-4">
+            <div className="profile-actions-bar">
               <button className="btn profile-complete-btn" type="button" onClick={handleSubmit}>
-                Save Changes
+                Save Profile Changes
               </button>
             </div>
 

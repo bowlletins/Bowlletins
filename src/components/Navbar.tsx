@@ -179,19 +179,20 @@ const NavBar: React.FC = () => {
        }
          align="end"
   >
-          <NavDropdown.Item href="/homeDashboard">
-            Profile
-         </NavDropdown.Item>
+<NavDropdown.Item href="/homeDashboard" className="nav-dropdown-item-custom">
+  Dashboard
+</NavDropdown.Item>
 
-         <NavDropdown.Item href="/api/auth/signout">
-         <BoxArrowRight className="me-2" />
-             Sign Out
-        </NavDropdown.Item>
+<NavDropdown.Item href="/profile" className="nav-dropdown-item-custom">
+  <Lock className="me-2" />
+  Settings
+</NavDropdown.Item>
 
-       <NavDropdown.Item href="/auth/change-password">
-        <Lock className="me-2" />
-          Change Password
-    </NavDropdown.Item>
+<NavDropdown.Item href="/api/auth/signout" className="nav-dropdown-item-custom">
+  <BoxArrowRight className="me-2" />
+  Sign Out
+</NavDropdown.Item>
+
   </NavDropdown>
 )}
             </Nav>

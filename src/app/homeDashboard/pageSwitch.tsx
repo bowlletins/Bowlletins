@@ -91,7 +91,7 @@ export default function PageSwitch({
                 <a href="/admin" className="nav-link">Admin Dashboard</a>
               )}
 
-              <a href="/profile" className="nav-link">Settings</a>
+              {/*<a href="/profile" className="nav-link">Settings</a>*/}
             </div>
           </div>
         </Col>
