@@ -148,8 +148,10 @@ export default function Home() {
       label="Remember me"
       className="login-check"
     />
-    <span className="login-forgot">Forgot password?</span>
-  </div>
+  <Link href="/auth/forgot-password" className="login-forgot">
+    Forgot password?
+  </Link>
+</div>
 
   {authError && <p className="auth-error">{authError}</p>}
 

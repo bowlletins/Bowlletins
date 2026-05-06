@@ -101,7 +101,7 @@ export default function SignupPage() {
                 required
               />
               <Form.Text className="text-muted small">
-                Password must be at least 6 characters.
+                Password must be at least 8 characters and include uppercase, lowercase, number, and special character.
               </Form.Text>
             </div>
 

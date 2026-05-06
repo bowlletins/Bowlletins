@@ -19,6 +19,14 @@ model User {
   major              Major?    @default(Other)
 }
 
+model PasswordResetToken {
+  id        Int      @id @default(autoincrement())
+  email     String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
 model Stuff {
   id        Int       @id @default(autoincrement())
   name      String

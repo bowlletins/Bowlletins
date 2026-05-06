@@ -3741,3 +3741,39 @@ textarea.form-control-custom {
     left: 14px;
   }
 }
+
+/*pagssword reset page*/
+
+.auth-page {
+  min-height: calc(100vh - 90px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 16px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 430px;
+  background: #f8f4ec;
+  border-radius: 18px;
+  padding: 34px 30px;
+  box-shadow:
+    0 16px 30px rgba(0, 0, 0, 0.18),
+    0 6px 12px rgba(0, 0, 0, 0.10);
+}
+
+.auth-title {
+  color: #0c4b37;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.auth-subtitle {
+  color: #2f473c;
+  font-size: 0.95rem;
+  text-align: center;
+  margin-bottom: 22px;
+}

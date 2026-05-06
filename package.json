@@ -4,15 +4,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    
-    "playwright": "playwright test",
+    "playwright": "npx playwright test",
     "playwright-development": "playwright test --ui",
     "dev": "next dev",
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "eslint",
     "seed": "npx tsx src/seed.ts",
-    "playwright": "npx playwright test",
     "postinstall": "prisma generate"
   },
   "dependencies": {
@@ -29,6 +27,7 @@
     "react-bootstrap-icons": "^1.11.6",
     "react-dom": "19.2.3",
     "react-hook-form": "^7.71.2",
+    "resend": "^6.12.2",
     "sweetalert": "^2.1.2",
     "sweetalert2": "^11.26.21",
     "ts-node": "^10.9.2",

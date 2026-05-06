@@ -20,7 +20,13 @@ export const CreateAccountSchema = Yup.object({
   fullName: Yup.string().required('Name is required'),
   username: Yup.string().required('Username is required'),
   email: Yup.string().email('Invalid email address').required('Email is required'),
-  password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+  password: Yup.string()
+  .min(8, 'Password must be at least 8 characters')
+  .matches(/[A-Z]/, 'Password must include at least one uppercase letter')
+  .matches(/[a-z]/, 'Password must include at least one lowercase letter')
+  .matches(/[0-9]/, 'Password must include at least one number')
+  .matches(/[^A-Za-z0-9]/, 'Password must include at least one special character')
+  .required('Password is required'),
   major: Yup.string().nullable(),
   image: Yup.string().nullable(),
 });
