@@ -12,17 +12,20 @@ async function main() {
     const role = (account.role as Role) || Role.USER;
     const major = (account.major as Major) || Major.Other;
     const fullName = account.fullName || 'New User';
+    const username = account.email.split('@')[0];
 
     console.log(`  Creating user: ${account.email} with role: ${role}`);
 
     await prisma.user.upsert({
       where: { email: account.email },
       update: {
+        username,
         fullName,
         major,
       },
       create: {
         email: account.email,
+        username,
         password,
         role,
         fullName,

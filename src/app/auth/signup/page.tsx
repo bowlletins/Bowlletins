@@ -4,35 +4,58 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import {createUser} from '@/lib/dbActions';
+import { createUser } from '@/lib/dbActions';
 import { CreateAccountSchema } from '@/lib/validationSchemas';
-import {signIn} from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 
 export default function SignupPage() {
   const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
-  e.preventDefault();
-  await CreateAccountSchema.validate({ fullName: name, email, password });
-  await createUser({ fullName: name, email, password });
-  await signIn('credentials', { email, password, callbackUrl: '/homeDashboard' });
-};
-  
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError(null);
+
+    try {
+      await CreateAccountSchema.validate({
+        fullName: name,
+        username,
+        email,
+        password,
+      });
+
+      await createUser({
+        fullName: name,
+        username,
+        email,
+        password,
+      });
+
+      await signIn('credentials', {
+        email,
+        password,
+        callbackUrl: '/homeDashboard',
+      });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong.');
+    }
+  };
+
   return (
     <main className="signup-split-page">
       <section className="signup-split-left">
         <div className="signup-split-content">
           <p className="signup-eyebrow">Start your journey</p>
+
           <h1 className="signup-split-title">
-           <span className="signup-title-top">Sign Up to</span>
+            <span className="signup-title-top">Sign Up to</span>
             <span className="signup-title-brand">Bow-lletins</span>
-            </h1>
+          </h1>
 
           {error && <p className="text-danger">{error}</p>}
-          
 
           <Form onSubmit={handleSubmit} className="signup-split-form">
             <div className="mb-4">
@@ -42,6 +65,18 @@ const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
                 className="signup-split-input"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="mb-4">
+              <Form.Control
+                type="text"
+                placeholder="Username"
+                className="signup-split-input"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
               />
             </div>
 
@@ -52,6 +87,7 @@ const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
                 className="signup-split-input"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </div>
 
@@ -62,10 +98,11 @@ const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
                 className="signup-split-input"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
               <Form.Text className="text-muted small">
-  Password must be at least 6 characters.
-</Form.Text>
+                Password must be at least 6 characters.
+              </Form.Text>
             </div>
 
             <Button type="submit" className="signup-split-btn w-100">

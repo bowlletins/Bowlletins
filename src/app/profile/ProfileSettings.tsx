@@ -4,38 +4,59 @@ import { ChangeEvent, useState } from 'react';
 import { updateProfile } from '@/lib/dbActions';
 import { Major } from '@prisma/client';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation'; 
+import { useRouter } from 'next/navigation';
 
 type SessionUser = {
   email: string;
   id: string;
   name: string;
+  username: string;
+  usernameUpdatedAt?: string | Date | null;
+  useFullNameDisplay?: boolean;
   major: Major;
   image: string;
 };
 
+const MS_PER_DAY = 1000 * 60 * 60 * 24;
+const USERNAME_LOCK_DAYS = 30;
+const CURRENT_TIME = new Date().getTime();
+
 export default function ProfileSettings({ user }: { user: SessionUser }) {
-  const {update} = useSession();
+  const { update } = useSession();
   const router = useRouter();
-  
+
   const [fullName, setFullName] = useState(user.name ?? '');
+  const [username, setUsername] = useState(user.username ?? '');
+  const [useFullNameDisplay, setUseFullNameDisplay] = useState(user.useFullNameDisplay ?? false);
   const [major, setMajor] = useState<string>(user.major ?? 'Other');
   const [photoPreview, setPhotoPreview] = useState<string | null>(user.image || null);
   const [photoBase64, setPhotoBase64] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
+  const usernameLastChanged = user.usernameUpdatedAt
+    ? new Date(user.usernameUpdatedAt)
+    : null;
+
+  const daysSinceUsernameChange = usernameLastChanged
+    ? (CURRENT_TIME - usernameLastChanged.getTime()) / MS_PER_DAY
+    : USERNAME_LOCK_DAYS;
+
+  const usernameLocked = daysSinceUsernameChange < USERNAME_LOCK_DAYS;
+
+  const usernameDaysLeft = usernameLocked
+    ? Math.ceil(USERNAME_LOCK_DAYS - daysSinceUsernameChange)
+    : 0;
+
   const handlePhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
- 
-    // Show a preview in the UI
+
     setPhotoPreview(URL.createObjectURL(file));
- 
-    // Convert to base64 so it can be saved to the database
+
     const reader = new FileReader();
     reader.onloadend = () => {
-      setPhotoBase64(reader.result as string); // e.g. "data:image/png;base64,..."
+      setPhotoBase64(reader.result as string);
     };
     reader.readAsDataURL(file);
   };
@@ -44,36 +65,53 @@ export default function ProfileSettings({ user }: { user: SessionUser }) {
     setError(null);
     setSuccess(false);
 
-    const newName = fullName.trim() || null;   // null = don't update
-    const newMajor = major !== user.major ? major as Major : null;
+    const newName = fullName.trim() || null;
+    const newUsername = username.trim().toLowerCase();
+    const usernameChanged = newUsername !== user.username;
+    const displayPreferenceChanged = useFullNameDisplay !== (user.useFullNameDisplay ?? false);
+    const newMajor = major !== user.major ? (major as Major) : null;
     const newImage = photoBase64 ?? null;
- 
-    // If nothing changed, just go back
-    if (!newName && !newMajor && newImage === null) {
+
+    if (
+      !newName
+      && !usernameChanged
+      && !displayPreferenceChanged
+      && !newMajor
+      && newImage === null
+    ) {
       router.push('/homeDashboard');
       return;
     }
 
     try {
-      await updateProfile({
-        email: user.email,
-        fullName: newName ?? undefined,
-        major: newMajor ?? undefined,
-        image: newImage ?? undefined,
-      });
+await updateProfile({
+  email: user.email,
+  username: usernameChanged ? newUsername : undefined,
+  fullName: newName ?? undefined,
+  useFullNameDisplay,
+  major: newMajor ?? undefined,
+  image: newImage ?? undefined,
+});
 
       await update({
-        name: newName ?? user.name,
+        name: useFullNameDisplay
+          ? newName ?? user.name
+          : usernameChanged ? newUsername : user.username,
+        username: usernameChanged ? newUsername : undefined,
+        useFullNameDisplay,
         major: newMajor ?? user.major,
       });
-      setSuccess(true);
 
+      setSuccess(true);
       router.push('/homeDashboard');
       router.refresh();
-      
     } catch (err) {
       console.error('Error updating profile:', err);
-      setError('There was an error updating your profile. Please try again.');
+      setError(
+        err instanceof Error
+          ? err.message
+          : 'There was an error updating your profile. Please try again.',
+      );
     }
   };
 
@@ -81,7 +119,7 @@ export default function ProfileSettings({ user }: { user: SessionUser }) {
     <section className="profile-page">
       <div className="container py-5">
         <div className="profile-board mx-auto">
-          <div className="profile-board-pin"></div>
+          <div className="profile-board-pin" />
 
           <div className="profile-header text-center">
             <h1 className="profile-title">Edit Your Profile</h1>
@@ -104,10 +142,13 @@ export default function ProfileSettings({ user }: { user: SessionUser }) {
                       <span className="profile-photo-placeholder">Photo</span>
                     )}
                   </div>
+
                   <p className="profile-photo-label mt-3 mb-2">Upload Profile Photo</p>
+
                   <label className="btn profile-upload-btn" htmlFor="profilePhoto">
                     {photoPreview ? 'Change Photo' : 'Upload Photo'}
                   </label>
+
                   <input
                     id="profilePhoto"
                     type="file"
@@ -131,7 +172,32 @@ export default function ProfileSettings({ user }: { user: SessionUser }) {
                 </div>
 
                 <div className="mb-3">
-                  <label htmlFor="fullName" className="form-label profile-label">Full Name</label>
+                  <label htmlFor="username" className="form-label profile-label">
+                    Username
+                  </label>
+
+                  <input
+                    id="username"
+                    type="text"
+                    className="form-control profile-input"
+                    placeholder="Enter your username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    disabled={usernameLocked}
+                    required
+                  />
+
+                  <small className={usernameLocked ? 'text-danger' : 'text-muted'}>
+                    {usernameLocked
+                      ? `Username locked. You can change it again in ${usernameDaysLeft} day(s).`
+                      : 'You can only change your username once every 30 days.'}
+                  </small>
+                </div>
+
+                <div className="mb-3">
+                  <label htmlFor="fullName" className="form-label profile-label">
+                    Full Name
+                  </label>
                   <input
                     id="fullName"
                     type="text"
@@ -142,8 +208,27 @@ export default function ProfileSettings({ user }: { user: SessionUser }) {
                   />
                 </div>
 
+                <div className="form-check mb-3">
+                  <input
+                    id="useFullNameDisplay"
+                    type="checkbox"
+                    className="form-check-input"
+                    checked={useFullNameDisplay}
+                    onChange={(e) => setUseFullNameDisplay(e.target.checked)}
+                  />
+                  <label htmlFor="useFullNameDisplay" className="form-check-label profile-label">
+                    Use my full name as my display name
+                  </label>
+                  <br />
+                  <small className="text-muted">
+                    If unchecked, your username will be shown instead.
+                  </small>
+                </div>
+
                 <div className="mb-3">
-                  <label htmlFor="major" className="form-label profile-label">Major</label>
+                  <label htmlFor="major" className="form-label profile-label">
+                    Major
+                  </label>
                   <select
                     id="major"
                     className="form-select profile-input"
@@ -177,4 +262,3 @@ export default function ProfileSettings({ user }: { user: SessionUser }) {
     </section>
   );
 }
-

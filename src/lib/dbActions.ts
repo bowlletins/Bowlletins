@@ -7,9 +7,16 @@ import { revalidatePath } from 'next/cache';
 
 export async function createUser(credentials: {
   fullName: string;
+  username: string;
   email: string;
   password: string;
 }) {
+  const cleanUsername = credentials.username.trim().toLowerCase();
+
+  if (!cleanUsername) {
+    throw new Error('Username is required.');
+  }
+
   const existingUser = await prisma.user.findUnique({
     where: { email: credentials.email },
   });
@@ -18,17 +25,26 @@ export async function createUser(credentials: {
     throw new Error('A user with this email already exists.');
   }
 
+  const existingUsername = await prisma.user.findUnique({
+    where: { username: cleanUsername },
+  });
+
+  if (existingUsername) {
+    throw new Error('Username is already taken.');
+  }
+
   const hashedPassword = await hash(credentials.password, 10);
   const displayName = credentials.fullName?.trim() || 'User';
 
   await prisma.user.create({
     data: {
       email: credentials.email,
+      username: cleanUsername,
       password: hashedPassword,
       fullName: displayName,
       major: 'Other' as Major,
       image: `https://ui-avatars.com/api/?name=${encodeURIComponent(
-        credentials.fullName,
+        displayName,
       )}&background=random&color=fff&size=128`,
       role: 'USER',
     },
@@ -37,20 +53,69 @@ export async function createUser(credentials: {
 
 export async function updateProfile(data: {
   email: string;
+  username?: string | null;
   fullName?: string | null;
+  useFullNameDisplay?: boolean;
   major?: Major | null;
   image?: string | null;
 }) {
   if (!data.email) return;
 
+  const currentUser = await prisma.user.findUnique({
+    where: { email: data.email },
+  });
+
+  if (!currentUser) {
+    throw new Error('User not found.');
+  }
+
   const updates: {
+    username?: string;
+    usernameUpdatedAt?: Date;
     fullName?: string;
+    useFullNameDisplay?: boolean;
     major?: Major;
     image?: string | null;
   } = {};
 
+  if (data.username !== undefined && data.username !== null) {
+    const newUsername = data.username.trim().toLowerCase();
+
+    if (!newUsername) {
+      throw new Error('Username is required.');
+    }
+
+    if (newUsername !== currentUser.username) {
+      if (currentUser.usernameUpdatedAt) {
+        const now = new Date();
+        const daysSinceLastChange =
+          (now.getTime() - currentUser.usernameUpdatedAt.getTime()) / (1000 * 60 * 60 * 24);
+
+        if (daysSinceLastChange < 30) {
+          const daysLeft = Math.ceil(30 - daysSinceLastChange);
+          throw new Error(`You can change your username again in ${daysLeft} day(s).`);
+        }
+      }
+
+      const existingUsername = await prisma.user.findUnique({
+        where: { username: newUsername },
+      });
+
+      if (existingUsername && existingUsername.email !== data.email) {
+        throw new Error('Username is already taken.');
+      }
+
+      updates.username = newUsername;
+      updates.usernameUpdatedAt = new Date();
+    }
+  }
+
   if (data.fullName !== undefined && data.fullName !== null) {
     updates.fullName = data.fullName;
+  }
+
+  if (data.useFullNameDisplay !== undefined) {
+    updates.useFullNameDisplay = data.useFullNameDisplay;
   }
 
   if (data.major !== undefined && data.major !== null) {
@@ -67,6 +132,7 @@ export async function updateProfile(data: {
   });
 
   revalidatePath('/homeDashboard');
+  revalidatePath('/profile');
 }
 
 export async function changePassword(credentials: {

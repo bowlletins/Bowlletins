@@ -9,6 +9,8 @@ type SessionUser = {
   email: string;
   id: string;
   name: string;
+  username: string;
+  useFullNameDisplay: boolean;
   major: Major;
   image: string;
   role: string;
@@ -25,31 +27,33 @@ export default async function BoardPage() {
 
   const dbUser = await prisma.user.findUnique({
     where: { email: session!.user.email! },
-    select: {
-      fullName: true,
-      major: true,
-      image: true,
-      role: true,
-    },
+select: {
+  fullName: true,
+  username: true,
+  useFullNameDisplay: true,
+  major: true,
+  image: true,
+  role: true,
+},
   });
 
-  const user: SessionUser = {
-    email: session!.user.email!,
-    id: session!.user.id,
-    name: dbUser?.fullName || 'User',
-    major: dbUser?.major || 'Other',
-    image: dbUser?.image || '',
-    role: dbUser?.role || 'user',
-  };
+const user: SessionUser = {
+  email: session!.user.email!,
+  id: session!.user.id,
+  name: dbUser?.fullName || 'User',
+  username: dbUser?.username || 'User',
+  useFullNameDisplay: dbUser?.useFullNameDisplay ?? false,
+  major: dbUser?.major || 'Other',
+  image: dbUser?.image || '',
+  role: dbUser?.role || 'user',
+};
 
   await autoExpireFlyers();
 
-  // Flyers the user has saved (exclude private flyers they don't own)
   const savedFlyers = await prisma.flyer.findMany({
     where: { savedBy: { has: session!.user.email! }, isPrivate: false },
   });
 
-  // Flyers the user created (owned by their email)
   const myFlyers = await prisma.flyer.findMany({
     where: { owner: session!.user.email! },
   });

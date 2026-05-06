@@ -8,6 +8,8 @@ type SessionUser = {
   email: string;
   id: string;
   name: string;
+  username: string;
+  useFullNameDisplay: boolean;
   major: Major;
   image: string;
   role: string;
@@ -39,6 +41,10 @@ export default function PageSwitch({
 }) {
   const [activeTab, setActiveTab] = useState<ActiveTab>('saved');
 
+  const displayName = user.useFullNameDisplay
+    ? user.name || user.username || 'User'
+    : user.username || user.name || 'User';
+
   return (
     <Container fluid className="dashboard-layout-bg">
       <Row>
@@ -50,7 +56,7 @@ export default function PageSwitch({
                 rounded
                 className="profile-avatar mb-3 shadow-sm"
               />
-              <h5 className="fw-bold m-0">{user.name ?? 'User'}</h5>
+              <h5 className="fw-bold m-0">{displayName}</h5>
               <p className="text-muted small">{user.major}</p>
             </div>
 
@@ -92,7 +98,7 @@ export default function PageSwitch({
 
         <Col md={9} lg={10} className="main-column">
           <div className="p-5">
-            <h1 className="welcome-heading mb-5">Welcome back, {user.name || 'User'}</h1>
+            <h1 className="welcome-heading mb-5">Welcome back, {displayName}</h1>
 
             <section>
               <h3 className="section-subtitle mb-4">

@@ -119,41 +119,44 @@ export default function Home() {
       Join the Board
     </h2>
 
-    <Form method="post" onSubmit={handleSubmit}>
-      <div className="mb-3">
-        <Form.Control
-          name="email"
-          type="email"
-          placeholder="Email address"
-          className="signup-input"
-        />
-      </div>
+   <Form method="post" onSubmit={handleSubmit} autoComplete="off">
+  <div className="mb-3">
+    <Form.Control
+      name="email"
+      type="email"
+      placeholder="Email address"
+      className="signup-input"
+      autoComplete="off"
+      spellCheck={false}
+    />
+  </div>
 
-      <div className="mb-3">
-        <Form.Control
-          name="password"
-          type="password"
-          placeholder="Password"
-          className="signup-input"
-        />
-      </div>
+  <div className="mb-3">
+    <Form.Control
+      name="password"
+      type="password"
+      placeholder="Password"
+      className="signup-input"
+      autoComplete="new-password"
+    />
+  </div>
 
-      <div className="login-paper-row">
-        <Form.Check
-          type="checkbox"
-          id="remember-me"
-          label="Remember me"
-          className="login-check"
-        />
-        <span className="login-forgot">Forgot password?</span>
-      </div>
+  <div className="login-paper-row">
+    <Form.Check
+      type="checkbox"
+      id="remember-me"
+      label="Remember me"
+      className="login-check"
+    />
+    <span className="login-forgot">Forgot password?</span>
+  </div>
 
-      {authError && <p className="auth-error">{authError}</p>}
+  {authError && <p className="auth-error">{authError}</p>}
 
-      <Button className="signup-btn w-100" type="submit">
-        Sign In
-      </Button>
-    </Form>
+  <Button className="signup-btn w-100" type="submit">
+    Sign In
+  </Button>
+</Form>
 
     <p className="signup-login-text mt-3 mb-0">
       Don&apos;t have an account?{' '}

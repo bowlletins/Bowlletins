@@ -7,13 +7,16 @@ datasource db {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
-  email    String  @unique
-  password String
-  role     Role    @default(USER)
-  fullName String?
-  image    String? @default("/defaultpfp.png")
-  major    Major?  @default(Other)
+  id                 Int       @id @default(autoincrement())
+  email              String    @unique
+  username           String    @unique
+  usernameUpdatedAt  DateTime?
+  password           String
+  role               Role      @default(USER)
+  fullName           String?
+  useFullNameDisplay Boolean   @default(false)
+  image              String?   @default("/defaultpfp.png")
+  major              Major?    @default(Other)
 }
 
 model Stuff {
