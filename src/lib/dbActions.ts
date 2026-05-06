@@ -135,10 +135,26 @@ export async function updateProfile(data: {
   revalidatePath('/profile');
 }
 
+function isStrongPassword(password: string) {
+  return (
+    password.length >= 8
+    && /[A-Z]/.test(password)
+    && /[a-z]/.test(password)
+    && /[0-9]/.test(password)
+    && /[^A-Za-z0-9]/.test(password)
+  );
+}
+
 export async function changePassword(credentials: {
   email: string;
   password: string;
 }) {
+  if (!isStrongPassword(credentials.password)) {
+    throw new Error(
+      'Password must be at least 8 characters and include uppercase, lowercase, number, and special character.',
+    );
+  }
+
   const password = await hash(credentials.password, 10);
 
   await prisma.user.update({
