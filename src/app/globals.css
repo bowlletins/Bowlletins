@@ -1700,6 +1700,20 @@ body {
   background-color: #17634b !important;
 }
 
+.flyer-btn-edit {
+  background-color: #024731 !important;
+  border: none !important;
+  color: white !important;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 6px;
+  flex: 1;
+}
+
+.flyer-btn-edit:hover {
+  background-color: #17634b !important;
+}
+
 /* ABOUT PAGE */
 .about-page {
   background: #eaf3ea;
@@ -2755,7 +2769,8 @@ footer {
   .flyer-btn-unsave,
   .flyer-btn-share,
   .flyer-btn-make-private,
-  .flyer-btn-make-public {
+  .flyer-btn-make-public,
+  .flyer-btn-edit {
     width: 100%;
     flex: none;
   }

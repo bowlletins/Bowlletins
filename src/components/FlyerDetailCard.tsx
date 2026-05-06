@@ -107,15 +107,6 @@ const [rsvpLoading, setRsvpLoading] = useState(false);
           {loading ? '...' : saved ? 'Unsave' : 'Save'}
         </Button>
       <Button className="flyer-btn-share" onClick={handleShare}>Share</Button>
-      {isOwner && (
-        <Button
-          className={isPrivate ? 'flyer-btn-make-public' : 'flyer-btn-make-private'}
-          onClick={handleTogglePrivacy}
-          disabled={privacyLoading}
-        >
-          {privacyLoading ? '...' : isPrivate ? 'Make Public' : 'Make Private'}
-        </Button>
-      )}
     </div>
   </div>
   );

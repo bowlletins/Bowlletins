@@ -141,6 +141,11 @@ const FlyerCard = ({ flyer, showPrivateBadge }: { flyer: Flyer; showPrivateBadge
         View Interest
       </a>
     )}
+    {showPrivateBadge && (
+      <a href={`/flyers/${flyer.id}/edit`} className="btn btn-sm btn-success ms-3">
+        Edit
+      </a>
+    )}
     <a href={`/flyers/${flyer.id}`} className="btn btn-sm btn-outline-success ms-3">
       View Post
     </a>
