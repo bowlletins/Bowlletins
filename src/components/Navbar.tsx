@@ -14,7 +14,6 @@ const NavBar: React.FC = () => {
   if (status === 'loading') return null;
 
   const currentUser = session?.user?.email;
-  const role = session?.user?.role;
 
   return (
     <div>
@@ -64,6 +63,16 @@ const NavBar: React.FC = () => {
                 Explore
               </Nav.Link>
 
+              {session && (
+                <Nav.Link
+                  href="/announcements"
+                  className="nav-link-custom"
+                  active={pathName === '/announcements'}
+                >
+                  Announcements
+                </Nav.Link>
+              )}
+
               <NavDropdown title="Categories" className="nav-link-custom">
                 <NavDropdown.Item href="/categories/Jobs">Jobs</NavDropdown.Item>
                 <NavDropdown.Item href="/categories/Internships">Internships</NavDropdown.Item>
@@ -102,6 +111,12 @@ const NavBar: React.FC = () => {
               <Nav.Link href="/explore" className="nav-link-custom">
                 Explore
               </Nav.Link>
+
+              {session && (
+                <Nav.Link href="/announcements" className="nav-link-custom">
+                  Announcements
+                </Nav.Link>
+              )}
 
               <NavDropdown title="Categories" className="nav-link-custom">
                 <NavDropdown.Item href="/categories/Jobs">Jobs</NavDropdown.Item>
@@ -153,11 +168,6 @@ const NavBar: React.FC = () => {
 
             {/* RIGHT SIDE AUTH */}
             <Nav className="nav-auth mt-2 mt-md-0">
-              {currentUser && role === 'ADMIN' && (
-                <Nav.Link href="/admin">
-                  Admin
-                </Nav.Link>
-              )}
 
 {/* If user is logged in, show avatar and dropdown menu */}
               {session && (

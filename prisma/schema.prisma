@@ -83,3 +83,13 @@ enum FlyerCategory {
   Clubs_Organizations
   Other
 }
+
+model Announcement {
+  id             Int      @id @default(autoincrement())
+  title          String
+  body           String
+  createdAt      DateTime @default(now())
+  authorEmail    String
+  targetAudience String   @default("ALL")
+}
+

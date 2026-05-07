@@ -8,7 +8,7 @@ export default function ContactPage() {
       <div className="page-title-strip">
         <h1>Get In Touch!</h1>
       </div>
-      
+
       {/* Team Cards */}
       <div className="section-label"><span>Meet the Team</span></div>
       <div className="cards-grid">
