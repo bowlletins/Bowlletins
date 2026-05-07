@@ -248,45 +248,59 @@ export default function ExploreClient({ flyers }: ExploreClientProps) {
               </button>
             </div>
 
-            <Row className="g-4">
-              {currentFlyers.map((flyer) => (
-                <Col md={6} xl={3} key={flyer.id}>
-                  <Link href={`/flyers/${flyer.id}`} className="flyer-link">
-                    <Card className="flyer-card">
-                      <div className="flyer-pin" />
+            {currentFlyers.length === 0 ? (
+              <div className="explore-empty-state">
+                <div className="explore-empty-pin" />
+                <h3>No flyers found</h3>
+                <p>
+                  There are no flyers matching your current filters. Try clearing
+                  your filters or check back later for new campus opportunities.
+                </p>
+                <Button className="apply-filter-btn" onClick={clearFilters}>
+                  Clear Filters
+                </Button>
+              </div>
+            ) : (
+              <Row className="g-4">
+                {currentFlyers.map((flyer) => (
+                  <Col md={6} xl={3} key={flyer.id}>
+                    <Link href={`/flyers/${flyer.id}`} className="flyer-link">
+                      <Card className="flyer-card">
+                        <div className="flyer-pin" />
 
-                      <Card.Body>
-                        <Badge className="flyer-category">
-                          <TagFill className="me-1" />
-                          {flyer.category ?? 'Other'}
-                        </Badge>
+                        <Card.Body>
+                          <Badge className="flyer-category">
+                            <TagFill className="me-1" />
+                            {flyer.category ?? 'Other'}
+                          </Badge>
 
-                        <h3>{flyer.title}</h3>
-                        <p>{flyer.description}</p>
+                          <h3>{flyer.title}</h3>
+                          <p>{flyer.description}</p>
 
-                        <div className="flyer-detail">
-                          <CalendarEvent />
-                          <span>{flyer.date}</span>
+                          <div className="flyer-detail">
+                            <CalendarEvent />
+                            <span>{flyer.date}</span>
+                          </div>
+
+                          <div className="flyer-detail">
+                            <GeoAltFill />
+                            <span>{flyer.location}</span>
+                          </div>
+                        </Card.Body>
+
+                        <div className="flyer-stats">
+                          <span><EyeFill /> {flyer.views ?? 0}</span>
+                          <span><HeartFill /> {flyer.likes ?? 0}</span>
+                          <span>
+                            <BookmarkFill /> {flyer.saves ?? flyer.savedBy.length}
+                          </span>
                         </div>
-
-                        <div className="flyer-detail">
-                          <GeoAltFill />
-                          <span>{flyer.location}</span>
-                        </div>
-                      </Card.Body>
-
-                      <div className="flyer-stats">
-                        <span><EyeFill /> {flyer.views ?? 0}</span>
-                        <span><HeartFill /> {flyer.likes ?? 0}</span>
-                        <span>
-                          <BookmarkFill /> {flyer.saves ?? flyer.savedBy.length}
-                        </span>
-                      </div>
-                    </Card>
-                  </Link>
-                </Col>
-              ))}
-            </Row>
+                      </Card>
+                    </Link>
+                  </Col>
+                ))}
+              </Row>
+            )}
 
             {totalPages > 1 && (
               <div className="w-100 d-flex justify-content-center">

@@ -4993,6 +4993,58 @@ textarea.form-control-custom {
   margin-top: 10px;
 }
 
+/* ISSUE 218: Empty state for no flyers */
+
+.explore-empty-state {
+  position: relative;
+  background: linear-gradient(180deg, #f8f4ec 0%, #f2ede4 100%);
+  border: 1px solid rgba(2, 71, 49, 0.12);
+  border-radius: 10px;
+  padding: 58px 32px 38px;
+  text-align: center;
+  box-shadow:
+    0 12px 24px rgba(0, 0, 0, 0.12),
+    inset 0 0 0 1px rgba(120, 100, 70, 0.08);
+}
+
+.explore-empty-pin {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #b94b49;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
+}
+
+.explore-empty-pin::after {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 7px;
+  width: 3px;
+  height: 15px;
+  background: rgba(90, 90, 90, 0.9);
+  border-radius: 2px;
+  transform: rotate(20deg);
+}
+
+.explore-empty-state h3 {
+  color: #024731;
+  font-size: 1.8rem;
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+
+.explore-empty-state p {
+  color: #35483f;
+  max-width: 520px;
+  margin: 0 auto 22px;
+  line-height: 1.6;
+}
+
 /* Contact form success state */
 .contact-success-msg {
   text-align: center;
