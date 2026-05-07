@@ -16,8 +16,13 @@ type SessionUser = {
   role: string;
 };
 
-export default async function BoardPage() {
+export default async function BoardPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ tab?: string }>;
+}) {
   const session = await auth();
+  const { tab } = await searchParams;
 
   loggedInProtectedPage(
     session as {
@@ -58,11 +63,20 @@ const user: SessionUser = {
     where: { owner: session!.user.email! },
   });
 
+  const expiredFlyers = await prisma.flyer.findMany({
+    where: {
+      owner: session!.user.email!,
+      expiresAt: { lt: new Date() },
+    },
+  });
+
   return (
     <PageSwitch
       user={user}
       savedFlyers={savedFlyers}
       myFlyers={myFlyers}
+      expiredFlyers={expiredFlyers}
+      initialTab={tab || 'home'}
     />
   );
 }

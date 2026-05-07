@@ -48,6 +48,7 @@ model Flyer {
   savedBy     String[]      @default([])
   isPrivate   Boolean       @default(false)
   expiresAt   DateTime?
+  flyerColor  String        @default("#fff7b3")
 }
 
 enum Role {
