@@ -63,12 +63,20 @@ const user: SessionUser = {
     where: { owner: session!.user.email! },
   });
 
+  const expiredFlyers = await prisma.flyer.findMany({
+    where: {
+      owner: session!.user.email!,
+      expiresAt: { lt: new Date() },
+    },
+  });
+
   return (
     <PageSwitch
       user={user}
       savedFlyers={savedFlyers}
       myFlyers={myFlyers}
-      initialTab={tab || 'savedFlyers'}
+      expiredFlyers={expiredFlyers}
+      initialTab={tab || 'home'}
     />
   );
 }
