@@ -5045,6 +5045,123 @@ textarea.form-control-custom {
   line-height: 1.6;
 }
 
+/* ISSUE 219: Improve Explore sidebar cards */
+
+.explore-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  position: sticky;
+  top: 92px;
+}
+
+.sidebar-card,
+.signup-unlock-card {
+  border: 1px solid rgba(2, 71, 49, 0.12) !important;
+  border-radius: 14px !important;
+  overflow: hidden;
+  box-shadow:
+    0 10px 22px rgba(0, 0, 0, 0.10),
+    0 3px 8px rgba(0, 0, 0, 0.06);
+}
+
+.campus-board-card {
+  background: linear-gradient(180deg, #f8f4ec 0%, #f2ede4 100%) !important;
+}
+
+.campus-board-title {
+  color: #024731;
+  font-size: 1.35rem;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+.campus-board-subtitle {
+  color: #35483f;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  margin-bottom: 18px;
+}
+
+.campus-slide {
+  text-align: center;
+  padding: 8px 4px 18px;
+}
+
+.campus-slide h5 {
+  color: #024731;
+  font-size: 1.05rem;
+  font-weight: 900;
+  margin-top: 14px;
+  margin-bottom: 6px;
+}
+
+.campus-slide p {
+  color: #3f514a;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  margin-bottom: 0;
+}
+
+.campus-slide-image {
+  border-radius: 12px;
+  min-height: 120px;
+  background-size: cover;
+  background-position: center;
+  box-shadow:
+    inset 0 0 0 1px rgba(2, 71, 49, 0.08),
+    0 8px 16px rgba(0, 0, 0, 0.10);
+}
+
+.signup-unlock-card {
+  background:
+    radial-gradient(circle at top right, rgba(255, 247, 179, 0.75), transparent 38%),
+    linear-gradient(180deg, #fffdf8 0%, #f5f1e6 100%) !important;
+  text-align: center;
+}
+
+.signup-unlock-card .card-body {
+  padding: 28px 22px;
+}
+
+.signup-unlock-card .lock-icon {
+  color: #024731;
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+.signup-unlock-card h4 {
+  color: #024731;
+  font-size: 1.25rem;
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+
+.signup-unlock-card p {
+  color: #35483f;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.signup-unlock-card .btn {
+  background-color: #024731 !important;
+  border: none !important;
+  border-radius: 999px !important;
+  font-weight: 800;
+  padding: 9px 18px;
+}
+
+.signup-unlock-card .btn:hover {
+  background-color: #17634b !important;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 991px) {
+  .explore-sidebar {
+    position: static;
+  }
+}
+
 /* Contact form success state */
 .contact-success-msg {
   text-align: center;
