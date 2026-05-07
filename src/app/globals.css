@@ -2296,24 +2296,28 @@ body {
 }
 
 .explore-hero {
-  background-image: url('/bg1_nopin.png');
-  background-size: relative;
-  background-position: center;
-  padding: 32px 0 24px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  margin-top: 25px;
 }
 
 .explore-hero h1 {
   font-size: 3.5rem;
   font-weight: 900;
   color: #03452f;
-  margin-bottom: 0;
+  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.4);
+  paint-order: stroke fill;
 }
 
 .explore-hero p {
   font-size: 1.1rem;
   color: #1f1f1f;
   margin-bottom: 0;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
+  paint-order: stroke fill;
+  text-shadow:
+    -1px -1px 0 rgba(255, 255, 255, 0.4),
+     1px -1px 0 rgba(255, 255, 255, 0.4),
+    -1px  1px 0 rgba(255, 255, 255, 0.4),
+     1px  1px 0 rgba(255, 255, 255, 0.4);
 }
 
 .explore-search-row {
