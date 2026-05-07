@@ -5162,6 +5162,35 @@ textarea.form-control-custom {
   }
 }
 
+/* ISSUE 220: Add visual category colors to flyer badges */
+
+.flyer-category,
+.flyer-card-badge {
+  background-color: #024731 !important;
+  color: white !important;
+}
+
+.flyer-category:has(svg),
+.flyer-card-badge {
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+/* Category colors based on text */
+.flyer-category,
+.flyer-card-badge {
+  text-transform: none;
+}
+
+/* General polished badge style */
+.flyer-category,
+.flyer-card-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 5px 10px;
+  border-radius: 999px;
+  box-shadow: 0 3px 8px rgba(2, 71, 49, 0.16);
+}
+
 /* Contact form success state */
 .contact-success-msg {
   text-align: center;
