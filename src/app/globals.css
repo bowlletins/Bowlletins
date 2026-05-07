@@ -1271,10 +1271,204 @@ body {
   color: #575757;
 }
 
+/* UPDATED USER DASHBOARD */
 .dashboard-layout-bg {
-  background-color: #fdfaf5 !important;
-  background-image: none !important;
   min-height: 100vh;
+  background-color: #faf7ef;
+}
+
+.dashboard-row {
+  min-height: calc(100vh - 78px);
+}
+
+.sidebar-column {
+  border-right: 1px solid rgba(2, 71, 49, 0.08);
+  background-color: #fbf8f0;
+}
+
+.dashboard-sidebar-card {
+  padding: 28px 18px;
+  min-height: 100%;
+}
+
+.dashboard-profile-card {
+  background-color: #fffdf8;
+  border: 1px solid rgba(2, 71, 49, 0.08);
+  border-radius: 16px;
+  padding: 24px 14px;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  margin-bottom: 24px;
+}
+
+.profile-avatar {
+  width: 94px;
+  height: 94px;
+  object-fit: cover;
+  border: 4px solid rgba(2, 71, 49, 0.12);
+}
+
+.custom-nav {
+  gap: 8px;
+}
+
+.custom-nav .nav-link {
+  color: #024731;
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 11px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.custom-nav .nav-link:hover {
+  background-color: rgba(2, 71, 49, 0.08);
+  color: #024731;
+}
+
+.custom-nav .nav-link.active {
+  background-color: #024731;
+  color: white;
+  box-shadow: 0 6px 14px rgba(2, 71, 49, 0.22);
+}
+
+.dashboard-nav-icon {
+  font-size: 1rem;
+}
+
+.dashboard-main-content {
+  padding: 54px 48px;
+}
+
+.dashboard-subheading {
+  color: #5f6b66;
+  margin-bottom: 28px;
+}
+
+.dashboard-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-bottom: 34px;
+}
+
+.dashboard-stat-card {
+  background-color: #fffdf8;
+  border: 1px solid rgba(2, 71, 49, 0.08);
+  border-radius: 16px;
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+
+.dashboard-stat-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background-color: rgba(2, 71, 49, 0.10);
+  color: #024731;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.dashboard-stat-label {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #1b2a25;
+}
+
+.dashboard-stat-card h3 {
+  color: #024731;
+  font-weight: 800;
+  margin: 0;
+}
+
+.dashboard-stat-card small {
+  color: #5f6b66;
+}
+
+.section-subtitle {
+  color: #1b2a25;
+  font-weight: 800;
+  border-bottom: 1px solid rgba(2, 71, 49, 0.12);
+  padding-bottom: 12px;
+}
+
+.dashboard-flyer-scroll {
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.dashboard-flyer-card {
+  background-color: #fffdf8;
+  border: 1px solid rgba(2, 71, 49, 0.08);
+  border-radius: 14px;
+  padding: 16px 18px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.07);
+}
+
+.dashboard-flyer-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background-color: #f5f1e6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.dashboard-flyer-info {
+  flex: 1;
+}
+
+.dashboard-flyer-info h6 {
+  font-weight: 800;
+  margin-bottom: 4px;
+  color: #1b2a25;
+}
+
+.dashboard-flyer-info small {
+  color: #4f5d57;
+}
+
+.dashboard-flyer-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 991px) {
+  .dashboard-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-main-content {
+    padding: 36px 24px;
+  }
+
+  .dashboard-flyer-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .dashboard-flyer-actions {
+    width: 100%;
+  }
 }
 
 /* SPLIT SIGNUP PAGE */
