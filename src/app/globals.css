@@ -4720,3 +4720,12 @@ textarea.form-control-custom {
     padding: 44px 24px 28px;
   }
 }
+
+/* Contact form success state */
+.contact-success-msg {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  color: #2d7a3d;
+  font-size: 1.1rem;
+  font-weight: 600;
+}

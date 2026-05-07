@@ -12,13 +12,14 @@ export default async function AdminPage() {
     session as { user: { email: string; id: string; name: string; role?: string } } | null,
   );
 
-  const [allUsers, allFlyers] = await Promise.all([
+  const [allUsers, allFlyers, contactMessages] = await Promise.all([
     prisma.user.findMany({ orderBy: { id: 'desc' } }),
     prisma.flyer.findMany({ orderBy: { id: 'desc' } }),
-    prisma.stuff.findMany({ orderBy: { id: 'desc' } }),
+    prisma.contactMessage.findMany({ orderBy: { createdAt: 'desc' } }),
   ]);
 
   const totalSaves = allFlyers.reduce((acc: number, f: { savedBy: string[] }) => acc + f.savedBy.length, 0);
+  const unreadCount = contactMessages.filter((m) => !m.isRead).length;
 
   return (
     <div className="admin-page-bg">
@@ -36,7 +37,7 @@ export default async function AdminPage() {
         </div>
 
         {/* Stats */}
-        <div className="admin-stats-row">
+        <div className="admin-stats-row" style={{ gridTemplateColumns: 'repeat(4, 1fr)' }}>
           <div className="admin-stat-card users">
             <div className="admin-stat-number">{allUsers.length}</div>
             <p className="admin-stat-label">Total Users</p>
@@ -49,7 +50,61 @@ export default async function AdminPage() {
             <div className="admin-stat-number">{totalSaves}</div>
             <p className="admin-stat-label">Total Saves</p>
           </div>
+          <div className="admin-stat-card" style={{ background: 'linear-gradient(135deg, #fce8e8, #f0d4d4)', borderLeft: '4px solid #c05a5a' }}>
+            <div className="admin-stat-number">{unreadCount}</div>
+            <p className="admin-stat-label">Unread Messages</p>
+          </div>
         </div>
+
+        {/* Contact Messages */}
+        <section>
+          <h4 className="admin-section-title">
+            Contact Messages ({contactMessages.length})
+            {unreadCount > 0 && (
+              <span style={{ marginLeft: '0.5rem', fontSize: '0.75rem', background: '#c05a5a', color: '#fff', borderRadius: '999px', padding: '0.15em 0.6em', fontWeight: 600 }}>
+                {unreadCount} new
+              </span>
+            )}
+          </h4>
+          <div className="admin-table-wrapper">
+            {contactMessages.length === 0 ? (
+              <p style={{ padding: '1rem', color: '#6b7280', fontStyle: 'italic' }}>No messages yet.</p>
+            ) : (
+              <table className="table admin-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Subject</th>
+                    <th>Message</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {contactMessages.map((m) => (
+                    <tr key={m.id} style={!m.isRead ? { background: '#fafff5' } : undefined}>
+                      <td style={{ whiteSpace: 'nowrap' }}>
+                        {m.createdAt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                      </td>
+                      <td className="admin-name-cell">{m.name}</td>
+                      <td className="admin-email-cell">{m.email}</td>
+                      <td style={{ fontWeight: 500 }}>{m.subject}</td>
+                      <td style={{ maxWidth: '300px', fontSize: '0.82rem', color: '#374151', whiteSpace: 'pre-wrap' }}>
+                        {m.body}
+                      </td>
+                      <td>
+                        <Badge className={m.isRead ? 'badge-user' : 'badge-admin'}>
+                          {m.isRead ? 'Read' : 'New'}
+                        </Badge>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        </section>
 
         {/* Users Table */}
         <section>

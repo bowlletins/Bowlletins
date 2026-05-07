@@ -93,3 +93,13 @@ model Announcement {
   targetAudience String   @default("ALL")
 }
 
+model ContactMessage {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  subject   String
+  body      String
+  createdAt DateTime @default(now())
+  isRead    Boolean  @default(false)
+}
+
