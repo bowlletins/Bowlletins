@@ -16,8 +16,13 @@ type SessionUser = {
   role: string;
 };
 
-export default async function BoardPage() {
+export default async function BoardPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ tab?: string }>;
+}) {
   const session = await auth();
+  const { tab } = await searchParams;
 
   loggedInProtectedPage(
     session as {
@@ -63,6 +68,7 @@ const user: SessionUser = {
       user={user}
       savedFlyers={savedFlyers}
       myFlyers={myFlyers}
+      initialTab={tab || 'savedFlyers'}
     />
   );
 }
