@@ -4940,6 +4940,59 @@ textarea.form-control-custom {
   color: #1f302a;
 }
 
+/* ISSUE 217: Improve Explore page header */
+
+.explore-hero {
+  position: relative;
+  padding: 54px 24px 46px;
+  text-align: center;
+  background:
+    radial-gradient(circle at top left, rgba(255, 247, 179, 0.75), transparent 34%),
+    linear-gradient(135deg, rgba(248, 244, 236, 0.95), rgba(232, 242, 229, 0.95));
+  border-bottom: 1px solid rgba(2, 71, 49, 0.12);
+  overflow: hidden;
+}
+
+.explore-hero::before {
+  content: "";
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffffff, #b94b49 55%, #7f1d1d 100%);
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.25),
+    inset 0 2px 3px rgba(255, 255, 255, 0.55);
+  z-index: 2;
+}
+
+.explore-hero h1 {
+  position: relative;
+  z-index: 2;
+  color: #024731;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  margin-bottom: 10px;
+}
+
+.explore-hero .hero-subtitle {
+  position: relative;
+  z-index: 2;
+  max-width: 640px;
+  margin: 0 auto;
+  color: #27473b;
+  font-size: clamp(1.15rem, 2vw, 1.55rem) !important;
+  font-weight: 700;
+}
+
+.explore-content {
+  margin-top: 10px;
+}
+
 /* Contact form success state */
 .contact-success-msg {
   text-align: center;
