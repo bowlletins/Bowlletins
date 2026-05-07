@@ -1471,20 +1471,31 @@ body {
 
 /* FLYER DETAIL PAGE */
 .flyer-detail-page {
-  min-height: 100vh;
-  padding: 40px 0;
+ min-height: 100vh;
+  padding: 60px 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .flyer-detail-note {
   position: relative;
-  width: 100%;
-  max-width: 600px;
+  width: min(90vw, 900px);
+  min-height: 650px;
   background: linear-gradient(180deg, #f8f4ec 0%, #f2ede4 100%);
-  border-radius: 4px;
-  padding: 52px 38px 38px 38px;
+  border-radius: 6px;
+  padding: 60px 56px 48px 56px;
   box-shadow:
     0 18px 30px rgba(0, 0, 0, 0.20),
     inset 0 0 0 1px rgba(120, 100, 70, 0.10);
+}
+
+@media (max-width: 760px) {
+  .flyer-detail-note {
+    width: 94vw;
+    min-height: 560px;
+    padding: 52px 28px 38px 28px;
+  }
 }
 
 .flyer-detail-note::after {
@@ -1497,6 +1508,12 @@ body {
   pointer-events: none;
   opacity: 0.45;
   border-radius: 4px;
+}
+
+.flyer-detail-container {
+  width: 100%;
+  max-width: 840px;
+  margin: 0 auto;
 }
 
 .flyer-pin {
@@ -2204,13 +2221,17 @@ body {
 .create-flyer-note {
   position: relative;
   width: 100%;
-  max-width: 640px;
+  max-width: 760px;
   background: linear-gradient(180deg, #f8f4ec 0%, #f2ede4 100%);
   border-radius: 4px;
   padding: 52px 38px 38px 38px;
   box-shadow:
     0 18px 30px rgba(0, 0, 0, 0.20),
     inset 0 0 0 1px rgba(120, 100, 70, 0.10);
+}
+
+.create-flyer-private-box {
+  padding-top: 28px;
 }
 
 .create-flyer-title {
@@ -2279,6 +2300,31 @@ body {
   font-size: 0.82rem;
   margin-top: 4px;
   display: block;
+}
+
+.create-flyer-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 18px;
+}
+
+.create-flyer-full {
+  grid-column: span 2;
+}
+
+.create-flyer-input {
+  min-height: 42px;
+  border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  .create-flyer-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .create-flyer-full {
+    grid-column: span 1;
+  }
 }
 
 /*explore page*/
@@ -3668,20 +3714,26 @@ textarea.form-control-custom {
   visibility: hidden;
 }
 
-/* back button on flyer detail page */
+/* back button plain green text with soft eggshell background */
 .back-button {
-  background-color: #f8f4ec !important;
+  background-color: #f5f1e6 !important;
   color: #024731 !important;
-  border: 2px solid #024731 !important;
-  font-weight: 600;
-  border-radius: 999px;
-  padding: 8px 18px;
+  border: 1px solid rgba(2, 71, 49, 0.18) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08) !important;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 6px 12px !important;
   margin-bottom: 20px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
 }
 
 .back-button:hover {
-  background-color: #024731 !important;
-  color: white !important;
+  background-color: #eee7d8 !important;
+  color: #17634b !important;
+  text-decoration: none;
 }
 
 .create-flyer-page {
@@ -3870,4 +3922,131 @@ textarea.form-control-custom {
 .nav-dropdown-item-custom:hover {
   color: #2E8B57 !important;
   background-color: #f5f1e6 !important;
+}
+
+/* pick a color option*/
+.flyer-color-options {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.flyer-color-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid #999;
+  cursor: pointer;
+  transition: transform 0.2s ease, border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.flyer-color-btn:hover {
+  transform: scale(1.08);
+}
+
+.flyer-color-btn.selected {
+  border: 4px solid #024731;
+  box-shadow: 0 0 0 4px rgba(2, 71, 49, 0.2);
+}
+
+/*flyer create more button*/
+.flyer-after-create-buttons {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.flyer-create-more-btn,
+.flyer-dashboard-btn {
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 11px 18px;
+  font-weight: 600;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.flyer-create-more-btn {
+  background-color: #024731;
+  color: white;
+}
+
+.flyer-create-more-btn:hover {
+  background-color: #036b4a;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.flyer-dashboard-btn {
+  background-color: #f5f1e6;
+  color: #024731;
+  border: 2px solid #024731;
+}
+
+.flyer-dashboard-btn:hover {
+  background-color: #024731;
+  color: white;
+  transform: translateY(-2px);
+}
+
+
+/*edit flyer buttons*/
+.flyer-after-edit-buttons {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  margin-top: -20px;
+  padding-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.flyer-edit-more-btn,
+.flyer-dashboard-btn {
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 11px 18px;
+  font-weight: 600;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.flyer-dashboard-btn {
+  background-color: #024731;
+  color: white;
+}
+
+.flyer-dashboard-btn:hover {
+  background-color: #036b4a;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.flyer-edit-more-btn {
+  background-color: #f5f1e6;
+  color: #024731;
+  border: 2px solid #024731;
+}
+
+.flyer-edit-more-btn:hover {
+  background-color: #024731;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Individual flyer detail paper size */
+.flyer-detail-page .flyer-detail-note {
+  width: 100% !important;
+  max-width: 760px !important;
+  min-height: 720px !important;
+  border-radius: 4px;
+  padding: 52px 38px 38px 38px;
+}
+
+@media (max-width: 760px) {
+  .flyer-detail-page .flyer-detail-note {
+    max-width: 95% !important;
+    min-height: 560px !important;
+    padding: 52px 28px 38px 28px;
+  }
 }

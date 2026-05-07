@@ -4,7 +4,14 @@ import { CalendarEventFill, GeoAltFill } from 'react-bootstrap-icons';
 
 const FlyerCard = ({ flyer }: { flyer: Flyer }) => (
   <Link href={`/flyers/${flyer.id}`} className="flyer-card-link">
-    <div className="flyer-card">
+<div
+  className="flyer-card"
+  style={
+    flyer.flyerColor && flyer.flyerColor !== '#fff7b3'
+      ? { background: flyer.flyerColor }
+      : undefined
+  }
+>
       <div className="flyer-card-pin" />
       <span className="flyer-card-badge">{flyer.category}</span>
       <h3 className="flyer-card-title">{flyer.title}</h3>

@@ -34,12 +34,15 @@ export default function PageSwitch({
   user,
   savedFlyers,
   myFlyers,
+  initialTab,
 }: {
   user: SessionUser;
   savedFlyers: Flyer[];
   myFlyers: Flyer[];
+  initialTab?: string;
 }) {
-  const [activeTab, setActiveTab] = useState<ActiveTab>('saved');
+  const startingTab: ActiveTab = initialTab === 'myFlyers' ? 'myFlyers' : 'saved';
+  const [activeTab, setActiveTab] = useState<ActiveTab>(startingTab);
 
   const displayName = user.useFullNameDisplay
     ? user.name || user.username || 'User'

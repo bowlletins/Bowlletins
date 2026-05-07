@@ -93,13 +93,14 @@ export async function editFlyer(flyerId: number, formData: FormData) {
   const location = formData.get('location') as string;
   const contactInfo = formData.get('contactInfo') as string;
   const isPrivate = formData.get('isPrivate') === 'on';
+  const flyerColor = (formData.get('flyerColor') as string) || '#fff7b3';
   const expiresAt = new Date(new Date(date).getTime() + 24 * 60 * 60 * 1000);
 
   await prisma.flyer.update({
     where: { id: flyerId },
-    data: { title, description, category, date, location, contactInfo, isPrivate, expiresAt },
+    data: { title, description, category, date, location, contactInfo, isPrivate, expiresAt, flyerColor },
   });
 
   revalidatePath(`/flyers/${flyerId}`);
-  redirect(`/flyers/${flyerId}`);
+  redirect(`/flyers/${flyerId}?edited=true`);
 }

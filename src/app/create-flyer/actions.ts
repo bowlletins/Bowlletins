@@ -6,16 +6,14 @@ import { redirect } from 'next/navigation';
 import { auth } from '@/lib/auth';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 
-
 export async function createFlyer(formData: FormData) {
-
   const session = await auth();
- 
+
   loggedInProtectedPage(
-  session as {
-    user: { email: string; id: string; name: string };
-     } | null,
-   );
+    session as {
+      user: { email: string; id: string; name: string };
+    } | null,
+  );
 
   const title = formData.get('title') as string;
   const description = formData.get('description') as string;
@@ -24,6 +22,8 @@ export async function createFlyer(formData: FormData) {
   const location = formData.get('location') as string;
   const contactInfo = formData.get('contactInfo') as string;
   const isPrivate = formData.get('isPrivate') === 'on';
+  const flyerColor = (formData.get('flyerColor') as string) || '#fff7b3';
+
   const expiresAt = new Date(new Date(date).getTime() + 24 * 60 * 60 * 1000);
 
   const flyer = await prisma.flyer.create({
@@ -39,8 +39,9 @@ export async function createFlyer(formData: FormData) {
       rsvpBy: [],
       isPrivate,
       expiresAt,
+      flyerColor,
     },
   });
 
-  redirect(`/flyers/${flyer.id}`);
+  redirect(`/flyers/${flyer.id}?created=true`);
 }

@@ -1,17 +1,27 @@
 'use client';
 
+
 import { Flyer } from '@prisma/client';
+import Link from 'next/link';
 import { CalendarEventFill, GeoAltFill, EnvelopeFill } from 'react-bootstrap-icons';
 import { Button } from 'react-bootstrap';
 import { useState } from 'react';
 import { saveFlyer, unsaveFlyer, toggleFlyerPrivacy, rsvpFlyer, unrsvpFlyer } from '@/app/flyers/[id]/actions';
 
-const FlyerDetailCard = ({ flyer, userEmail }: { flyer: Flyer; userEmail: string | null }) => {
-  const [saved, setSaved] = useState(userEmail ? flyer.savedBy.includes(userEmail) : false);
-  const [isPrivate, setIsPrivate] = useState(flyer.isPrivate);
-  const [loading, setLoading] = useState(false);
-  const [privacyLoading, setPrivacyLoading] = useState(false);
-  const isOwner = userEmail !== null && userEmail === flyer.owner;
+const FlyerDetailCard = ({
+  flyer,
+  userEmail,
+  justCreated = false,
+}: {
+  flyer: Flyer;
+  userEmail: string | null;
+  justCreated?: boolean;
+}) => {
+const [saved, setSaved] = useState(userEmail ? flyer.savedBy.includes(userEmail) : false);
+const [isPrivate, setIsPrivate] = useState(flyer.isPrivate);
+const [loading, setLoading] = useState(false);
+const [privacyLoading, setPrivacyLoading] = useState(false);
+const isOwner = userEmail !== null && userEmail === flyer.owner;
 const [rsvped, setRsvped] = useState(flyer.rsvpBy?.includes(userEmail ?? '') ?? false);
 const [rsvpLoading, setRsvpLoading] = useState(false);
 
@@ -63,9 +73,14 @@ const [rsvpLoading, setRsvpLoading] = useState(false);
   };
 
   return (
-  <div className="flyer-detail-note">
-    <div className="flyer-pin pin-red" />
-    <div className="flyer-note-corner-rainbow" />
+<div
+  className="flyer-detail-note"
+  style={
+    flyer.flyerColor && flyer.flyerColor !== '#fff7b3'
+      ? { background: flyer.flyerColor }
+      : undefined
+  }
+>
 
     <span className="flyer-category-badge">{flyer.category}</span>
     <h1 className="flyer-detail-title">
@@ -91,24 +106,40 @@ const [rsvpLoading, setRsvpLoading] = useState(false);
       </div>
     </div>
 
-    <div className="flyer-action-buttons">
-      <Button
-  className={rsvped ? 'flyer-btn-unrsvp' : 'flyer-btn-rsvp'}
-  onClick={handleRSVP}
-  disabled={rsvpLoading || !userEmail}
->
-  {rsvpLoading ? '...' : rsvped ? 'Un-RSVP' : 'RSVP'}
-</Button>
-      <Button
-          className={saved ? 'flyer-btn-unsave' : 'flyer-btn-save'}
-          onClick={handleSave}
-          disabled={loading || !userEmail}
-        >
-          {loading ? '...' : saved ? 'Unsave' : 'Save'}
-        </Button>
-      <Button className="flyer-btn-share" onClick={handleShare}>Share</Button>
-    </div>
+<div className="flyer-action-buttons">
+  <Button
+    className={rsvped ? 'flyer-btn-unrsvp' : 'flyer-btn-rsvp'}
+    onClick={handleRSVP}
+    disabled={rsvpLoading || !userEmail}
+  >
+    {rsvpLoading ? '...' : rsvped ? 'Un-RSVP' : 'RSVP'}
+  </Button>
+
+  <Button
+    className={saved ? 'flyer-btn-unsave' : 'flyer-btn-save'}
+    onClick={handleSave}
+    disabled={loading || !userEmail}
+  >
+    {loading ? '...' : saved ? 'Unsave' : 'Save'}
+  </Button>
+
+  <Button className="flyer-btn-share" onClick={handleShare}>
+    Share
+  </Button>
+</div>
+
+{justCreated && userEmail && (
+  <div className="flyer-after-create-buttons">
+    <Link href="/create-flyer" className="flyer-create-more-btn">
+      Create More
+    </Link>
+
+    <Link href="/homeDashboard" className="flyer-dashboard-btn">
+      Go to Dashboard
+    </Link>
   </div>
+)}
+</div>
   );
 };
 
